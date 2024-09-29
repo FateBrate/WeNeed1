@@ -13,7 +13,7 @@ public partial class Match
 
     public string? Result { get; set; }
 
-    public virtual ICollection<Comment> Comments { get; } = new List<Comment>();
+    public virtual ICollection<Comment>? Comments { get; } = new List<Comment>();
 
-    public virtual Team Team { get; set; } = null!;
+    public virtual Team? Team { get; set; }
 }

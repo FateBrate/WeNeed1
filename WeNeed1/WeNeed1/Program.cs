@@ -1,9 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using WeNeed1.Service;
 using WeNeed1.Service.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddTransient<IUserService, UserService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -14,6 +17,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<WeNeed1Context>(options =>
     options.UseSqlServer(connectionString));
 
+builder.Services.AddAutoMapper(typeof(IUserService));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

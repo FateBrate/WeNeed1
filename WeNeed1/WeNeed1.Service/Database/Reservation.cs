@@ -17,7 +17,7 @@ public partial class Reservation
 
     public decimal TotalPrice { get; set; }
 
-    public virtual SportsField SportsField { get; set; } = null!;
+    public virtual SportsField? SportsField { get; set; }
 
-    public virtual User User { get; set; } = null!;
+    public virtual User? User { get; set; }
 }

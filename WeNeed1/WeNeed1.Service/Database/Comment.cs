@@ -15,7 +15,7 @@ public partial class Comment
 
     public int MatchId { get; set; }
 
-    public virtual Match Match { get; set; } = null!;
+    public virtual Match? Match { get; set; }
 
-    public virtual User User { get; set; } = null!;
+    public virtual User? User { get; set; }
 }

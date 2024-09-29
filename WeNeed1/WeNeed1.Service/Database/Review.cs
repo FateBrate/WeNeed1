@@ -11,11 +11,11 @@ public partial class Review
 
     public int SportsCenterId { get; set; }
 
-    public string Content { get; set; } = null!;
+    public string? Content { get; set; }
 
     public decimal Rating { get; set; }
 
     public DateTime Created { get; set; }
 
-    public virtual SportsCenter SportsCenter { get; set; } = null!;
+    public virtual SportsCenter? SportsCenter { get; set; }
 }

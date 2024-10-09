@@ -11,27 +11,19 @@ using WeNeed1.Model.Requests;
 using WeNeed1.Model.SearchOBjects;
 using WeNeed1.Model.Exceptions;
 using WeNeed1.Service.Database;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace WeNeed1.Service
 {
     public class UserService : BaseCRUDService<Model.User, Database.User, UserSearchObject, UserRequestDto, UserUpdateDto>, IUserService
     {
-        public UserService(WeNeed1Context context, IMapper mapper)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public UserService(WeNeed1Context context, IMapper mapper, IHttpContextAccessor httpContextAccessor)
             : base(context, mapper)
         {
-
+            _httpContextAccessor = httpContextAccessor;
         }
-
-        public override Task<Model.User> Insert(UserRequestDto insert)
-        {
-            return base.Insert(insert);
-        }
-
-        public override Task<Model.User> Delete(int id)
-        {
-            return base.Delete(id);
-        }
-
         public override async Task BeforeInsert(Database.User entity, UserRequestDto insert)
         {
             entity.PasswordSalt = GenerateSalt();
@@ -86,10 +78,19 @@ namespace WeNeed1.Service
             return _mapper.Map<Model.User>(entity);
         }
 
-        public override async Task<Model.User> Update(int id, UserUpdateDto update)
+        public async Task<Model.User> GetCurrentUserAsync()
         {
-            var entity = await _context.Users.FindAsync(id);
-            return await base.Update(id, update);
+            var userIdClaim = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userIdClaim == null)
+                throw new UserException("User is not authenticated");
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userIdClaim);
+
+            if (user == null)
+                throw new UserException("User not found");
+
+            return _mapper.Map<Model.User>(user);
         }
     }
 }

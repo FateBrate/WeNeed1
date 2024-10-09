@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeNeed1.Model.Payloads;
 using WeNeed1.Model.Requests;
 
 namespace WeNeed1.Service.Mapper
@@ -15,6 +16,9 @@ namespace WeNeed1.Service.Mapper
             CreateMap<Database.User, Model.User>();
             CreateMap<UserRequestDto, Database.User>();
             CreateMap<UserUpdateDto,Database.User>();
+
+            CreateMap<Database.Team, TeamResponseDto>();
+            CreateMap<TeamRequestDto, Database.Team>();
         }
     }
 }

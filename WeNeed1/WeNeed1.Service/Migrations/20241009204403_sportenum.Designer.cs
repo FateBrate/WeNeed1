@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeNeed1.Service.Database;
 
@@ -11,9 +12,11 @@ using WeNeed1.Service.Database;
 namespace WeNeed1.Service.Migrations
 {
     [DbContext(typeof(WeNeed1Context))]
-    partial class WeNeed1ContextModelSnapshot : ModelSnapshot
+    [Migration("20241009204403_sportenum")]
+    partial class sportenum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,12 +262,6 @@ namespace WeNeed1.Service.Migrations
                     b.Property<int>("CaptainId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("IsPublic")
-                        .HasColumnType("bit");
-
                     b.Property<string>("JoinCode")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -273,7 +270,7 @@ namespace WeNeed1.Service.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("Sport")
+                    b.Property<int>("Sport")
                         .HasColumnType("int");
 
                     b.HasKey("Id")

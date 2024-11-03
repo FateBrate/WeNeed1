@@ -19,6 +19,9 @@ namespace WeNeed1.Service.Mapper
 
             CreateMap<Database.Team, TeamResponseDto>();
             CreateMap<TeamRequestDto, Database.Team>();
+
+            CreateMap<Database.Squad, SquadResponseDto>();
+            CreateMap<SquadRequestDto, Database.Squad>();
         }
     }
 }

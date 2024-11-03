@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ITeamService,TeamService>();
+builder.Services.AddTransient<ISquadService,SquadService>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();

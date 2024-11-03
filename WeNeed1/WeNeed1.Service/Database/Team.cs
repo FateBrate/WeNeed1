@@ -21,6 +21,8 @@ public partial class Team
     public string? JoinCode { get; set; }
 
     public virtual User? Captain { get; set; }
+    
+    public virtual ICollection<UserTeam> UserTeams { get; set; } = new List<UserTeam>();
 
     public virtual ICollection<Match>? Matches { get; } = new List<Match>();
 

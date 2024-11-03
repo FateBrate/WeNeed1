@@ -32,7 +32,7 @@ public partial class User
 
     public virtual ICollection<Reservation>? Reservations { get; } = new List<Reservation>();
 
-    public virtual ICollection<Team>? Teams { get; } = new List<Team>();
+    public virtual ICollection<UserTeam> UserTeams { get; set; } = new List<UserTeam>();
 
     public virtual ICollection<Squad>? Squads { get; } = new List<Squad>();
 }

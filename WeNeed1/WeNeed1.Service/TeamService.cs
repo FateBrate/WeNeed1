@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeNeed1.Model.Exceptions;
 using WeNeed1.Model.Payloads;
 using WeNeed1.Model.SearchObjects;
 using WeNeed1.Service.Database;
@@ -31,7 +32,16 @@ namespace WeNeed1.Service
 
             await _context.Teams.AddAsync(entity);
             await _context.SaveChangesAsync();
-
+            var userTeam = new UserTeam
+            {
+                UserId = currentUser.Id,
+                TeamId = entity.Id,
+                IsCaptain = true
+            };
+            
+            _context.UserTeams.Add(userTeam);
+            
+            await _context.SaveChangesAsync();
             return _mapper.Map<TeamResponseDto>(entity);
         }
 
@@ -42,5 +52,39 @@ namespace WeNeed1.Service
             return new string(Enumerable.Repeat(chars, 8)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+        
+        public async Task JoinTeam(int teamId)
+        {
+            var currentUser = await _userService.GetCurrentUserAsync();
+
+            var userTeam = new UserTeam
+            {
+                UserId = currentUser.Id,
+                TeamId = teamId,
+                IsCaptain = false 
+            };
+
+            _context.UserTeams.Add(userTeam);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task LeaveTeam(int teamId)
+        {
+            var currentUser = await _userService.GetCurrentUserAsync();
+
+            var userTeam = await _context.UserTeams
+                .FirstOrDefaultAsync(ut => ut.UserId == currentUser.Id && ut.TeamId == teamId);
+
+            if (userTeam == null)
+                throw new UserException("User is not part of this team.");
+            
+
+            if (userTeam.IsCaptain)
+                throw new UserException("You cannot leave the team as you are the captain.");
+
+            _context.UserTeams.Remove(userTeam);
+            await _context.SaveChangesAsync();
+        }
     }
+    
 }

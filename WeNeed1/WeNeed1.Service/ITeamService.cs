@@ -10,5 +10,6 @@ namespace WeNeed1.Service
 {
     public interface ITeamService:ICRUDService<TeamResponseDto, TeamSearchObject, TeamRequestDto, TeamRequestDto>  
     {
+
     }
 }

@@ -12,8 +12,8 @@ using WeNeed1.Service.Database;
 namespace WeNeed1.Service.Migrations
 {
     [DbContext(typeof(WeNeed1Context))]
-    [Migration("20240929191400_addrolesforuser")]
-    partial class addrolesforuser
+    [Migration("20241104230939_newmig")]
+    partial class newmig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,17 +27,17 @@ namespace WeNeed1.Service.Migrations
 
             modelBuilder.Entity("SquadUser", b =>
                 {
-                    b.Property<int>("SquadId")
+                    b.Property<int>("SquadsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("UsersId")
                         .HasColumnType("int");
 
-                    b.HasKey("SquadId", "UserId");
+                    b.HasKey("SquadsId", "UsersId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UsersId");
 
-                    b.ToTable("SquadUsers", (string)null);
+                    b.ToTable("SquadUser");
                 });
 
             modelBuilder.Entity("WeNeed1.Service.Database.Comment", b =>
@@ -52,17 +52,15 @@ namespace WeNeed1.Service.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("MatchId")
-                        .HasColumnType("int")
-                        .HasColumnName("MatchID");
+                        .HasColumnType("int");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id")
-                        .HasName("PK__Comments__3214EC0781169ADA");
+                    b.HasKey("Id");
 
                     b.HasIndex("MatchId");
 
@@ -80,17 +78,15 @@ namespace WeNeed1.Service.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("MatchDate")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Result")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TeamId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id")
-                        .HasName("PK__Matches__3214EC07A0BF814F");
+                    b.HasKey("Id");
 
                     b.HasIndex("TeamId");
 
@@ -106,22 +102,21 @@ namespace WeNeed1.Service.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("SportsFieldId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(10, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id")
-                        .HasName("PK__Reservat__3214EC075648B6F5");
+                    b.HasKey("Id");
 
                     b.HasIndex("SportsFieldId");
 
@@ -142,12 +137,10 @@ namespace WeNeed1.Service.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Created")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("Rating")
-                        .HasColumnType("decimal(3, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("SportsCenterId")
                         .HasColumnType("int");
@@ -155,8 +148,7 @@ namespace WeNeed1.Service.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id")
-                        .HasName("PK__Reviews__3214EC07061DC872");
+                    b.HasKey("Id");
 
                     b.HasIndex("SportsCenterId");
 
@@ -172,18 +164,15 @@ namespace WeNeed1.Service.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id")
-                        .HasName("PK__SportsCe__3214EC07013DD25E");
+                    b.HasKey("Id");
 
                     b.ToTable("SportsCenters");
                 });
@@ -197,8 +186,7 @@ namespace WeNeed1.Service.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
@@ -207,21 +195,18 @@ namespace WeNeed1.Service.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PricePerHour")
-                        .HasColumnType("decimal(10, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("SportType")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SportsCenterId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id")
-                        .HasName("PK__SportsFi__3214EC075F36B8EE");
+                    b.HasKey("Id");
 
                     b.HasIndex("SportsCenterId");
 
@@ -237,14 +222,12 @@ namespace WeNeed1.Service.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TeamId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id")
-                        .HasName("PK__Squads__3214EC07FB0D7813");
+                    b.HasKey("Id");
 
                     b.HasIndex("TeamId");
 
@@ -259,22 +242,25 @@ namespace WeNeed1.Service.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CaptainId")
+                    b.Property<int?>("CaptainId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsPublic")
+                        .HasColumnType("bit");
 
                     b.Property<string>("JoinCode")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Sport")
+                    b.Property<int?>("Sport")
                         .HasColumnType("int");
 
-                    b.HasKey("Id")
-                        .HasName("PK__Teams__3214EC07E10714D6");
+                    b.HasKey("Id");
 
                     b.HasIndex("CaptainId");
 
@@ -290,28 +276,22 @@ namespace WeNeed1.Service.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordSalt")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("ProfilePicture")
                         .HasColumnType("varbinary(max)");
@@ -320,34 +300,47 @@ namespace WeNeed1.Service.Migrations
                         .HasColumnType("float");
 
                     b.Property<int?>("Role")
-                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id")
-                        .HasName("PK__Users__3214EC075274D685");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("WeNeed1.Service.Database.UserTeam", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsCaptain")
+                        .HasColumnType("bit");
+
+                    b.HasKey("UserId", "TeamId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("UserTeams");
                 });
 
             modelBuilder.Entity("SquadUser", b =>
                 {
                     b.HasOne("WeNeed1.Service.Database.Squad", null)
                         .WithMany()
-                        .HasForeignKey("SquadId")
+                        .HasForeignKey("SquadsId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_SquadUsers_Squads");
+                        .IsRequired();
 
                     b.HasOne("WeNeed1.Service.Database.User", null)
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_SquadUsers_Users");
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WeNeed1.Service.Database.Comment", b =>
@@ -355,14 +348,14 @@ namespace WeNeed1.Service.Migrations
                     b.HasOne("WeNeed1.Service.Database.Match", "Match")
                         .WithMany("Comments")
                         .HasForeignKey("MatchId")
-                        .IsRequired()
-                        .HasConstraintName("FK__Comments__MatchI__2D27B809");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WeNeed1.Service.Database.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
-                        .IsRequired()
-                        .HasConstraintName("FK__Comments__UserId__2C3393D0");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Match");
 
@@ -374,8 +367,8 @@ namespace WeNeed1.Service.Migrations
                     b.HasOne("WeNeed1.Service.Database.Team", "Team")
                         .WithMany("Matches")
                         .HasForeignKey("TeamId")
-                        .IsRequired()
-                        .HasConstraintName("FK__Matches__TeamId__29572725");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Team");
                 });
@@ -386,15 +379,13 @@ namespace WeNeed1.Service.Migrations
                         .WithMany("Reservations")
                         .HasForeignKey("SportsFieldId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Reservations_SportsFields");
+                        .IsRequired();
 
                     b.HasOne("WeNeed1.Service.Database.User", "User")
                         .WithMany("Reservations")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Reservations_Users");
+                        .IsRequired();
 
                     b.Navigation("SportsField");
 
@@ -407,8 +398,7 @@ namespace WeNeed1.Service.Migrations
                         .WithMany("Reviews")
                         .HasForeignKey("SportsCenterId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Reviews_SportsCenters");
+                        .IsRequired();
 
                     b.Navigation("SportsCenter");
                 });
@@ -419,8 +409,7 @@ namespace WeNeed1.Service.Migrations
                         .WithMany("SportsFields")
                         .HasForeignKey("SportsCenterId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_SportsFields_SportsCenters");
+                        .IsRequired();
 
                     b.Navigation("SportsCenter");
                 });
@@ -431,8 +420,7 @@ namespace WeNeed1.Service.Migrations
                         .WithMany("Squads")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Squads_Teams");
+                        .IsRequired();
 
                     b.Navigation("Team");
                 });
@@ -440,12 +428,30 @@ namespace WeNeed1.Service.Migrations
             modelBuilder.Entity("WeNeed1.Service.Database.Team", b =>
                 {
                     b.HasOne("WeNeed1.Service.Database.User", "Captain")
-                        .WithMany("Teams")
+                        .WithMany()
                         .HasForeignKey("CaptainId")
-                        .IsRequired()
-                        .HasConstraintName("FK__Teams__CaptainId__267ABA7A");
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Captain");
+                });
+
+            modelBuilder.Entity("WeNeed1.Service.Database.UserTeam", b =>
+                {
+                    b.HasOne("WeNeed1.Service.Database.Team", "Team")
+                        .WithMany("UserTeams")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WeNeed1.Service.Database.User", "User")
+                        .WithMany("UserTeams")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WeNeed1.Service.Database.Match", b =>
@@ -470,6 +476,8 @@ namespace WeNeed1.Service.Migrations
                     b.Navigation("Matches");
 
                     b.Navigation("Squads");
+
+                    b.Navigation("UserTeams");
                 });
 
             modelBuilder.Entity("WeNeed1.Service.Database.User", b =>
@@ -478,7 +486,7 @@ namespace WeNeed1.Service.Migrations
 
                     b.Navigation("Reservations");
 
-                    b.Navigation("Teams");
+                    b.Navigation("UserTeams");
                 });
 #pragma warning restore 612, 618
         }

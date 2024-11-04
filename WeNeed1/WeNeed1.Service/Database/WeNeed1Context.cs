@@ -54,7 +54,13 @@ public partial class WeNeed1Context : DbContext
             .HasOne(ut => ut.Team)
             .WithMany(t => t.UserTeams)
             .HasForeignKey(ut => ut.TeamId);
-    }
+
+        modelBuilder.Entity<Team>()
+               .HasOne(t => t.Captain)
+               .WithMany()
+               .HasForeignKey(t => t.CaptainId)
+               .OnDelete(DeleteBehavior.NoAction);
+    }       
 
 
 

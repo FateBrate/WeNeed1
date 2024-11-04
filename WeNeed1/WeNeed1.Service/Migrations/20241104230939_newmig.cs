@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WeNeed1.Service.Migrations
 {
     /// <inheritdoc />
-    public partial class updatenulls : Migration
+    public partial class newmig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,13 +17,13 @@ namespace WeNeed1.Service.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__SportsCe__3214EC07013DD25E", x => x.Id);
+                    table.PrimaryKey("PK_SportsCenters", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,20 +32,20 @@ namespace WeNeed1.Service.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    PasswordHash = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    PasswordSalt = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Role = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PasswordSalt = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<int>(type: "int", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ProfilePicture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     Rating = table.Column<double>(type: "float", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Users__3214EC075274D685", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,14 +57,14 @@ namespace WeNeed1.Service.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     SportsCenterId = table.Column<int>(type: "int", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Rating = table.Column<decimal>(type: "decimal(3,2)", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "(getdate())")
+                    Rating = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Reviews__3214EC07061DC872", x => x.Id);
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reviews_SportsCenters",
+                        name: "FK_Reviews_SportsCenters_SportsCenterId",
                         column: x => x.SportsCenterId,
                         principalTable: "SportsCenters",
                         principalColumn: "Id",
@@ -77,19 +77,19 @@ namespace WeNeed1.Service.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    SportType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SportType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Capacity = table.Column<int>(type: "int", nullable: false),
-                    PricePerHour = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    PricePerHour = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     SportsCenterId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__SportsFi__3214EC075F36B8EE", x => x.Id);
+                    table.PrimaryKey("PK_SportsFields", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SportsFields_SportsCenters",
+                        name: "FK_SportsFields_SportsCenters_SportsCenterId",
                         column: x => x.SportsCenterId,
                         principalTable: "SportsCenters",
                         principalColumn: "Id",
@@ -102,16 +102,18 @@ namespace WeNeed1.Service.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Sport = table.Column<int>(type: "int", nullable: false),
-                    CaptainId = table.Column<int>(type: "int", nullable: false),
-                    JoinCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sport = table.Column<int>(type: "int", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsPublic = table.Column<bool>(type: "bit", nullable: true),
+                    CaptainId = table.Column<int>(type: "int", nullable: true),
+                    JoinCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Teams__3214EC07E10714D6", x => x.Id);
+                    table.PrimaryKey("PK_Teams", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__Teams__CaptainId__267ABA7A",
+                        name: "FK_Teams_Users_CaptainId",
                         column: x => x.CaptainId,
                         principalTable: "Users",
                         principalColumn: "Id");
@@ -125,21 +127,21 @@ namespace WeNeed1.Service.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     SportsFieldId = table.Column<int>(type: "int", nullable: false),
-                    StartTime = table.Column<DateTime>(type: "datetime", nullable: false),
-                    EndTime = table.Column<DateTime>(type: "datetime", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(10,2)", nullable: false)
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Reservat__3214EC075648B6F5", x => x.Id);
+                    table.PrimaryKey("PK_Reservations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reservations_SportsFields",
+                        name: "FK_Reservations_SportsFields_SportsFieldId",
                         column: x => x.SportsFieldId,
                         principalTable: "SportsFields",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reservations_Users",
+                        name: "FK_Reservations_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -153,17 +155,18 @@ namespace WeNeed1.Service.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TeamId = table.Column<int>(type: "int", nullable: false),
-                    MatchDate = table.Column<DateTime>(type: "datetime", nullable: false),
-                    Result = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    MatchDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Result = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Matches__3214EC07A0BF814F", x => x.Id);
+                    table.PrimaryKey("PK_Matches", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__Matches__TeamId__29572725",
+                        name: "FK_Matches_Teams_TeamId",
                         column: x => x.TeamId,
                         principalTable: "Teams",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -172,16 +175,41 @@ namespace WeNeed1.Service.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TeamId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Squads__3214EC07FB0D7813", x => x.Id);
+                    table.PrimaryKey("PK_Squads", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Squads_Teams",
+                        name: "FK_Squads_Teams_TeamId",
                         column: x => x.TeamId,
                         principalTable: "Teams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserTeams",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    TeamId = table.Column<int>(type: "int", nullable: false),
+                    IsCaptain = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserTeams", x => new { x.UserId, x.TeamId });
+                    table.ForeignKey(
+                        name: "FK_UserTeams_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserTeams_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -194,52 +222,54 @@ namespace WeNeed1.Service.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Created = table.Column<DateTime>(type: "datetime", nullable: false),
-                    MatchID = table.Column<int>(type: "int", nullable: false)
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MatchId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Comments__3214EC0781169ADA", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__Comments__MatchI__2D27B809",
-                        column: x => x.MatchID,
+                        name: "FK_Comments_Matches_MatchId",
+                        column: x => x.MatchId,
                         principalTable: "Matches",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK__Comments__UserId__2C3393D0",
+                        name: "FK_Comments_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SquadUsers",
+                name: "SquadUser",
                 columns: table => new
                 {
-                    SquadId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    SquadsId = table.Column<int>(type: "int", nullable: false),
+                    UsersId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SquadUsers", x => new { x.SquadId, x.UserId });
+                    table.PrimaryKey("PK_SquadUser", x => new { x.SquadsId, x.UsersId });
                     table.ForeignKey(
-                        name: "FK_SquadUsers_Squads",
-                        column: x => x.SquadId,
+                        name: "FK_SquadUser_Squads_SquadsId",
+                        column: x => x.SquadsId,
                         principalTable: "Squads",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SquadUsers_Users",
-                        column: x => x.UserId,
+                        name: "FK_SquadUser_Users_UsersId",
+                        column: x => x.UsersId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_MatchID",
+                name: "IX_Comments_MatchId",
                 table: "Comments",
-                column: "MatchID");
+                column: "MatchId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_UserId",
@@ -277,14 +307,19 @@ namespace WeNeed1.Service.Migrations
                 column: "TeamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SquadUsers_UserId",
-                table: "SquadUsers",
-                column: "UserId");
+                name: "IX_SquadUser_UsersId",
+                table: "SquadUser",
+                column: "UsersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teams_CaptainId",
                 table: "Teams",
                 column: "CaptainId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserTeams_TeamId",
+                table: "UserTeams",
+                column: "TeamId");
         }
 
         /// <inheritdoc />
@@ -300,7 +335,10 @@ namespace WeNeed1.Service.Migrations
                 name: "Reviews");
 
             migrationBuilder.DropTable(
-                name: "SquadUsers");
+                name: "SquadUser");
+
+            migrationBuilder.DropTable(
+                name: "UserTeams");
 
             migrationBuilder.DropTable(
                 name: "Matches");

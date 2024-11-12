@@ -18,6 +18,8 @@ namespace WeNeed1.Model.Payloads
 
         public int CaptainId { get; set; }
         public User? Captain { get; set; }  
+        
+        public List<User> TeamMembers { get; set; } = new List<User>();
 
     }
 }

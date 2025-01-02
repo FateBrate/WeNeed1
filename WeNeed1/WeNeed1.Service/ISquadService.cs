@@ -8,7 +8,9 @@ using WeNeed1.Model.SearchObjects;
 
 namespace WeNeed1.Service
 {
-    public interface ISquadService:ICRUDService<SquadResponseDto,BaseSearchObject,SquadRequestDto,SquadRequestDto>
+    public interface ISquadService:ICRUDService<SquadResponseDto,SquadSearchObject,SquadRequestDto,SquadRequestDto>
     {
+        Task JoinSquad(int squadId);
+        Task LeaveSquad(int squadId);
     }
 }

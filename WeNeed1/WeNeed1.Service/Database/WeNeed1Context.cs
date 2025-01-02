@@ -35,6 +35,7 @@ public partial class WeNeed1Context : DbContext
     
     public virtual DbSet<UserTeam> UserTeams { get; set; }
 
+    public virtual DbSet<UserSquad> UsersSquad { get; set; }
     //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
     //        => optionsBuilder.UseSqlServer("Server=localhost;Database=WeNeed1;Trusted_Connection=True;TrustServerCertificate=True");
@@ -60,6 +61,23 @@ public partial class WeNeed1Context : DbContext
                .WithMany()
                .HasForeignKey(t => t.CaptainId)
                .OnDelete(DeleteBehavior.NoAction);
+
+        base.OnModelCreating(modelBuilder);
+
+        // Define composite key for UserSquad
+        modelBuilder.Entity<UserSquad>()
+            .HasKey(us => new { us.UserId, us.SquadId });
+
+        // Relationships
+        modelBuilder.Entity<UserSquad>()
+            .HasOne(us => us.User)
+            .WithMany()
+            .HasForeignKey(us => us.UserId);
+
+        modelBuilder.Entity<UserSquad>()
+            .HasOne(us => us.Squad)
+            .WithMany(s => s.UserSquads)
+            .HasForeignKey(us => us.SquadId);
     }       
 
 

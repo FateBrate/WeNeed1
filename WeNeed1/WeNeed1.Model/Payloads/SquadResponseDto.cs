@@ -16,6 +16,6 @@ namespace WeNeed1.Model.Payloads
 
         public  TeamResponseDto? Team { get; set; }
 
-        public ICollection<User>? Users { get; } = new List<User>();
+        public ICollection<User>? UserSquads { get; } = new List<User>();
     }
 }

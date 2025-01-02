@@ -11,7 +11,6 @@ namespace WeNeed1.Service
     public interface ITeamService:ICRUDService<TeamResponseDto, TeamSearchObject, TeamRequestDto, TeamRequestDto>  
     {
         Task JoinTeam(int teamId);
-
         Task LeaveTeam(int teamId);
         Task AddToTeam(int teamId, int userId);
         Task RemoveFromTeam(int teamId, int userId);

@@ -13,5 +13,5 @@ public partial class Squad
 
     public virtual Team? Team { get; set; }
 
-    public virtual ICollection<User>? Users { get; } = new List<User>();
+    public virtual ICollection<UserSquad>? UserSquads { get; } = new List<UserSquad>();
 }

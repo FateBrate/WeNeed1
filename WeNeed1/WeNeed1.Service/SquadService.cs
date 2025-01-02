@@ -6,16 +6,20 @@ using WeNeed1.Service.Database;
 
 namespace WeNeed1.Service
 {
-    public class SquadService:BaseCRUDService<SquadResponseDto,Database.Squad,BaseSearchObject,SquadRequestDto,SquadRequestDto>,ISquadService
+    public class SquadService:BaseCRUDService<SquadResponseDto,Database.Squad,SquadSearchObject,SquadRequestDto,SquadRequestDto>,ISquadService
     {
-        public SquadService(WeNeed1Context context, IMapper mapper) : base(context, mapper)
+        private readonly IUserService _userService;
+        public SquadService(WeNeed1Context context, IMapper mapper, IUserService userService) : base(context, mapper)
         {
+            _userService = userService;
         }
 
         public override async Task<SquadResponseDto> GetById(int id)
         {
             var entity = await _context.Squads
-                .Include(s => s.Team) 
+                .Include(s => s.Team)
+                .Include(s=>s.UserSquads)
+                .ThenInclude(us=>us.User)
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             if (entity == null)
@@ -25,6 +29,41 @@ namespace WeNeed1.Service
 
             return _mapper.Map<SquadResponseDto>(entity);
         }
+        
+        public override IQueryable<Database.Squad> AddFilter(IQueryable<Database.Squad> query, SquadSearchObject? search = null)
+        {
+            if (search?.TeamId.HasValue == true)
+            {
+                query = query.Where(s => s.TeamId == search.TeamId.Value);
+            }
+
+            return query;
         }
+
+        public async Task JoinSquad(int squadId)
+        {
+            var currentUser = await _userService.GetCurrentUserAsync();
+
+            var userSquad = new UserSquad
+            {
+                UserId = currentUser.Id,
+                SquadId = squadId
+            };
+            _context.UsersSquad.Add(userSquad);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task LeaveSquad(int squadId)
+        {
+            var currentUser = await _userService.GetCurrentUserAsync();
+            var userSquad = await _context.UsersSquad.FirstOrDefaultAsync(s => s.SquadId == squadId && s.UserId == currentUser.Id);
+            
+            if(userSquad == null)
+                throw new Exception("User is not part of this squad");
+            
+            _context.UsersSquad.Remove(userSquad);
+            await _context.SaveChangesAsync();
+        }
+    }
     
 }

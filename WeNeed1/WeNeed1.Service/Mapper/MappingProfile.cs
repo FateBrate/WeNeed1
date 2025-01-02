@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WeNeed1.Model.Payloads;
 using WeNeed1.Model.Requests;
+using WeNeed1.Service.Database;
 
 namespace WeNeed1.Service.Mapper
 {
@@ -22,8 +23,11 @@ namespace WeNeed1.Service.Mapper
             CreateMap<Database.Team, TeamResponseDto>()
                 .ForMember(dest => dest.TeamMembers, opt => opt.MapFrom(src => src.UserTeams.Select(ut => ut.User)));
 
-            CreateMap<Database.Squad, SquadResponseDto>();
+            CreateMap<Squad, SquadResponseDto>()
+                .ForMember(dest => dest.UserSquads, opt => opt.MapFrom(src => src.UserSquads.Select(us => us.User)));
             CreateMap<SquadRequestDto, Database.Squad>();
+            
+            
         }
     }
 }

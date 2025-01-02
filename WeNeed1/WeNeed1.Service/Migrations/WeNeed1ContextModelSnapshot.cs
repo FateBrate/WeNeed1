@@ -22,21 +22,6 @@ namespace WeNeed1.Service.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("SquadUser", b =>
-                {
-                    b.Property<int>("SquadsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SquadsId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("SquadUser");
-                });
-
             modelBuilder.Entity("WeNeed1.Service.Database.Comment", b =>
                 {
                     b.Property<int>("Id")
@@ -224,9 +209,14 @@ namespace WeNeed1.Service.Migrations
                     b.Property<int>("TeamId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("TeamId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Squads");
                 });
@@ -307,6 +297,21 @@ namespace WeNeed1.Service.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("WeNeed1.Service.Database.UserSquad", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SquadId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "SquadId");
+
+                    b.HasIndex("SquadId");
+
+                    b.ToTable("UsersSquad");
+                });
+
             modelBuilder.Entity("WeNeed1.Service.Database.UserTeam", b =>
                 {
                     b.Property<int>("UserId")
@@ -323,21 +328,6 @@ namespace WeNeed1.Service.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("UserTeams");
-                });
-
-            modelBuilder.Entity("SquadUser", b =>
-                {
-                    b.HasOne("WeNeed1.Service.Database.Squad", null)
-                        .WithMany()
-                        .HasForeignKey("SquadsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WeNeed1.Service.Database.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("WeNeed1.Service.Database.Comment", b =>
@@ -419,6 +409,10 @@ namespace WeNeed1.Service.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WeNeed1.Service.Database.User", null)
+                        .WithMany("Squads")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Team");
                 });
 
@@ -430,6 +424,25 @@ namespace WeNeed1.Service.Migrations
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Captain");
+                });
+
+            modelBuilder.Entity("WeNeed1.Service.Database.UserSquad", b =>
+                {
+                    b.HasOne("WeNeed1.Service.Database.Squad", "Squad")
+                        .WithMany("UserSquads")
+                        .HasForeignKey("SquadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WeNeed1.Service.Database.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Squad");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WeNeed1.Service.Database.UserTeam", b =>
@@ -468,6 +481,11 @@ namespace WeNeed1.Service.Migrations
                     b.Navigation("Reservations");
                 });
 
+            modelBuilder.Entity("WeNeed1.Service.Database.Squad", b =>
+                {
+                    b.Navigation("UserSquads");
+                });
+
             modelBuilder.Entity("WeNeed1.Service.Database.Team", b =>
                 {
                     b.Navigation("Matches");
@@ -482,6 +500,8 @@ namespace WeNeed1.Service.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Reservations");
+
+                    b.Navigation("Squads");
 
                     b.Navigation("UserTeams");
                 });

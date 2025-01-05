@@ -11,7 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ITeamService,TeamService>();
 builder.Services.AddTransient<ISquadService,SquadService>();
-
+builder.Services.AddTransient<ISportsCenterService, SportsCenterService>();
+builder.Services.AddTransient<IReviewService, ReviewService>();
+builder.Services.AddTransient<ISportsFieldService, SportsFieldService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

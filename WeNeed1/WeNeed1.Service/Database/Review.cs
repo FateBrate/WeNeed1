@@ -18,4 +18,7 @@ public partial class Review
     public DateTime Created { get; set; }
 
     public virtual SportsCenter? SportsCenter { get; set; }
+
+    public virtual User? User { get; set; }
+
 }

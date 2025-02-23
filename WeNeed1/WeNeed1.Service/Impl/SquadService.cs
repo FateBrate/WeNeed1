@@ -4,9 +4,9 @@ using WeNeed1.Model.Payloads;
 using WeNeed1.Model.SearchObjects;
 using WeNeed1.Service.Database;
 
-namespace WeNeed1.Service
+namespace WeNeed1.Service.Impl
 {
-    public class SquadService:BaseCRUDService<SquadResponseDto,Database.Squad,SquadSearchObject,SquadRequestDto,SquadRequestDto>,ISquadService
+    public class SquadService : BaseCRUDService<SquadResponseDto, Squad, SquadSearchObject, SquadRequestDto, SquadRequestDto>, ISquadService
     {
         private readonly IUserService _userService;
         public SquadService(WeNeed1Context context, IMapper mapper, IUserService userService) : base(context, mapper)
@@ -18,8 +18,8 @@ namespace WeNeed1.Service
         {
             var entity = await _context.Squads
                 .Include(s => s.Team)
-                .Include(s=>s.UserSquads)
-                .ThenInclude(us=>us.User)
+                .Include(s => s.UserSquads)
+                .ThenInclude(us => us.User)
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             if (entity == null)
@@ -29,8 +29,8 @@ namespace WeNeed1.Service
 
             return _mapper.Map<SquadResponseDto>(entity);
         }
-        
-        public override IQueryable<Database.Squad> AddFilter(IQueryable<Database.Squad> query, SquadSearchObject? search = null)
+
+        public override IQueryable<Squad> AddFilter(IQueryable<Squad> query, SquadSearchObject? search = null)
         {
             if (search?.TeamId.HasValue == true)
             {
@@ -57,13 +57,13 @@ namespace WeNeed1.Service
         {
             var currentUser = await _userService.GetCurrentUserAsync();
             var userSquad = await _context.UsersSquad.FirstOrDefaultAsync(s => s.SquadId == squadId && s.UserId == currentUser.Id);
-            
-            if(userSquad == null)
+
+            if (userSquad == null)
                 throw new Exception("User is not part of this squad");
-            
+
             _context.UsersSquad.Remove(userSquad);
             await _context.SaveChangesAsync();
         }
     }
-    
+
 }

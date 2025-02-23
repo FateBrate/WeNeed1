@@ -8,7 +8,7 @@ using WeNeed1.Model;
 using WeNeed1.Model.SearchObjects;
 using WeNeed1.Service.Database;
 
-namespace WeNeed1.Service
+namespace WeNeed1.Service.Impl
 {
     public class BaseCRUDService<T, TDb, TSearch, TInsert, TUpdate> : BaseService<T, TDb, TSearch> where T : class where TDb : class where TSearch : BaseSearchObject
     {

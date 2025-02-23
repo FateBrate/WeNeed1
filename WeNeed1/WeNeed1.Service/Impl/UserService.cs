@@ -14,9 +14,9 @@ using WeNeed1.Service.Database;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
-namespace WeNeed1.Service
+namespace WeNeed1.Service.Impl
 {
-    public class UserService : BaseCRUDService<Model.User, Database.User, UserSearchObject, UserRequestDto, UserUpdateDto>, IUserService
+    public class UserService : BaseCRUDService<Model.User, User, UserSearchObject, UserRequestDto, UserUpdateDto>, IUserService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         public UserService(WeNeed1Context context, IMapper mapper, IHttpContextAccessor httpContextAccessor)
@@ -24,13 +24,13 @@ namespace WeNeed1.Service
         {
             _httpContextAccessor = httpContextAccessor;
         }
-        public override async Task BeforeInsert(Database.User entity, UserRequestDto insert)
+        public override async Task BeforeInsert(User entity, UserRequestDto insert)
         {
             entity.PasswordSalt = GenerateSalt();
             entity.PasswordHash = GenerateHash(entity.PasswordSalt, insert.Password);
         }
 
-        public override IQueryable<Database.User> AddFilter(IQueryable<Database.User> query, UserSearchObject? search = null)
+        public override IQueryable<User> AddFilter(IQueryable<User> query, UserSearchObject? search = null)
         {
             if (!string.IsNullOrEmpty(search?.FirstName))
             {
@@ -55,8 +55,8 @@ namespace WeNeed1.Service
             byte[] bytes = Encoding.Unicode.GetBytes(password);
             byte[] dst = new byte[src.Length + bytes.Length];
 
-            System.Buffer.BlockCopy(src, 0, dst, 0, src.Length);
-            System.Buffer.BlockCopy(bytes, 0, dst, src.Length, bytes.Length);
+            Buffer.BlockCopy(src, 0, dst, 0, src.Length);
+            Buffer.BlockCopy(bytes, 0, dst, src.Length, bytes.Length);
 
             HashAlgorithm algorithm = HashAlgorithm.Create("SHA1");
             byte[] inArray = algorithm.ComputeHash(dst);

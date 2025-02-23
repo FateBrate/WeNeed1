@@ -1,9 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WeNeed1.Model.Payloads;
 using WeNeed1.Model.Requests;
 using WeNeed1.Service.Database;
@@ -35,6 +30,12 @@ namespace WeNeed1.Service.Mapper
 
             CreateMap<SportsField, SportFieldResponseDto>();
             CreateMap<SportFieldRequestDto, SportsField>();
+            
+            CreateMap<Match, MatchResponseDto>();
+            CreateMap<MatchRequestDto, Match>();
+            
+            CreateMap<Comment, CommentResponseDto>();
+            CreateMap<CommentRequestDto, Comment>();
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using WeNeed1.Auth;
 using WeNeed1.Service;
 using WeNeed1.Service.Database;
+using WeNeed1.Service.Impl;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddTransient<ISquadService,SquadService>();
 builder.Services.AddTransient<ISportsCenterService, SportsCenterService>();
 builder.Services.AddTransient<IReviewService, ReviewService>();
 builder.Services.AddTransient<ISportsFieldService, SportsFieldService>();
+builder.Services.AddTransient<IMatchService, MatchService>();
+builder.Services.AddTransient<ICommentService, CommentService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

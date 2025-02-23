@@ -13,8 +13,6 @@ public partial class SportsField
 
     public string? Description { get; set; }
 
-    public string? Address { get; set; }
-
     public int Capacity { get; set; }
 
     public decimal PricePerHour { get; set; }

@@ -11,9 +11,9 @@ using WeNeed1.Model.SearchObjects;
 using WeNeed1.Service.Database;
 using User = WeNeed1.Model.User;
 
-namespace WeNeed1.Service
+namespace WeNeed1.Service.Impl
 {
-    public class TeamService : BaseCRUDService<TeamResponseDto, Database.Team,TeamSearchObject ,TeamRequestDto, TeamRequestDto>, ITeamService
+    public class TeamService : BaseCRUDService<TeamResponseDto, Team, TeamSearchObject, TeamRequestDto, TeamRequestDto>, ITeamService
     {
         private readonly IUserService _userService;
 
@@ -53,9 +53,9 @@ namespace WeNeed1.Service
                 TeamId = entity.Id,
                 IsCaptain = true
             };
-            
+
             _context.UserTeams.Add(userTeam);
-            
+
             await _context.SaveChangesAsync();
             return _mapper.Map<TeamResponseDto>(entity);
         }
@@ -67,7 +67,7 @@ namespace WeNeed1.Service
             return new string(Enumerable.Repeat(chars, 8)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
-        
+
         public async Task JoinTeam(int teamId)
         {
             var currentUser = await _userService.GetCurrentUserAsync();
@@ -76,7 +76,7 @@ namespace WeNeed1.Service
             {
                 UserId = currentUser.Id,
                 TeamId = teamId,
-                IsCaptain = false 
+                IsCaptain = false
             };
 
             _context.UserTeams.Add(userTeam);
@@ -92,7 +92,7 @@ namespace WeNeed1.Service
 
             if (userTeam == null)
                 throw new UserException("User is not part of this team.");
-            
+
 
             if (userTeam.IsCaptain)
                 throw new UserException("You cannot leave the team as you are the captain.");
@@ -104,19 +104,19 @@ namespace WeNeed1.Service
         {
             var currentUser = await _userService.GetCurrentUserAsync();
 
-            
+
             var team = await _context.Teams.FindAsync(teamId);
             if (team == null || team.CaptainId != currentUser.Id)
                 throw new UserException("Only the team captain can add users to the team.");
 
-            
+
             var existingUserTeam = await _context.UserTeams
                 .FirstOrDefaultAsync(ut => ut.UserId == userId && ut.TeamId == teamId);
 
             if (existingUserTeam != null)
                 throw new UserException("User is already a member of the team.");
 
-            
+
             var userTeam = new UserTeam
             {
                 UserId = userId,
@@ -131,12 +131,12 @@ namespace WeNeed1.Service
         {
             var currentUser = await _userService.GetCurrentUserAsync();
 
-            
+
             var team = await _context.Teams.FindAsync(teamId);
             if (team == null || team.CaptainId != currentUser.Id)
                 throw new UserException("Only the team captain can remove users from the team.");
 
-            
+
             var userTeam = await _context.UserTeams
                 .FirstOrDefaultAsync(ut => ut.UserId == userId && ut.TeamId == teamId);
 
@@ -145,11 +145,11 @@ namespace WeNeed1.Service
 
             if (userTeam.IsCaptain)
                 throw new UserException("Cannot remove the team captain from the team.");
-            
+
             _context.UserTeams.Remove(userTeam);
             await _context.SaveChangesAsync();
         }
-        
+
     }
-    
+
 }

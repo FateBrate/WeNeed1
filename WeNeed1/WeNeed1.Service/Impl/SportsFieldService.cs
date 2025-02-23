@@ -3,9 +3,9 @@ using WeNeed1.Model.Payloads;
 using WeNeed1.Model.SearchObjects;
 using WeNeed1.Service.Database;
 
-namespace WeNeed1.Service;
+namespace WeNeed1.Service.Impl;
 
-public class SportsFieldService : BaseCRUDService<SportFieldResponseDto,SportsField,SportFieldSearchObject,SportFieldRequestDto,SportFieldRequestDto>,ISportsFieldService
+public class SportsFieldService : BaseCRUDService<SportFieldResponseDto, SportsField, SportFieldSearchObject, SportFieldRequestDto, SportFieldRequestDto>, ISportsFieldService
 {
     public SportsFieldService(WeNeed1Context context, IMapper mapper) : base(context, mapper)
     {
@@ -17,7 +17,7 @@ public class SportsFieldService : BaseCRUDService<SportFieldResponseDto,SportsFi
         {
             query = query.Where(x => x.SportsCenterId == search.SportsCenterId);
         }
-        
+
         return query;
     }
 }

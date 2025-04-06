@@ -12,8 +12,13 @@ public partial class SportsCenter
     public string? Address { get; set; }
 
     public string? Description { get; set; }
-
+    
+    public TimeSpan StartTime { get; set; } = TimeSpan.FromHours(10);
+    public TimeSpan EndTime { get; set; } = TimeSpan.FromHours(23);
+    
     public virtual ICollection<Review> Reviews { get; } = new List<Review>();
 
     public virtual ICollection<SportsField> SportsFields { get; } = new List<SportsField>();
+    
+    
 }

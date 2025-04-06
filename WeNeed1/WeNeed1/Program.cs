@@ -17,6 +17,7 @@ builder.Services.AddTransient<IReviewService, ReviewService>();
 builder.Services.AddTransient<ISportsFieldService, SportsFieldService>();
 builder.Services.AddTransient<IMatchService, MatchService>();
 builder.Services.AddTransient<ICommentService, CommentService>();
+builder.Services.AddTransient<IReservationService, ReservationService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

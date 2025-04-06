@@ -1,0 +1,158 @@
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using WeNeed1.Model.Enums;
+using WeNeed1.Model.Payloads;
+using WeNeed1.Model.SearchObjects;
+using WeNeed1.Service.Database;
+
+namespace WeNeed1.Service.Impl;
+
+public class ReservationService: BaseCRUDService<ReservationResponseDto, Reservation, ReservationSearchObject, ReservationRequestDto, ReservationRequestDto>, IReservationService
+{
+    
+    private readonly IUserService _userService;
+
+    public ReservationService(WeNeed1Context context, IMapper mapper, IUserService userService) : base(context, mapper)
+    {
+        _userService = userService;
+    }
+    
+    public override async Task<ReservationResponseDto> Insert(ReservationRequestDto request)
+    {
+        var sportsField = await _context.SportsFields
+            .Include(sf => sf.SportsCenter)
+            .FirstOrDefaultAsync(sf => sf.Id == request.SportsFieldId);
+
+        if (sportsField == null)
+        {
+            throw new Exception("Invalid Sports Field ID.");
+        }
+        
+        var startTime = request.StartTime;
+        var endTime = startTime.AddHours(1);
+        
+        if (startTime.TimeOfDay < sportsField.SportsCenter.StartTime || endTime.TimeOfDay > sportsField.SportsCenter.EndTime)
+        {
+            throw new Exception("Reservation time is outside working hours.");
+        }
+        
+        var existingReservation = await _context.Reservations.AnyAsync(r =>
+            r.SportsFieldId == request.SportsFieldId &&
+            r.StartTime == request.StartTime);
+
+        if (existingReservation)
+        {
+            throw new Exception("Selected time slot is already booked.");
+        }
+        
+        var userId = _userService.GetCurrentUserAsync().Result.Id; ; 
+        
+        var totalPrice = sportsField.PricePerHour;
+        
+        var entity = new Reservation
+        {
+            UserId = userId,
+            SportsFieldId = request.SportsFieldId,
+            StartTime = startTime,
+            EndTime = endTime,
+            TotalPrice = totalPrice,
+            Status = ReservationStatus.CREATED
+        };
+
+        _context.Reservations.Add(entity);
+        await _context.SaveChangesAsync();
+
+        return _mapper.Map<ReservationResponseDto>(entity);
+    }
+    
+    public override IQueryable<Reservation> AddFilter(IQueryable<Reservation> query, ReservationSearchObject search)
+    {
+        if (search.SportsFieldId.HasValue)
+        {
+            query = query.Where(r => r.SportsFieldId == search.SportsFieldId.Value);
+        }
+
+        if (search.SportsCenterId.HasValue)
+        {
+            query = query.Where(r => r.SportsField.SportsCenterId == search.SportsCenterId.Value);
+        }
+        
+        if (search.Status.HasValue)
+        {
+            query = query.Where(r => r.Status == search.Status.Value);
+        }
+
+        return query.Include(r => r.SportsField);
+    }
+    
+    public List<TimeSpan> GetAvailableSlots(int sportsFieldId, DateTime date)
+    {
+        var sportsField = _context.SportsFields
+            .Include(sf => sf.SportsCenter)
+            .FirstOrDefault(sf => sf.Id == sportsFieldId);
+
+        if (sportsField == null)
+            throw new Exception("Sports field not found.");
+
+        var startTime = sportsField.SportsCenter.StartTime;
+        var endTime = sportsField.SportsCenter.EndTime;
+        
+        var reservedSlots = _context.Reservations
+            .Where(r => r.SportsFieldId == sportsFieldId &&
+                        r.StartTime.Date == date.Date)
+            .Select(r => r.StartTime.TimeOfDay)
+            .ToHashSet();
+
+        var availableSlots = new List<TimeSpan>();
+
+        for (var time = startTime; time < endTime; time = time.Add(TimeSpan.FromHours(1)))
+        {
+            if (!reservedSlots.Contains(time))
+                availableSlots.Add(time);
+        }
+
+        return availableSlots;
+    }
+    
+    public async Task<ReservationResponseDto> CancelReservation(int id, string? cancellationReason)
+    {
+        var reservation = await _context.Reservations.FindAsync(id);
+        if (reservation == null)
+        {
+            throw new Exception("Reservation not found.");
+        }
+
+        if (reservation.Status != ReservationStatus.CREATED)
+        {
+            throw new Exception("Only reservations in 'CREATED' status can be cancelled.");
+        }
+
+        reservation.Status = ReservationStatus.CANCELLED;
+        reservation.CancellationReason = cancellationReason;
+
+        await _context.SaveChangesAsync();
+        return _mapper.Map<ReservationResponseDto>(reservation);
+    }
+
+
+    public async Task<ReservationResponseDto> FinishReservation(int id)
+    {
+        var reservation = await _context.Reservations.FindAsync(id);
+        if (reservation == null)
+        {
+            throw new Exception("Reservation not found.");
+        }
+
+        if (reservation.Status != ReservationStatus.PAYED)
+        {
+            throw new Exception("Only paid reservations can be marked as finished.");
+        }
+
+        reservation.Status = ReservationStatus.FINISHED;
+
+        await _context.SaveChangesAsync();
+        return _mapper.Map<ReservationResponseDto>(reservation);
+    }
+
+    
+}

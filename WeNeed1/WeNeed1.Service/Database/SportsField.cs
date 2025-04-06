@@ -22,4 +22,5 @@ public partial class SportsField
     public virtual ICollection<Reservation>? Reservations { get; } = new List<Reservation>();
 
     public virtual SportsCenter? SportsCenter { get; set; }
+    
 }

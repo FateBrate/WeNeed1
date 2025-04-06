@@ -36,6 +36,10 @@ namespace WeNeed1.Service.Mapper
             
             CreateMap<Comment, CommentResponseDto>();
             CreateMap<CommentRequestDto, Comment>();
+
+            CreateMap<Reservation, ReservationResponseDto>()
+                .ForMember(dest => dest.SportFieldResponseDto, opt => opt.MapFrom(src => src.SportsField));
+            CreateMap<ReservationRequestDto, Reservation>();
         }
     }
 }

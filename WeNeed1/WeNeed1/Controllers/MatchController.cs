@@ -6,8 +6,7 @@ using WeNeed1.Service;
 namespace WeNeed1.Controllers
 {
     [ApiController]
-    public class
-        MatchController : BaseCRUDController<MatchResponseDto, MatchSearchObject, MatchRequestDto, MatchRequestDto>
+    public class MatchController : BaseCRUDController<MatchResponseDto, MatchSearchObject, MatchRequestDto, MatchRequestDto>
     {
         private readonly IMatchService _matchService;
 

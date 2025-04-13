@@ -143,9 +143,9 @@ public class ReservationService: BaseCRUDService<ReservationResponseDto, Reserva
             throw new Exception("Reservation not found.");
         }
 
-        if (reservation.Status != ReservationStatus.PAYED)
+        if (reservation.Status != ReservationStatus.CREATED)
         {
-            throw new Exception("Only paid reservations can be marked as finished.");
+            throw new Exception("Only created reservations can be marked as finished.");
         }
 
         reservation.Status = ReservationStatus.FINISHED;
@@ -153,6 +153,90 @@ public class ReservationService: BaseCRUDService<ReservationResponseDto, Reserva
         await _context.SaveChangesAsync();
         return _mapper.Map<ReservationResponseDto>(reservation);
     }
+    
+    public async Task<ReservationResponseDto> PayReservation(int id)
+    {
+        var reservation = await _context.Reservations.FindAsync(id);
+        if (reservation == null)
+        {
+            throw new Exception("Reservation not found.");
+        }
 
+        if (reservation.Status != ReservationStatus.CREATED)
+        {
+            throw new Exception("Only created reservations can be marked as payed.");
+        }
+
+        reservation.Status = ReservationStatus.PAYED;
+
+        await _context.SaveChangesAsync();
+        return _mapper.Map<ReservationResponseDto>(reservation);
+    }
+    
+    public async Task<List<ManagerReportDto>> GetReportForManagerAsync()
+    {
+        var manager = await _userService.GetCurrentUserAsync();
+
+        var sportsCenter = await _context.SportsCenters
+            .FirstOrDefaultAsync(sc => sc.ManagerId == manager.Id);
+
+        if (sportsCenter == null)
+            throw new Exception("Manager does not have a sports center.");
+
+        var reservations = await _context.Reservations
+            .Include(r => r.User)
+            .Include(r => r.SportsField)
+            .Where(r =>
+                r.SportsField.SportsCenterId == sportsCenter.Id &&
+                (r.Status == ReservationStatus.PAYED || r.Status == ReservationStatus.FINISHED))
+            .ToListAsync();
+
+        var grouped = reservations
+            .GroupBy(r => r.User)
+            .Select(g => new ManagerReportDto()
+            {
+                UserName = g.Key.UserName,
+                FirstName = g.Key.FirstName,
+                LastName = g.Key.LastName,
+                ReservationCount = g.Count(),
+                TotalAmount = g.Sum(r => r.TotalPrice),
+                Reservations = _mapper.Map<List<ReservationResponseDto>>(g.ToList())
+            }).ToList();
+
+        return grouped;
+    }
+    
+    public async Task<PlayerReportResponseDto> GetPlayerReport(PlayerReportSearchDto search)
+    {
+        var user = await _context.Users.FindAsync(search.UserId);
+        if (user == null)
+            throw new Exception("User not found");
+
+        var query = _context.Reservations
+            .Include(r => r.SportsField)
+            .Where(r => r.UserId == search.UserId &&
+                        (r.Status == ReservationStatus.PAYED || r.Status == ReservationStatus.FINISHED));
+
+        if (search.ReportType == ReportType.MONTHLY && search.Month.HasValue)
+        {
+            query = query.Where(r => r.StartTime.Year == search.Year && r.StartTime.Month == search.Month.Value);
+        }
+        else if (search.ReportType == ReportType.YEARLY)
+        {
+            query = query.Where(r => r.StartTime.Year == search.Year);
+        }
+
+        var reservations = await query.ToListAsync();
+    
+        return new PlayerReportResponseDto
+        {
+            UserName = user.UserName,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            TotalReservations = reservations.Count,
+            TotalAmount = reservations.Sum(r => r.TotalPrice),
+            Reservations = _mapper.Map<List<ReservationResponseDto>>(reservations)
+        };
+    }
     
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace WeNeed1.Service.Database;
+﻿namespace WeNeed1.Service.Database;
 
 public partial class SportsCenter
 {
@@ -20,5 +17,8 @@ public partial class SportsCenter
 
     public virtual ICollection<SportsField> SportsFields { get; } = new List<SportsField>();
     
+    public int? ManagerId { get; set; }
+    
+    public virtual User? Manager { get; set; }
     
 }

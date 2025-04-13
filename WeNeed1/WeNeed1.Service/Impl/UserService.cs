@@ -1,18 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using WeNeed1.Model.Requests;
 using WeNeed1.Model.SearchOBjects;
 using WeNeed1.Model.Exceptions;
 using WeNeed1.Service.Database;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using WeNeed1.Model.Enums;
 
 namespace WeNeed1.Service.Impl
 {
@@ -28,6 +24,19 @@ namespace WeNeed1.Service.Impl
         {
             entity.PasswordSalt = GenerateSalt();
             entity.PasswordHash = GenerateHash(entity.PasswordSalt, insert.Password);
+            
+            if (insert.Role == Role.MANAGER)
+            {
+                var sportsCenter = new SportsCenter
+                {
+                    Name = $"{insert.FirstName}'s Sports Center",
+                    Address = "Enter your address",
+                    Description = "Managed by " + insert.FirstName,
+                    Manager = entity
+                };
+
+                _context.SportsCenters.Add(sportsCenter);
+            }
         }
 
         public override IQueryable<User> AddFilter(IQueryable<User> query, UserSearchObject? search = null)

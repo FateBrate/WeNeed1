@@ -9,7 +9,8 @@ namespace WeNeed1.Service.Mapper
     {
         public MappingProfile() 
         {
-            CreateMap<User, Model.User>();
+            CreateMap<User, Model.User>()
+                .ForMember(dest => dest.SportsCenter, opt => opt.MapFrom(src => src.SportsCenter));
             CreateMap<UserRequestDto, User>();
             CreateMap<UserUpdateDto,User>();
 

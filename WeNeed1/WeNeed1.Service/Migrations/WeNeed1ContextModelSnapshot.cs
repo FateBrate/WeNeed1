@@ -166,6 +166,9 @@ namespace WeNeed1.Service.Migrations
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("time");
 
+                    b.Property<int?>("ManagerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -173,6 +176,10 @@ namespace WeNeed1.Service.Migrations
                         .HasColumnType("time");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ManagerId")
+                        .IsUnique()
+                        .HasFilter("[ManagerId] IS NOT NULL");
 
                     b.ToTable("SportsCenters");
                 });
@@ -413,6 +420,15 @@ namespace WeNeed1.Service.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("WeNeed1.Service.Database.SportsCenter", b =>
+                {
+                    b.HasOne("WeNeed1.Service.Database.User", "Manager")
+                        .WithOne("SportsCenter")
+                        .HasForeignKey("WeNeed1.Service.Database.SportsCenter", "ManagerId");
+
+                    b.Navigation("Manager");
+                });
+
             modelBuilder.Entity("WeNeed1.Service.Database.SportsField", b =>
                 {
                     b.HasOne("WeNeed1.Service.Database.SportsCenter", "SportsCenter")
@@ -523,6 +539,8 @@ namespace WeNeed1.Service.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Reservations");
+
+                    b.Navigation("SportsCenter");
 
                     b.Navigation("Squads");
 

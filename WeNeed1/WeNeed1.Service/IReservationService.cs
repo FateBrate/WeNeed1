@@ -10,4 +10,10 @@ public interface IReservationService: ICRUDService<ReservationResponseDto, Reser
     Task<ReservationResponseDto> CancelReservation(int id, string? cancellationReason);
     
     Task<ReservationResponseDto> FinishReservation(int id);
+    
+    Task<ReservationResponseDto> PayReservation(int id);
+
+    Task<List<ManagerReportDto>> GetReportForManagerAsync();
+
+    Task<PlayerReportResponseDto> GetPlayerReport(PlayerReportSearchDto reportSearchDto);
 }

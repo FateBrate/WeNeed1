@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using WeNeed1.Model.Enums;
+﻿using WeNeed1.Model.Enums;
+using WeNeed1.Model.Payloads;
 
 namespace WeNeed1.Model
 {
@@ -25,6 +20,8 @@ namespace WeNeed1.Model
         public string? PhoneNumber { get; set; }
 
         public byte[]? ProfilePicture { get; set; }
+        
+        public SportsCenterResponseDto? SportsCenter { get; set; }
 
     }
 }

@@ -5,5 +5,6 @@ namespace WeNeed1.Service;
 
 public interface ISportsCenterService : ICRUDService<SportsCenterResponseDto,BaseSearchObject,SportsCenterRequestDto,SportsCenterRequestDto>
 {
-    
+    Task<SportsCenterResponseDto> GetMySportsCenterAsync();
+
 }

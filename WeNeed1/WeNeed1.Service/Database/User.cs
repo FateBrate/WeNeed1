@@ -35,4 +35,6 @@ public partial class User
     public virtual ICollection<UserTeam> UserTeams { get; set; } = new List<UserTeam>();
 
     public virtual ICollection<Squad>? Squads { get; } = new List<Squad>();
+    
+    public virtual SportsCenter? SportsCenter { get; set; }
 }

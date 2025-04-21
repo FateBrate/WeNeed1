@@ -1,0 +1,32 @@
+version: '3'
+services:
+  sql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=WeNeed1Strong!
+      - MSSQL_PID=Developer
+    ports:
+      - 1405:1433
+    networks:
+      - weneed1net
+
+  api:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: WeNeed1/Dockerfile
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ConnectionStrings:AppDatabase=Server=sql,1433;Database=WeNeed1;User=sa;Password=WeNeed1Strong!;TrustServerCertificate=True;ConnectRetryCount=0
+    ports:
+      - 7155:80
+    networks:
+      - weneed1net      
+    depends_on:
+      - sql
+
+networks:
+  weneed1net:
+    driver: bridge

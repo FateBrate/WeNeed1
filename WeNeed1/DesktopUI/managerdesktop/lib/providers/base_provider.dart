@@ -44,7 +44,21 @@ abstract class BaseProvider<T> with ChangeNotifier {
     } else {
       throw new Exception("Unknown error");
     }
-    // print("response: ${response.request} ${response.statusCode}, ${response.body}");
+  }
+
+  Future getById(int id) async {
+    var url = "$_baseUrl$_endpoint/$id";
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var response = await http.get(uri, headers: headers);
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+
+      return fromJson(data);
+    } else {
+      throw Exception("Unknown error");
+    }
   }
 
   Future<T> insert(dynamic request) async {
@@ -55,13 +69,16 @@ abstract class BaseProvider<T> with ChangeNotifier {
     var jsonRequest = jsonEncode(request);
     var response = await http.post(uri, headers: headers, body: jsonRequest);
 
+    print('Status code: ${response.statusCode}');
+
     if (isValidResponse(response)) {
       var data = jsonDecode(response.body);
       return fromJson(data);
     } else {
-      throw new Exception("Unknown error");
+      throw Exception("Unknown error");
     }
   }
+
 
   Future<T> update(int id, [dynamic request]) async {
     var url = "$_baseUrl$_endpoint/$id";
@@ -70,7 +87,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
     var jsonRequest = jsonEncode(request);
     var response = await http.put(uri, headers: headers, body: jsonRequest);
-
+    print('Status code: ${response.statusCode}');
     if (isValidResponse(response)) {
       var data = jsonDecode(response.body);
       return fromJson(data);

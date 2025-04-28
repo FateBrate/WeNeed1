@@ -11,13 +11,17 @@ public class SportsFieldService : BaseCRUDService<SportFieldResponseDto, SportsF
     {
     }
 
-    public override IQueryable<SportsField> AddFilter(IQueryable<SportsField> query, SportFieldSearchObject search)
+    public override IQueryable<SportsField> AddFilter(IQueryable<SportsField> query, SportFieldSearchObject? search = null)
     {
         if (search?.SportsCenterId.HasValue == true)
         {
             query = query.Where(x => x.SportsCenterId == search.SportsCenterId);
         }
 
+        if (!string.IsNullOrEmpty(search.Name))
+        {
+            query = query.Where(x => x.Name.ToLower().StartsWith(search.Name));
+        }
         return query;
     }
 }

@@ -16,6 +16,8 @@ namespace WeNeed1.Model.Payloads
         public bool? IsPublic { get; set; }
         public string? JoinCode { get; set; }
 
+        public byte[]? TeamPicture { get; set; }
+
         public int CaptainId { get; set; }
         public User? Captain { get; set; }  
         

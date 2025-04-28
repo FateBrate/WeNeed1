@@ -1,28 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sport_field.dart';
+part of 'sport_center.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SportField _$SportFieldFromJson(Map<String, dynamic> json) => SportField(
+SportsCenter _$SportsCenterFromJson(Map<String, dynamic> json) => SportsCenter(
   id: (json['id'] as num?)?.toInt(),
   name: json['name'] as String?,
-  sportType: json['sportType'] as String?,
-  pricePerHour: (json['pricePerHour'] as num?)?.toDouble(),
+  address: json['address'] as String?,
   description: json['description'] as String?,
-  sportsCenterId: (json['sportsCenterId'] as num?)?.toInt(),
+  startTime: json['startTime'] as String?,
+  endTime: json['endTime'] as String?,
   image: json['image'] as String?,
 );
 
-Map<String, dynamic> _$SportFieldToJson(SportField instance) =>
+Map<String, dynamic> _$SportsCenterToJson(SportsCenter instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'sportType': instance.sportType,
-      'pricePerHour': instance.pricePerHour,
+      'address': instance.address,
       'description': instance.description,
-      'sportsCenterId': instance.sportsCenterId,
+      'startTime': instance.startTime,
+      'endTime': instance.endTime,
       'image': instance.image,
     };

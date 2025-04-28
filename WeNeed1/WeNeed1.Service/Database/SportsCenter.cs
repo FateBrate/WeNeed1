@@ -21,4 +21,5 @@ public partial class SportsCenter
     
     public virtual User? Manager { get; set; }
     
+    public byte[]? Image { get; set; }
 }

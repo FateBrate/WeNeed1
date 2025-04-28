@@ -1,4 +1,4 @@
-﻿using WeNeed1.Model.Requests;
+﻿using WeNeed1.Model.Payloads;
 using WeNeed1.Model.SearchOBjects;
 
 namespace WeNeed1.Service

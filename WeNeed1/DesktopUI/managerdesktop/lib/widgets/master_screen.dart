@@ -30,7 +30,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
                 child: ListView(
                     children: [
                         ListTile(
-                            title: Text('Nazad'),
+                            title: const Text('Nazad', style: TextStyle(color: Colors.white)),
                             onTap: () {
                                 Navigator.of(context).push(
                                     MaterialPageRoute(
@@ -40,7 +40,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
                             },
                         ),
                         ListTile(
-                            title: Text('Početna'),
+                            title: const Text('Početna', style: TextStyle(color: Colors.white)),
                             onTap: (){
                                 Navigator.of(context).push(
                                     MaterialPageRoute(builder: (context)=> FieldsScreen(),));

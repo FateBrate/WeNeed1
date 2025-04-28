@@ -21,6 +21,8 @@ namespace WeNeed1.Model
 
         public byte[]? ProfilePicture { get; set; }
         
+        public string? SportCenterId { get; set; }
+        
         public SportsCenterResponseDto? SportsCenter { get; set; }
 
     }

@@ -136,8 +136,27 @@ class MyMaterialApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "We need 1",
-      theme: ThemeData(primarySwatch: Colors.purple),
-      home:LoginPage() ,
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color(0xFF13151B),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Color(0xFF115DFB),
+          brightness: Brightness.dark,
+          primary: Color(0xFF115DFB),
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF115DFB),
+          foregroundColor: Colors.white,
+        ),
+        // (your other settings stay the same)
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Colors.white,
+          selectionColor: Color(0xFF115DFB),
+          selectionHandleColor: Color(0xFF115DFB),
+        ),
+      ),
+
+
+      home: const LoginPage(),
     );
   }
 }

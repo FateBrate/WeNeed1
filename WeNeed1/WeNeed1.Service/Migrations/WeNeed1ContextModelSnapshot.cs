@@ -166,6 +166,9 @@ namespace WeNeed1.Service.Migrations
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("time");
 
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<int?>("ManagerId")
                         .HasColumnType("int");
 
@@ -197,6 +200,9 @@ namespace WeNeed1.Service.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -268,6 +274,9 @@ namespace WeNeed1.Service.Migrations
 
                     b.Property<int?>("Sport")
                         .HasColumnType("int");
+
+                    b.Property<byte[]>("TeamPicture")
+                        .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
 

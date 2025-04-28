@@ -8,4 +8,5 @@ class SportFieldProvider extends BaseProvider<SportField> {
   SportField fromJson(data) {
     return SportField.fromJson(data);
   }
+
 }

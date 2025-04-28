@@ -11,4 +11,7 @@ public class SportsCenterRequestDto
     public TimeSpan StartTime { get; set; }
     
     public TimeSpan EndTime { get; set; } 
+    
+    public byte[]? Image { get; set; }
+
 }

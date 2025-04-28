@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:managerdesktop/services/session_serivce.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/sport_center_provider.dart';
 import '../providers/user_provider.dart';
 import '../utils/utils.dart';
 import 'fields.dart';
@@ -33,7 +35,14 @@ class _LoginPageState extends State<LoginPage> {
     Authorization.password = password;
     try {
       var userProvider = Provider.of<UserProvider>(context, listen: false);
+
       var user = await userProvider.getProfile();
+
+      var sportsCenterProvider = SportsCenterProvider();
+      var sportsCenter = await sportsCenterProvider.getMySportsCenter();
+
+      SessionService().sportsCenterId = sportsCenter.id;
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const FieldsScreen()),

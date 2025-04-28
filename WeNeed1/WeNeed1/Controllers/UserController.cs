@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WeNeed1.Model.Exceptions;
-using WeNeed1.Model.Requests;
+using WeNeed1.Model.Payloads;
 using WeNeed1.Service;
 
 namespace WeNeed1.Controllers

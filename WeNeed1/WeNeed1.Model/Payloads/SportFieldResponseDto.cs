@@ -14,4 +14,6 @@ public class SportFieldResponseDto
     
     public int SportsCenterId { get; set; }
     
+    public byte[]? Image { get; set; }
+    
 }

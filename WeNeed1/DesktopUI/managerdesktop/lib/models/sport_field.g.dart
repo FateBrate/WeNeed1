@@ -13,6 +13,7 @@ SportField _$SportFieldFromJson(Map<String, dynamic> json) => SportField(
   pricePerHour: (json['pricePerHour'] as num?)?.toDouble(),
   description: json['description'] as String?,
   sportsCenterId: (json['sportsCenterId'] as num?)?.toInt(),
+  image: json['image'] as String?,
 );
 
 Map<String, dynamic> _$SportFieldToJson(SportField instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$SportFieldToJson(SportField instance) =>
       'pricePerHour': instance.pricePerHour,
       'description': instance.description,
       'sportsCenterId': instance.sportsCenterId,
+      'image': instance.image,
     };

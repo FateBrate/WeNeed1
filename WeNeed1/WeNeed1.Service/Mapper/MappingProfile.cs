@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using WeNeed1.Model.Payloads;
-using WeNeed1.Model.Requests;
 using WeNeed1.Service.Database;
 
 namespace WeNeed1.Service.Mapper

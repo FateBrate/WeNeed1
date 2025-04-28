@@ -8,6 +8,7 @@ class SportField {
   final double? pricePerHour;
   final String? description;
   final int? sportsCenterId;
+  final String? image;
 
   SportField({
     this.id,
@@ -16,6 +17,7 @@ class SportField {
     this.pricePerHour,
     this.description,
     this.sportsCenterId,
+    this.image
   });
 
   factory SportField.fromJson(Map<String, dynamic> json) => _$SportFieldFromJson(json);

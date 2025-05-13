@@ -6,6 +6,7 @@ using WeNeed1.Service;
 
 namespace WeNeed1.Controllers;
 [ApiController]
+[Authorize]
 public class ReservationController : BaseCRUDController<ReservationResponseDto, ReservationSearchObject, ReservationRequestDto, ReservationRequestDto>
 {
     private readonly IReservationService _reservationService;

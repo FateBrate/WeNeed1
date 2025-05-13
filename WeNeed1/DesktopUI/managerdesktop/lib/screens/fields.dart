@@ -121,17 +121,14 @@ class _FieldsScreenState extends State<FieldsScreen> {
                 const SizedBox(width: 16),
                 ElevatedButton.icon(
                   onPressed: () async {
-                    var newField = await Navigator.push(
+                    await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const SportFieldFormScreen(),
+                        builder: (context) => SportFieldFormScreen(
+                          onRefresh: _fetchFields, // 👈 pass the refresh method directly
+                        ),
                       ),
                     );
-                    if (newField != null) {
-                      // Save the new field using your _sportFieldProvider
-                      await _sportFieldProvider.insert(newField);
-                      _fetchFields();
-                    }
                   },
                   icon: const Icon(Icons.add),
                   label: const Text("Dodaj novi teren"),
@@ -190,11 +187,11 @@ class _FieldsScreenState extends State<FieldsScreen> {
         var updated = await Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SportFieldFormScreen(sportFieldId: field.id),
+            builder: (context) => SportFieldFormScreen(sportFieldId: field.id, onRefresh: _fetchFields),
           ),
         );
-        if (updated != null) {
-          _fetchFields(); // Refresh list after editing
+        if (updated == true) {
+          _fetchFields();
         }
       },
       child: Card(

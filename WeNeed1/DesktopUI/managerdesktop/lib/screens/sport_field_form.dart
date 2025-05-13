@@ -3,18 +3,20 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../providers/sport_field_provider.dart';
 import '../services/session_serivce.dart';
+import '../widgets/confirmation_dialog.dart';
 import '../widgets/master_screen.dart';
 
 
 class SportFieldFormScreen extends StatefulWidget {
   final int? sportFieldId;
-
-  const SportFieldFormScreen({super.key, this.sportFieldId});
+  final VoidCallback? onRefresh;
+  const SportFieldFormScreen({super.key, this.onRefresh, this.sportFieldId});
 
   @override
   State<SportFieldFormScreen> createState() => _SportFieldFormScreenState();
@@ -56,7 +58,9 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
     } catch (e) {
       print("Error loading sport field: $e");
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Greška prilikom učitavanja podataka')),
+        const SnackBar(
+          content: Text('Greška prilikom učitavanja podataka',style: TextStyle(color: Colors.white),),
+          backgroundColor: Colors.red,),
       );
     } finally {
       setState(() {
@@ -76,7 +80,9 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
   Future<void> _saveField() async {
     if (!_formKey.currentState!.saveAndValidate() || _base64Image == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Molimo popunite sva polja i dodajte sliku')),
+        const SnackBar(
+            content: Text('Molimo popunite sva polja i dodajte sliku',style: TextStyle(color: Colors.white),),
+            backgroundColor: Colors.red,),
       );
       return;
     }
@@ -92,22 +98,30 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
         await _sportFieldProvider.update(widget.sportFieldId!, request);
       }
 
+      if (widget.onRefresh != null) {
+        widget.onRefresh!();
+      }
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Podaci su uspješno sačuvani')),
+          const SnackBar
+            (content: Text('Podaci su uspješno sačuvani',style: TextStyle(color: Colors.white),),
+            backgroundColor: Colors.green,),
         );
       }
 
       await Future.delayed(const Duration(milliseconds: 500));
 
       if (mounted) {
-        Navigator.of(context).pop(true);
+        Navigator.of(context).pop();
       }
     } catch (e) {
       print("Error saving sport field: $e");
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Greška prilikom spremanja podataka')),
+          const SnackBar
+            (content: Text('Greška prilikom spremanja podataka',style: TextStyle(color: Colors.white),),
+            backgroundColor: Colors.red,),
         );
       }
     }
@@ -166,7 +180,10 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
               FormBuilderTextField(
                 name: 'pricePerHour',
                 decoration: const InputDecoration(labelText: "Cena po satu"),
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly
+                ],
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(errorText: 'Obavezno polje'),
                   FormBuilderValidators.numeric(errorText: 'Mora biti broj'),
@@ -228,13 +245,68 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
 
               // SAVE BUTTON
               Center(
-                child: ElevatedButton(
-                  onPressed: _saveField,
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
-                    textStyle: const TextStyle(fontSize: 18),
-                  ),
-                  child: const Text("Sačuvaj"),
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: _saveField,
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+                        textStyle: const TextStyle(fontSize: 18),
+                      ),
+                      child: const Text("Sačuvaj"),
+                    ),
+                    if (widget.sportFieldId != null) const SizedBox(height: 16),
+                    if (widget.sportFieldId != null)
+                      ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (ctx) => ConfirmationDialog(
+                              title: 'Potvrda brisanja',
+                              content: 'Jeste li sigurni da želite obrisati ovaj sportski teren?',
+                              confirmButtonText: 'Da',
+                              cancelButtonText: 'Ne',
+                              onConfirm: () async {
+                                try {
+                                  await _sportFieldProvider.delete(widget.sportFieldId!);
+
+                                  if (widget.onRefresh != null) {
+                                    widget.onRefresh!();
+                                  }
+
+                                  if (mounted) {
+                                    Navigator.of(context).pop();
+                                  }
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text('Teren uspješno obrisan.',style: TextStyle(color: Colors.white)),
+                                        backgroundColor: Colors.green
+                                    ),
+                                  );
+                                } catch (e) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text('Greška prilikom brisanja.',
+                                          style: TextStyle(color: Colors.white)
+                                        ),
+                                        backgroundColor: Colors.red
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+                          textStyle: const TextStyle(fontSize: 18),
+                          foregroundColor: Colors.white
+                        ),
+                        child: const Text("Obriši"),
+                      ),
+                  ],
                 ),
               ),
             ],

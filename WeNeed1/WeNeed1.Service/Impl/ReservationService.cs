@@ -6,7 +6,6 @@ using WeNeed1.Model.SearchObjects;
 using WeNeed1.Service.Database;
 
 namespace WeNeed1.Service.Impl;
-
 public class ReservationService: BaseCRUDService<ReservationResponseDto, Reservation, ReservationSearchObject, ReservationRequestDto, ReservationRequestDto>, IReservationService
 {
     
@@ -45,18 +44,18 @@ public class ReservationService: BaseCRUDService<ReservationResponseDto, Reserva
             throw new Exception("Selected time slot is already booked.");
         }
         
-        var userId = _userService.GetCurrentUserAsync().Result.Id; ; 
+        var user = _userService.GetCurrentUserAsync().Result; ; 
         
         var totalPrice = sportsField.PricePerHour;
         
         var entity = new Reservation
         {
-            UserId = userId,
+            UserId = user.Id,
             SportsFieldId = request.SportsFieldId,
             StartTime = startTime,
             EndTime = endTime,
             TotalPrice = totalPrice,
-            Status = ReservationStatus.CREATED
+            Status = ReservationStatus.CREATED,
         };
 
         _context.Reservations.Add(entity);
@@ -82,7 +81,9 @@ public class ReservationService: BaseCRUDService<ReservationResponseDto, Reserva
             query = query.Where(r => r.Status == search.Status.Value);
         }
 
-        return query.Include(r => r.SportsField);
+        return query
+            .Include(r => r.SportsField)
+            .Include(r => r.User);
     }
     
     public List<TimeSpan> GetAvailableSlots(int sportsFieldId, DateTime date)

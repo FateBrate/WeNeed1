@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:managerdesktop/screens/fields.dart';
+import 'package:managerdesktop/screens/settings.dart';
+import 'package:managerdesktop/screens/users_reservations.dart';
 
 import '../screens/login.dart';
 
@@ -44,6 +46,20 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
                             onTap: (){
                                 Navigator.of(context).push(
                                     MaterialPageRoute(builder: (context)=> FieldsScreen(),));
+                            },
+                        ),
+                        ListTile(
+                            title: const Text('Korisnici', style: TextStyle(color: Colors.white)),
+                            onTap: () {
+                                Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context)=> ReservationScreen(),));
+                            },
+                        ),
+                        ListTile(
+                            title: const Text('Postavke', style: TextStyle(color: Colors.white)),
+                            onTap: () {
+                                Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context)=> SettingsScreen(),));
                             },
                         )
                     ],

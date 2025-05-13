@@ -11,5 +11,8 @@ public class ReservationResponseDto
     public int SportsFieldId { get; set; }
     public ReservationStatus Status { get; set; }
     public string? CancellationReason { get; set; }
-    public SportFieldResponseDto? SportFieldResponseDto { get; set; }
+    
+    public string? SportsFieldName { get; set; }
+    public string? UserFirstName { get; set; }
+    public string? UserLastName { get; set; }
 }

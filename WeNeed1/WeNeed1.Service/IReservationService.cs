@@ -13,7 +13,9 @@ public interface IReservationService: ICRUDService<ReservationResponseDto, Reser
     
     Task<ReservationResponseDto> PayReservation(int id);
 
-    Task<List<ManagerReportDto>> GetReportForManagerAsync();
+    Task<ManagerReportDto> GetReportForManagerAsync();
 
     Task<PlayerReportResponseDto> GetPlayerReport(PlayerReportSearchDto reportSearchDto);
+    
+    Task<List<UserResponseDto>> GetUsersWithReservationsForManagerAsync();
 }

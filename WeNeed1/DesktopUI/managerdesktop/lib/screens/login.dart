@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:managerdesktop/services/session_serivce.dart';
-import 'package:provider/provider.dart';
 
 import '../providers/sport_center_provider.dart';
-import '../providers/user_provider.dart';
 import '../utils/utils.dart';
 import 'fields.dart';
 
@@ -24,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
     final password = _passwordController.text;
 
     if (username.isEmpty || password.isEmpty) {
-      _showErrorDialog("Please enter both username and password.");
+      _showErrorDialog("Unesite korisničko ime i lozinku.");
       return;
     }
 
@@ -34,10 +32,6 @@ class _LoginPageState extends State<LoginPage> {
     Authorization.username = username;
     Authorization.password = password;
     try {
-      var userProvider = Provider.of<UserProvider>(context, listen: false);
-
-      var user = await userProvider.getProfile();
-
       var sportsCenterProvider = SportsCenterProvider();
       var sportsCenter = await sportsCenterProvider.getMySportsCenter();
 
@@ -48,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
         MaterialPageRoute(builder: (context) => const FieldsScreen()),
       );
     } catch (e) {
-      _showErrorDialog("Login failed. Please check your credentials.");
+      _showErrorDialog("Nesupješna prijava. Unesite ispravne kredencijale.");
     } finally {
       setState(() {
         _isLoading = false;
@@ -60,12 +54,12 @@ class _LoginPageState extends State<LoginPage> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text("Error"),
+        title: const Text("Greška"),
         content: Text(message),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text("OK"),
+            child: const Text("Uredu"),
           ),
         ],
       ),
@@ -94,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                       TextField(
                         controller: _usernameController,
                         decoration: const InputDecoration(
-                          labelText: 'Username',
+                          labelText: 'Korisničko ime',
                           prefixIcon: Icon(Icons.person),
                           border: OutlineInputBorder(),
                         ),
@@ -104,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                         controller: _passwordController,
                         obscureText: true,
                         decoration: const InputDecoration(
-                          labelText: 'Password',
+                          labelText: 'Lozinka',
                           prefixIcon: Icon(Icons.lock),
                           border: OutlineInputBorder(),
                         ),
@@ -122,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                         horizontal: 50, vertical: 15),
                     textStyle: const TextStyle(fontSize: 18),
                   ),
-                  child: const Text("Login"),
+                  child: const Text("Prijava"),
                 ),
               ],
             ),

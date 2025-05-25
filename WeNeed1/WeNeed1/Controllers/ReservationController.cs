@@ -63,4 +63,12 @@ public class ReservationController : BaseCRUDController<ReservationResponseDto, 
         var result = await _reservationService.GetPlayerReport(search);
         return Ok(result);
     }
+    
+    [HttpGet("reserved-users")]
+    [Authorize(Roles = "MANAGER")]
+    public async Task<ActionResult<List<UserResponseDto>>> GetUsersWithReservations()
+    {
+        var users = await _reservationService.GetUsersWithReservationsForManagerAsync();
+        return Ok(users);
+    }
 }

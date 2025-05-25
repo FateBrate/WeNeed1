@@ -23,5 +23,14 @@ namespace WeNeed1.Controllers
             var profile = await _userService.GetCurrentUserAsync();
             return Ok(profile);
         }
+        
+        [HttpPut("change-password")]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword([FromBody] UserChangePasswordRequest request)
+        {
+            await _userService.ChangePasswordAsync(request);
+            return Ok("Password changed successfully");
+        }
+        
     }
 }

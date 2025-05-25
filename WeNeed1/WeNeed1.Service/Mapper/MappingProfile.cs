@@ -12,6 +12,7 @@ namespace WeNeed1.Service.Mapper
                 .ForMember(dest => dest.SportsCenter, opt => opt.MapFrom(src => src.SportsCenter));
             CreateMap<UserRequestDto, User>();
             CreateMap<UserUpdateDto,User>();
+            CreateMap<User, UserResponseDto>();
 
             CreateMap<Team, TeamResponseDto>();
             CreateMap<TeamRequestDto,Team>();

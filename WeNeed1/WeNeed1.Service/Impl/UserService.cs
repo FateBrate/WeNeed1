@@ -101,5 +101,40 @@ namespace WeNeed1.Service.Impl
 
             return _mapper.Map<Model.User>(user);
         }
+
+        public async Task ChangePasswordAsync(UserChangePasswordRequest userChangePass)
+        {
+            var user = await _context.Users.FindAsync(userChangePass.Id);
+
+            if (user == null)
+                throw new UserException($"User with ID {userChangePass.Id} not found.");
+
+            var currentHash = GenerateHash(user.PasswordSalt, userChangePass.Password);
+            
+            if (user.PasswordHash != currentHash)
+                throw new ApiException("INVALID_PASSWORD", 470);
+
+            user.PasswordSalt = GenerateSalt();
+            user.PasswordHash = GenerateHash(user.PasswordSalt, userChangePass.NewPassword);
+
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+        }
+        
+        public override async  Task<Model.User> Update(int id, UserUpdateDto update)
+        {
+               var user = await _context.Users.FindAsync(id);;
+                if (user != null)
+                {
+                    user.FirstName = update.FirstName;
+                    user.LastName = update.LastName;
+                    user.Email = update.Email;
+                    user.PhoneNumber = update.PhoneNumber;
+                    user.ProfilePicture = update.ProfilePicture;
+                    await _context.SaveChangesAsync();
+                }
+                return _mapper.Map<Model.User>(user);
+        }
     }
+    
 }

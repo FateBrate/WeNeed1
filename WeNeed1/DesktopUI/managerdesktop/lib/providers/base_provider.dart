@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/search_result.dart';
+import '../models/user.dart';
 import '../utils/utils.dart';
 
 abstract class BaseProvider<T> with ChangeNotifier {
@@ -171,4 +172,33 @@ abstract class BaseProvider<T> with ChangeNotifier {
       throw Exception("Delete failed");
     }
   }
+
+  Future<T> patch(int id, {String? pathSuffix = '', dynamic body}) async {
+    var url = "$_baseUrl$_endpoint/$id";
+    if (pathSuffix != null && pathSuffix.isNotEmpty) {
+      url += '/$pathSuffix';
+    }
+
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    String? jsonBody;
+    if (body != null) {
+      if (body is String) {
+        jsonBody = jsonEncode(body);
+      } else {
+        jsonBody = jsonEncode(body);
+      }
+    }
+
+    var response = await http.patch(uri, headers: headers, body: jsonBody);
+
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      return fromJson(data);
+    } else {
+      throw Exception("Patch request failed");
+    }
+  }
+
 }

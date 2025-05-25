@@ -4,6 +4,8 @@ import 'package:managerdesktop/screens/settings.dart';
 import 'package:managerdesktop/screens/users_reservations.dart';
 
 import '../screens/login.dart';
+import '../screens/profile.dart';
+import '../screens/report.dart';
 
 class MasterScreenWidget extends StatefulWidget {
     final Widget? child;
@@ -32,16 +34,6 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
                 child: ListView(
                     children: [
                         ListTile(
-                            title: const Text('Nazad', style: TextStyle(color: Colors.white)),
-                            onTap: () {
-                                Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginPage(),
-                                    ),
-                                );
-                            },
-                        ),
-                        ListTile(
                             title: const Text('Početna', style: TextStyle(color: Colors.white)),
                             onTap: (){
                                 Navigator.of(context).push(
@@ -56,10 +48,34 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
                             },
                         ),
                         ListTile(
+                            title: const Text('Izvještaji', style: TextStyle(color: Colors.white)),
+                            onTap: () {
+                                Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context)=> ReportScreen(),));
+                            },
+                        ),
+                        ListTile(
                             title: const Text('Postavke', style: TextStyle(color: Colors.white)),
                             onTap: () {
                                 Navigator.of(context).push(
                                     MaterialPageRoute(builder: (context)=> SettingsScreen(),));
+                            },
+                        ),
+                        ListTile(
+                            title: const Text('Profil', style: TextStyle(color: Colors.white)),
+                            onTap: () {
+                                Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context)=> ProfileScreen(),));
+                            },
+                        ),
+                        ListTile(
+                            title: const Text('Odjava', style: TextStyle(color: Colors.white)),
+                            onTap: () {
+                                Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage(),
+                                    ),
+                                );
                             },
                         )
                     ],

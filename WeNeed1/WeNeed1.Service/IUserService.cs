@@ -7,5 +7,7 @@ namespace WeNeed1.Service
     {
         Task<Model.User> Login(string username, string password);
         Task<Model.User> GetCurrentUserAsync();
+        
+        Task ChangePasswordAsync(UserChangePasswordRequest userChangePass);
     }
 }

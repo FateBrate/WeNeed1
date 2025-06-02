@@ -166,8 +166,6 @@ class _FieldsScreenState extends State<FieldsScreen> {
                       itemBuilder: (context, index) {
                         if (index < _filteredFields.length) {
                           return _buildFieldCard(_filteredFields[index]);
-                        } else {
-                          return _buildAddNewFieldCard();
                         }
                       },
                     );
@@ -225,43 +223,6 @@ class _FieldsScreenState extends State<FieldsScreen> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-
-  Widget _buildAddNewFieldCard() {
-    return GestureDetector(
-      onTap: () async {
-        var newField = await Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const SportFieldFormScreen(),
-          ),
-        );
-        if (newField != null) {
-          await _sportFieldProvider.insert(newField);
-          _fetchFields();
-        }
-      },
-      child: Card(
-        color: Colors.blue,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.add, color: Colors.white, size: 40),
-              SizedBox(height: 8),
-              Text(
-                "Tekkee",
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              )
-            ],
-          ),
         ),
       ),
     );

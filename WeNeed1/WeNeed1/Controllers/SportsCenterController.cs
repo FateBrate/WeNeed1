@@ -7,6 +7,7 @@ using WeNeed1.Service;
 namespace WeNeed1.Controllers
 {
     [ApiController]
+    [Authorize]
     public class SportsCenterController : BaseCRUDController<SportsCenterResponseDto, BaseSearchObject,
         SportsCenterRequestDto, SportsCenterRequestDto>
     {

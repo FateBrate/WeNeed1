@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WeNeed1.Model.Payloads;
 using WeNeed1.Model.SearchObjects;
 using WeNeed1.Service;
@@ -6,6 +7,7 @@ using WeNeed1.Service;
 namespace WeNeed1.Controllers
 {
     [ApiController]
+    [Authorize]
     public class TeamController : BaseCRUDController<TeamResponseDto,TeamSearchObject,TeamRequestDto,TeamRequestDto>
     {
         private readonly ITeamService _service;

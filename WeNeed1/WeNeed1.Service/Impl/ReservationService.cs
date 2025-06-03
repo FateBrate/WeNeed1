@@ -1,5 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Text;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using RabbitMQ.Client;
 using WeNeed1.Model.Enums;
 using WeNeed1.Model.Payloads;
 using WeNeed1.Model.SearchObjects;
@@ -130,11 +133,40 @@ public class ReservationService: BaseCRUDService<ReservationResponseDto, Reserva
 
         reservation.Status = ReservationStatus.CANCELLED;
         reservation.CancellationReason = cancellationReason;
+        var factory = new ConnectionFactory { HostName = "rabbitmq" };
+        using var connection = factory.CreateConnection();
+        using var channel = connection.CreateModel();
 
+        channel.QueueDeclare(queue: "reservation_cancelled",
+            durable: false,
+            exclusive: false,
+            autoDelete: false,
+            arguments: null);
+
+        var user = await _context.Users.FindAsync(reservation.UserId);
+
+        var emailModel = new
+        {
+            Sender = "oneed3552@gmail.com",
+            Recipient = user?.Email,
+            Subject = "Reservation Cancelled",
+            Content = $"Dear {user?.FirstName} {user?.LastName},\n\n" +
+                      $"Your reservation on {reservation.StartTime:yyyy-MM-dd} at {reservation.StartTime:HH:mm} has been cancelled " +
+                      $"due to the following reason: \"{reservation.CancellationReason}\".\n\nThank you."
+        };
+
+        var message = JsonConvert.SerializeObject(emailModel);
+        var body = Encoding.UTF8.GetBytes(message);
+
+        channel.BasicPublish(
+            exchange: "",
+            routingKey: "reservation_cancelled",
+            basicProperties: null,
+            body: body
+        );
         await _context.SaveChangesAsync();
         return _mapper.Map<ReservationResponseDto>(reservation);
     }
-
 
     public async Task<ReservationResponseDto> FinishReservation(int id)
     {

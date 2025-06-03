@@ -60,6 +60,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var dataContext = scope.ServiceProvider.GetRequiredService<WeNeed1Context>();
+
+    if (!dataContext.Database.CanConnect())
+    {
+        dataContext.Database.Migrate();
+    }
+}
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

@@ -1,5 +1,18 @@
 version: '3'
 services:
+  rabbitMQ:
+    image: rabbitmq:3-management
+    container_name: 'rabbitmq_container'
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - "5672:5672"
+    expose:
+       - 5672
+    networks:
+      - weneed1net
+
   sql:
     image: mcr.microsoft.com/mssql/server:2019-latest
     restart: unless-stopped
@@ -18,14 +31,35 @@ services:
       context: .
       dockerfile: WeNeed1/Dockerfile
     environment:
-        - ASPNETCORE_ENVIRONMENT=Development
-        - ConnectionStrings:AppDatabase=Server=sql,1433;Database=WeNeed1;User=sa;Password=WeNeed1Strong!;TrustServerCertificate=True;ConnectRetryCount=0
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings:DefaultConnection=Server=sql,1433;Database=WeNeed1;User=sa;Password=WeNeed1Strong!;TrustServerCertificate=True;ConnectRetryCount=0
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
     ports:
       - 7155:80
     networks:
-      - weneed1net      
+      - weneed1net
     depends_on:
       - sql
+      - rabbitMQ
+
+  consumer:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: WeNeed1.Consumer/Dockerfile
+    environment:
+      - RabbitMQ_HostName=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RabbitMQ_UserName=guest
+      - RabbitMQ_Password=guest
+    depends_on:
+      - sql
+      - rabbitMQ
+    networks:
+      - weneed1net
 
 networks:
   weneed1net:

@@ -16,7 +16,25 @@ namespace WeNeed1.Model.Enums
         FOOTBALL = 1,
 
         [EnumMember(Value = "BASKETBALL")]
-        BASKETBALL = 2
-       
+        BASKETBALL = 2,
+        
+        [EnumMember(Value = "FUTSAL")]
+        FUTSAL = 3,
+
+        [EnumMember(Value = "VOLLEYBALL")]
+        VOLLEYBALL = 4,
+
+        [EnumMember(Value = "BEACH_VOLLEYBALL")]
+        BEACH_VOLLEYBALL = 5,
+
+        [EnumMember(Value = "MINI_FOOTBALL")]
+        MINI_FOOTBALL = 6,
+
+        [EnumMember(Value = "HANDBALL")]
+        HANDBALL = 7,
+        
+        [EnumMember(Value = "TENNIS")]
+        TENNIS = 8
+        
     }
 }

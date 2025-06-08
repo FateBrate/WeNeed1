@@ -7,6 +7,7 @@ import '../widgets/cancellation_dialog.dart';
 import '../widgets/confirmation_dialog.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/master_screen.dart';
+
 class ReservationScreen extends StatefulWidget {
   const ReservationScreen({super.key});
 
@@ -18,7 +19,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
   final ReservationProvider _provider = ReservationProvider();
   final List<Reservation> _reservations = [];
   String? _selectedStatus;
-
+  final ScrollController _horizontalScrollController = ScrollController();
   final Map<String, String> statusTranslations = {
     "CREATED": "Kreirana",
     "PAYED": "Plaćena",
@@ -121,6 +122,12 @@ class _ReservationScreenState extends State<ReservationScreen> {
   }
 
   @override
+  void dispose() {
+    _horizontalScrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MasterScreenWidget(
       child: Padding(
@@ -196,135 +203,151 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   ],
                 ),
                 const SizedBox(height: 24),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: DataTable(
-                    headingRowColor: MaterialStateProperty.resolveWith<Color>(
-                      (Set<MaterialState> states) => Colors.blue.shade300,
+                Scrollbar(
+                  controller: _horizontalScrollController,
+                  thumbVisibility: true,
+                  trackVisibility: true,
+                  child: SingleChildScrollView(
+                    controller: _horizontalScrollController,
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      headingRowColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) => Colors.blue.shade300,
+                      ),
+                      columns: const [
+                        DataColumn(label: Text('Ime')),
+                        DataColumn(label: Text('Prezime')),
+                        DataColumn(label: Text('Datum')),
+                        DataColumn(label: Text('Početak')),
+                        DataColumn(label: Text('Kraj')),
+                        DataColumn(label: Text('Cena')),
+                        DataColumn(label: Text('Status')),
+                        DataColumn(label: Text('Teren')),
+                        DataColumn(label: Text('Akcija')),
+                      ],
+                      rows:
+                          _reservations.map((r) {
+                            final dateFormat = DateFormat('dd.MM.yyyy');
+                            final timeFormat = DateFormat('HH:mm');
+                            return DataRow(
+                              cells: [
+                                DataCell(Text(r.userFirstName ?? "")),
+                                DataCell(Text(r.userLastName ?? "")),
+                                DataCell(
+                                  Text(
+                                    dateFormat.format(
+                                      r.startTime ?? DateTime(0),
+                                    ),
+                                  ),
+                                ),
+
+                                DataCell(
+                                  Text(
+                                    timeFormat.format(
+                                      r.startTime ?? DateTime(0),
+                                    ),
+                                  ),
+                                ),
+
+                                DataCell(
+                                  Text(
+                                    timeFormat.format(r.endTime ?? DateTime(0)),
+                                  ),
+                                ),
+
+                                DataCell(Text("${r.totalPrice} KM")),
+                                DataCell(
+                                  Text(
+                                    statusTranslations[r.status] ??
+                                        r.status ??
+                                        "",
+                                  ),
+                                ),
+                                DataCell(Text(r.sportsFieldName ?? "")),
+                                DataCell(
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      if (r.status == 'CREATED')
+                                        IconButton(
+                                          icon: const Icon(
+                                            Icons.cancel,
+                                            color: Colors.orange,
+                                          ),
+                                          tooltip: 'Otkaži',
+                                          onPressed:
+                                              () => _showCancellationDialog(
+                                                r.id!,
+                                              ),
+                                        ),
+                                      if (r.status == 'PAYED' ||
+                                          r.status == 'CREATED')
+                                        IconButton(
+                                          icon: const Icon(
+                                            Icons.check_circle,
+                                            color: Colors.green,
+                                          ),
+                                          tooltip: 'Završi',
+                                          onPressed:
+                                              () => showDialog(
+                                                context: context,
+                                                builder:
+                                                    (
+                                                      context,
+                                                    ) => ConfirmationDialog(
+                                                      title:
+                                                          "Potvrda završetka",
+                                                      content:
+                                                          "Da li ste sigurni da želite završiti ovu rezervaciju?",
+                                                      confirmButtonText:
+                                                          "Završi",
+                                                      cancelButtonText:
+                                                          "Otkaži",
+                                                      onConfirm:
+                                                          () =>
+                                                              _finishReservation(
+                                                                r.id!,
+                                                              ),
+                                                    ),
+                                              ),
+                                        ),
+                                      if (r.status == 'CANCELLED' ||
+                                          r.status == 'FINISHED')
+                                        IconButton(
+                                          icon: const Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                          ),
+                                          tooltip: 'Obriši',
+                                          onPressed:
+                                              () => showDialog(
+                                                context: context,
+                                                builder:
+                                                    (
+                                                      context,
+                                                    ) => ConfirmationDialog(
+                                                      title: "Potvrda brisanja",
+                                                      content:
+                                                          "Da li ste sigurni da želite obrisati ovu rezervaciju?",
+                                                      confirmButtonText:
+                                                          "Obriši",
+                                                      cancelButtonText:
+                                                          "Otkaži",
+                                                      onConfirm:
+                                                          () =>
+                                                              _deleteReservation(
+                                                                r.id!,
+                                                              ),
+                                                    ),
+                                              ),
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          }).toList(),
                     ),
-                    columns: const [
-                      DataColumn(label: Text('Ime')),
-                      DataColumn(label: Text('Prezime')),
-                      DataColumn(label: Text('Datum')),
-                      DataColumn(label: Text('Početak')),
-                      DataColumn(label: Text('Kraj')),
-                      DataColumn(label: Text('Cena')),
-                      DataColumn(label: Text('Status')),
-                      DataColumn(label: Text('Teren')),
-                      DataColumn(label: Text('Akcija')),
-                    ],
-                    rows:
-                        _reservations.map((r) {
-                          final dateFormat = DateFormat('dd.MM.yyyy');
-                          final timeFormat = DateFormat('HH:mm');
-                          return DataRow(
-                            cells: [
-                              DataCell(Text(r.userFirstName ?? "")),
-                              DataCell(Text(r.userLastName ?? "")),
-                              DataCell(
-                                Text(
-                                  dateFormat.format(r.startTime ?? DateTime(0)),
-                                ),
-                              ),
-
-                              DataCell(
-                                Text(
-                                  timeFormat.format(r.startTime ?? DateTime(0)),
-                                ),
-                              ),
-
-                              DataCell(
-                                Text(
-                                  timeFormat.format(r.endTime ?? DateTime(0)),
-                                ),
-                              ),
-
-                              DataCell(Text("${r.totalPrice} KM")),
-                              DataCell(
-                                Text(
-                                  statusTranslations[r.status] ??
-                                      r.status ??
-                                      "",
-                                ),
-                              ),
-                              DataCell(Text(r.sportsFieldName ?? "")),
-                              DataCell(
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    if (r.status == 'CREATED')
-                                      IconButton(
-                                        icon: const Icon(
-                                          Icons.cancel,
-                                          color: Colors.orange,
-                                        ),
-                                        tooltip: 'Otkaži',
-                                        onPressed:
-                                            () =>
-                                                _showCancellationDialog(r.id!),
-                                      ),
-                                    if (r.status == 'PAYED' ||
-                                        r.status == 'CREATED')
-                                      IconButton(
-                                        icon: const Icon(
-                                          Icons.check_circle,
-                                          color: Colors.green,
-                                        ),
-                                        tooltip: 'Završi',
-                                        onPressed:
-                                            () => showDialog(
-                                              context: context,
-                                              builder:
-                                                  (
-                                                    context,
-                                                  ) => ConfirmationDialog(
-                                                    title: "Potvrda završetka",
-                                                    content:
-                                                        "Da li ste sigurni da želite završiti ovu rezervaciju?",
-                                                    confirmButtonText: "Završi",
-                                                    cancelButtonText: "Otkaži",
-                                                    onConfirm:
-                                                        () =>
-                                                            _finishReservation(
-                                                              r.id!,
-                                                            ),
-                                                  ),
-                                            ),
-                                      ),
-                                    if (r.status == 'CANCELLED' ||
-                                        r.status == 'FINISHED')
-                                      IconButton(
-                                        icon: const Icon(
-                                          Icons.delete,
-                                          color: Colors.red,
-                                        ),
-                                        tooltip: 'Obriši',
-                                        onPressed:
-                                            () => showDialog(
-                                              context: context,
-                                              builder:
-                                                  (
-                                                    context,
-                                                  ) => ConfirmationDialog(
-                                                    title: "Potvrda brisanja",
-                                                    content:
-                                                        "Da li ste sigurni da želite obrisati ovu rezervaciju?",
-                                                    confirmButtonText: "Obriši",
-                                                    cancelButtonText: "Otkaži",
-                                                    onConfirm:
-                                                        () =>
-                                                            _deleteReservation(
-                                                              r.id!,
-                                                            ),
-                                                  ),
-                                            ),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          );
-                        }).toList(),
                   ),
                 ),
               ],

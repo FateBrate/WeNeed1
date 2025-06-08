@@ -56,7 +56,6 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
         });
       });
     } catch (e) {
-      print("Error loading sport field: $e");
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Greška prilikom učitavanja podataka',style: TextStyle(color: Colors.white),),
@@ -145,7 +144,6 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
               ),
               const SizedBox(height: 16),
 
-              // NAME
               FormBuilderTextField(
                 name: 'name',
                 decoration: const InputDecoration(labelText: "Naziv"),
@@ -155,7 +153,6 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
               ),
               const SizedBox(height: 12),
 
-              // SPORT TYPE
               FormBuilderTextField(
                 name: 'sportType',
                 decoration: const InputDecoration(labelText: "Sport"),
@@ -165,7 +162,6 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
               ),
               const SizedBox(height: 12),
 
-              // DESCRIPTION
               FormBuilderTextField(
                 name: 'description',
                 decoration: const InputDecoration(labelText: "Opis"),
@@ -176,7 +172,6 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
               ),
               const SizedBox(height: 12),
 
-              // PRICE
               FormBuilderTextField(
                 name: 'pricePerHour',
                 decoration: const InputDecoration(labelText: "Cena po satu"),
@@ -191,7 +186,6 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
               ),
               const SizedBox(height: 16),
 
-              // IMAGE
               Text(
                 "Slika",
                 style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -235,7 +229,7 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
               ElevatedButton.icon(
                 onPressed: () async {
                   await getImage();
-                  setState(() {}); // Force rebuild after image is picked
+                  setState(() {});
                 },
                 icon: const Icon(Icons.upload),
                 label: const Text("Izaberi sliku"),
@@ -243,7 +237,6 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
 
               const SizedBox(height: 24),
 
-              // SAVE BUTTON
               Center(
                 child: Column(
                   children: [

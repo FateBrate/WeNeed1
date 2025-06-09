@@ -235,7 +235,7 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
               ElevatedButton.icon(
                 onPressed: () async {
                   await getImage();
-                  setState(() {}); // Force rebuild after image is picked
+                  setState(() {});
                 },
                 icon: const Icon(Icons.upload),
                 label: const Text("Izaberi sliku"),

@@ -8,6 +8,7 @@ import '../models/user.dart';
 import '../models/player_report.dart';
 import '../providers/reservation_provider.dart';
 import '../widgets/master_screen.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -29,8 +30,10 @@ class _ReportScreenState extends State<ReportScreen> {
   @override
   void initState() {
     super.initState();
-    _fetchUsers();
-    _loadManagerReport();
+    initializeDateFormatting('bs_BA', null).then((_) {
+      _fetchUsers();
+      _loadManagerReport();
+    });
   }
 
   Future<void> _fetchUsers() async {
@@ -80,11 +83,11 @@ class _ReportScreenState extends State<ReportScreen> {
         build: (context) => [
           pw.Text('Izvještaj za Sportski Centar', style: pw.TextStyle(fontSize: 24)),
           pw.SizedBox(height: 12),
-          pw.Text('Ukupno rezervacija: ${managerReport!.reservationCount}'),
+          pw.Text('Ukupan broj rezervacija: ${managerReport!.reservationCount}'),
           pw.Text('Ukupan prihod: ${managerReport!.totalAmount?.toStringAsFixed(2)} KM'),
           pw.SizedBox(height: 20),
           pw.Table.fromTextArray(
-            headers: ['Datum', 'Vrijeme', 'Teren', 'Cijena (KM)', 'Status'],
+            headers: ['Datum', 'Vrijeme', 'Teren', 'Cijena (KM)'],
             data: managerReport!.reservations!.map((r) {
               final date = DateFormat('dd.MM.yyyy').format(r.startTime!);
               final time = '${DateFormat('HH:mm').format(r.startTime!)} - ${DateFormat('HH:mm').format(r.endTime!)}';
@@ -93,7 +96,6 @@ class _ReportScreenState extends State<ReportScreen> {
                 time,
                 r.sportsFieldName ?? '',
                 r.totalPrice?.toStringAsFixed(2) ?? '',
-                r.status ?? '',
               ];
             }).toList(),
           ),
@@ -116,11 +118,11 @@ class _ReportScreenState extends State<ReportScreen> {
         build: (context) => [
           pw.Text('${report!.firstName} ${report!.lastName}', style: pw.TextStyle(fontSize: 24)),
           pw.SizedBox(height: 8),
-          pw.Text('Ukupno rezervacija: ${report!.totalReservations}'),
+          pw.Text('Ukupan broj plaćenih rezervacija: ${report!.totalReservations}'),
           pw.Text('Ukupno potrošeno: ${report!.totalAmount} KM'),
           pw.SizedBox(height: 20),
           pw.Table.fromTextArray(
-            headers: ['Datum', 'Vrijeme', 'Teren', 'Cijena (KM)', 'Status'],
+            headers: ['Datum', 'Vrijeme', 'Teren', 'Cijena (KM)'],
             data: report!.reservations!.map((r) {
               final date = DateFormat('dd.MM.yyyy').format(r.startTime!);
               final time =
@@ -130,7 +132,6 @@ class _ReportScreenState extends State<ReportScreen> {
                 time,
                 r.sportsFieldName ?? '',
                 r.totalPrice?.toStringAsFixed(2) ?? '',
-                r.status ?? '',
               ];
             }).toList(),
           ),
@@ -144,7 +145,6 @@ class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
     return MasterScreenWidget(
-      title: "Izvještaji",
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -155,7 +155,7 @@ class _ReportScreenState extends State<ReportScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildKpiCard("Ukupno rezervacija", managerReport!.reservationCount.toString()),
+                    _buildKpiCard("Ukupan broj plaćenih rezervacija", managerReport!.reservationCount.toString()),
                     _buildKpiCard("Ukupan prihod", "${managerReport!.totalAmount?.toStringAsFixed(2)} KM"),
                     _buildKpiCard("Korisnici", users.length.toString()),
                   ],
@@ -169,7 +169,7 @@ class _ReportScreenState extends State<ReportScreen> {
                 SizedBox(height: 24),
               ],
               DropdownButton<User>(
-                hint: Text("Odaberite igrača"),
+                hint: Text("Odaberite korisnika"),
                 value: selectedUser,
                 isExpanded: true,
                 items: users.map((u) {

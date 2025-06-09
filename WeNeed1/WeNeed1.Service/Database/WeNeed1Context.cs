@@ -62,8 +62,6 @@ public partial class WeNeed1Context : DbContext
                .HasForeignKey(t => t.CaptainId)
                .OnDelete(DeleteBehavior.NoAction);
 
-        base.OnModelCreating(modelBuilder);
-
         // Define composite key for UserSquad
         modelBuilder.Entity<UserSquad>()
             .HasKey(us => new { us.UserId, us.SquadId });
@@ -78,9 +76,19 @@ public partial class WeNeed1Context : DbContext
             .HasOne(us => us.Squad)
             .WithMany(s => s.UserSquads)
             .HasForeignKey(us => us.SquadId);
+        
+        SeedUsers(modelBuilder);
+        SeedSportCenters(modelBuilder);
+        SeedSportFields(modelBuilder);
+        SeedReservations(modelBuilder);
+        SeedReviews(modelBuilder);
+        SeedTeams(modelBuilder);
+        SeedUserTeams(modelBuilder);
+        SeedSquads(modelBuilder);
+        SeedUserSquads(modelBuilder);
+        SeedMatches(modelBuilder);
+        SeedComments(modelBuilder);
     }       
-
-
-
+    
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

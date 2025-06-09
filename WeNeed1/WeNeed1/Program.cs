@@ -68,6 +68,9 @@ using (var scope = app.Services.CreateScope())
     {
         dataContext.Database.Migrate();
     }
+    
+    var imageSeeder = new ImageSeeder(dataContext);
+    imageSeeder.Seed();
 }
 
 app.UseHttpsRedirection();

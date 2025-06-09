@@ -180,8 +180,8 @@ class _ReservationScreenState extends State<ReservationScreen> {
                           scrollDirection: Axis.horizontal,
                           child: DataTable(
                             headingRowColor:
-                            MaterialStateProperty.resolveWith<Color>(
-                                  (Set<MaterialState> states) =>
+                            WidgetStateProperty.resolveWith<Color>(
+                                  (Set<WidgetState> states) =>
                               Colors.blue.shade300,
                             ),
                             columns: const [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:managerdesktop/screens/register.dart';
 import 'package:managerdesktop/services/session_serivce.dart';
 
 import '../providers/sport_center_provider.dart';
@@ -118,6 +119,28 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   child: const Text("Prijava"),
                 ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Nema registrovan nalog? "),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const RegisterPage()),
+                        );
+                      },
+                      child: const Text(
+                        "Registrujte se",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
               ],
             ),
           ),

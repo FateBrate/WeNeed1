@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/search_result.dart';
-import '../models/user.dart';
 import '../utils/utils.dart';
 
 abstract class BaseProvider<T> with ChangeNotifier {
@@ -44,6 +43,33 @@ abstract class BaseProvider<T> with ChangeNotifier {
       return result;
     } else {
       throw new Exception("Unknown error");
+    }
+  }
+
+  Future<SearchResult<T>> getPaged({dynamic filter, int page = 0, int pageSize = 10}) async {
+    var queryString = '${getQueryString(filter ?? {})}&page=$page&pageSize=$pageSize';
+
+    var url = "$baseUrl$_endpoint?$queryString";
+
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var response = await http.get(uri, headers: headers);
+
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+
+      var result = SearchResult<T>();
+
+      result.count = data['count'];
+
+      for (var item in data['result']) {
+        result.result.add(fromJson(item));
+      }
+
+      return result;
+    } else {
+      throw Exception("Unknown error");
     }
   }
 

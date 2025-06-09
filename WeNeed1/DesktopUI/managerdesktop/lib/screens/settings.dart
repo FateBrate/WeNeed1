@@ -40,7 +40,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         isLoading = false;
       });
     } catch (e) {
-      print("Greška u očitavanju sportski terena: $e");
       setState(() => isLoading = false);
     }
   }
@@ -87,7 +86,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         CustomSnackbar.show(context, 'Postavke su sačuvane', SnackbarType.success);
       }
     } catch (e) {
-      print("Error saving settings: $e");
       if (mounted) {
         CustomSnackbar.show(context, 'Greška prilikom spremanja', SnackbarType.error);
       }
@@ -122,9 +120,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: _base64Image != null
+                    child: _base64Image != null && _base64Image!.isNotEmpty
                         ? Image.memory(base64Decode(_base64Image!), height: 180, fit: BoxFit.cover)
-                        : Image.asset("assets/images/placeholder_field.jpg", height: 180),
+                        : Image.asset("assets/images/placeholder_center.png", height: 180),
                   ),
                   TextButton.icon(
                     onPressed: getImage,

@@ -20,7 +20,10 @@ public partial class Reservation
     public ReservationStatus Status { get; set; }
     
     [MaxLength(500)]
-    public string? CancellationReason { get; set; } 
+    public string? CancellationReason { get; set; }
+    
+    [MaxLength(255)]
+    public string? TransactionId { get; set; }
 
     public virtual SportsField? SportsField { get; set; }
 

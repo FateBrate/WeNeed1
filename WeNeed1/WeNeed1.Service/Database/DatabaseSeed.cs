@@ -487,6 +487,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 10,
             JoinCode = null,
             Sport = Sport.FUTSAL,
+            City = "Mostar",
             TeamPicture = null
         },
         new Team
@@ -498,6 +499,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 10,
             JoinCode = "JOIN2",
             Sport = Sport.BEACH_VOLLEYBALL,
+            City = "Mostar",
             TeamPicture = null
         },
         new Team
@@ -509,6 +511,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 11,
             JoinCode = null,
             Sport = Sport.BASKETBALL,
+            City = "Travnik",
             TeamPicture = null
         },
         new Team
@@ -520,6 +523,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 11,
             JoinCode = "JOIN4",
             Sport = Sport.TENNIS,
+            City = "Travnik",
             TeamPicture = null
         },
         new Team
@@ -531,6 +535,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 12,
             JoinCode = null,
             Sport = Sport.VOLLEYBALL,
+            City = "Sarajevo",
             TeamPicture = null
         },
         new Team
@@ -542,6 +547,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 12,
             JoinCode = "JOIN6",
             Sport = Sport.HANDBALL,
+            City = "Sarajevo",
             TeamPicture = null
         },
         new Team
@@ -553,6 +559,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 13,
             JoinCode = null,
             Sport = Sport.FUTSAL,
+            City = "Sarajevo",
             TeamPicture = null
         },
         new Team
@@ -564,6 +571,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 13,
             JoinCode = "JOIN8",
             Sport = Sport.BASKETBALL,
+            City = "Zenica",
             TeamPicture = null
         },
         new Team
@@ -575,6 +583,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 14,
             JoinCode = null,
             Sport = Sport.BEACH_VOLLEYBALL,
+            City = "Zenica",
             TeamPicture = null
         },
         new Team
@@ -586,6 +595,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 14,
             JoinCode = "JOIN10",
             Sport = Sport.MINI_FOOTBALL,
+            City = "Tuzla",
             TeamPicture = null
         },
         new Team
@@ -597,6 +607,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 15,
             JoinCode = null,
             Sport = Sport.VOLLEYBALL,
+            City = "Tuzla",
             TeamPicture = null
         },
         new Team
@@ -608,6 +619,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 15,
             JoinCode = "JOIN12",
             Sport = Sport.HANDBALL,
+            City = "Tuzla",
             TeamPicture = null
         }
     );

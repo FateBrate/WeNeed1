@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WeNeed1.Model.Enums;
 
@@ -22,6 +23,9 @@ public partial class Team
     [ForeignKey("CaptainId")]
     public virtual User? Captain { get; set; }
     public string? JoinCode { get; set; }
+
+    [MaxLength(50)]
+    public string? City { get; set; }
 
     public byte[]? TeamPicture { get; set; }
 

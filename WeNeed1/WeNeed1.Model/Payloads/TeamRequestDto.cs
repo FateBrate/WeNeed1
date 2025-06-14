@@ -17,5 +17,7 @@ namespace WeNeed1.Model.Payloads
         public Sport? Sport { get; set; }
         public string? Description { get; set; }
         public bool? IsPublic { get; set; } 
+
+        public string? City { get; set; }
     }
 }

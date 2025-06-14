@@ -1,15 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WeNeed1.Model.Exceptions;
 using WeNeed1.Model.Payloads;
 using WeNeed1.Model.SearchObjects;
 using WeNeed1.Service.Database;
-using User = WeNeed1.Model.User;
 
 namespace WeNeed1.Service.Impl
 {
@@ -21,6 +15,28 @@ namespace WeNeed1.Service.Impl
         {
             _userService = userService;
         }
+
+        public override IQueryable<Team> AddFilter(IQueryable<Team> query, TeamSearchObject search)
+        {
+            query = query.Include(t => t.UserTeams);
+
+            if (search.Sport != null)
+                query = query.Where(t => t.Sport == search.Sport);
+
+            if (!string.IsNullOrEmpty(search.City))
+                query = query.Where(t => t.City != null && t.City.Equals(search.City, StringComparison.OrdinalIgnoreCase));
+
+            if (!string.IsNullOrEmpty(search.Name))
+                query = query.Where(t => t.Name != null && t.Name.Contains(search.Name, StringComparison.OrdinalIgnoreCase));
+
+            if (search.NotMember == true && search.UserId != null)
+                query = query.Where(t => !t.UserTeams.Any(ut => ut.UserId == search.UserId));
+            else if (search.UserId != null)
+                query = query.Where(t => t.UserTeams.Any(ut => ut.UserId == search.UserId));
+
+            return query;
+        }
+
         public override async Task<TeamResponseDto> GetById(int id)
         {
             var team = await _context.Teams
@@ -148,6 +164,20 @@ namespace WeNeed1.Service.Impl
 
             _context.UserTeams.Remove(userTeam);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<TeamResponseDto>> GetTeamsForCurrentUserAsync()
+        {
+            var currentUser = await _userService.GetCurrentUserAsync();
+            var userId = currentUser.Id;
+
+            var teamsQuery = _context.Set<Team>().Where(t =>
+                t.UserTeams.Any(ut => ut.UserId == userId));
+
+            var teamsList = await teamsQuery.ToListAsync();
+            var dtoList = _mapper.Map<List<TeamResponseDto>>(teamsList);
+
+            return dtoList;
         }
 
     }

@@ -14,10 +14,10 @@ namespace WeNeed1.Service.Mapper
             CreateMap<UserUpdateDto,User>();
             CreateMap<User, UserResponseDto>();
 
-            CreateMap<Team, TeamResponseDto>();
             CreateMap<TeamRequestDto,Team>();
             CreateMap<Team, TeamResponseDto>()
-                .ForMember(dest => dest.TeamMembers, opt => opt.MapFrom(src => src.UserTeams.Select(ut => ut.User)));
+                       .ForMember(dest => dest.MemberCount, opt => opt.MapFrom(src => src.UserTeams.Count))
+                       .ForMember(dest => dest.TeamMembers, opt => opt.MapFrom(src => src.UserTeams.Select(ut => ut.User)));
 
             CreateMap<Squad, SquadResponseDto>()
                 .ForMember(dest => dest.UserSquads, opt => opt.MapFrom(src => src.UserSquads.Select(us => us.User)));

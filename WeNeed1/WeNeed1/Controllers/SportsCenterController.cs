@@ -8,11 +8,11 @@ namespace WeNeed1.Controllers
 {
     [ApiController]
     [Authorize]
-    public class SportsCenterController : BaseCRUDController<SportsCenterResponseDto, BaseSearchObject,
+    public class SportsCenterController : BaseCRUDController<SportsCenterResponseDto, SportCenterSearchObject,
         SportsCenterRequestDto, SportsCenterRequestDto>
     {
         private readonly ISportsCenterService _sportsCenterService;
-        public SportsCenterController(ILogger<BaseController<SportsCenterResponseDto, BaseSearchObject>> logger,
+        public SportsCenterController(ILogger<BaseController<SportsCenterResponseDto, SportCenterSearchObject>> logger,
             ISportsCenterService service) : base(logger, service)
         {
             _sportsCenterService = service;

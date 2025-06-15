@@ -10,7 +10,7 @@ void main() {
     child: const MyMaterialApp(),
   ));
 }
-
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -100,6 +100,7 @@ class MyMaterialApp extends StatelessWidget {
 
 
       home: const LoginPage(),
+      navigatorObservers: [routeObserver],
     );
   }
 }

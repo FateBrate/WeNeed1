@@ -11,8 +11,10 @@ class Team {
   bool? isPublic;
   String? joinCode;
   String? teamPicture;
+  String? city;
   int? captainId;
   int? memberCount;
+  bool isMember;
 
   Team({
     this.id,
@@ -22,8 +24,10 @@ class Team {
     this.isPublic,
     this.joinCode,
     this.teamPicture,
+    this.city,
     this.captainId,
     this.memberCount,
+    required this.isMember
   });
 
   factory Team.fromJson(Map<String, dynamic> json) => _$TeamFromJson(json);

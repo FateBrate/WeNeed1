@@ -58,20 +58,24 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(width: 12),
-                RichText(
-                  text: TextSpan(
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge!
-                        .copyWith(color: Colors.white),
-                    children: [
-                      const TextSpan(text: "Dobrodošli, "),
-                      TextSpan(
-                        text: "${_user!.firstName} ${_user!.lastName}",
-                        style:
-                        const TextStyle(color: Colors.blueAccent),
-                      ),
-                    ],
+                Expanded( // <-- FIX OVDE
+                  child: RichText(
+                    text: TextSpan(
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .titleLarge!
+                          .copyWith(color: Colors.white),
+                      children: [
+                        const TextSpan(text: "Dobrodošli, "),
+                        TextSpan(
+                          text:
+                          "${_user!.firstName} ${_user!.lastName}",
+                          style: const TextStyle(
+                              color: Colors.blueAccent),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -133,22 +137,27 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
-                  Text(
-                    "Pronađi novi team i zakaži termin",
-                    style:
-                    TextStyle(fontSize: 16, color: Colors.white70),
+                  Expanded(
+                    child: Text(
+                      "Pronađi novi team",
+                      style: TextStyle(
+                          fontSize: 16, color: Colors.white70),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
+                  SizedBox(width: 8),
                   Icon(
                     Icons.play_arrow,
                     color: Colors.blueAccent,
                     size: 32,
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 }
+

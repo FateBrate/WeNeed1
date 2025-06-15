@@ -14,8 +14,10 @@ Team _$TeamFromJson(Map<String, dynamic> json) => Team(
   isPublic: json['isPublic'] as bool?,
   joinCode: json['joinCode'] as String?,
   teamPicture: json['teamPicture'] as String?,
+  city: json['city'] as String?,
   captainId: (json['captainId'] as num?)?.toInt(),
   memberCount: (json['memberCount'] as num?)?.toInt(),
+  isMember: json['isMember'] as bool,
 );
 
 Map<String, dynamic> _$TeamToJson(Team instance) => <String, dynamic>{
@@ -26,6 +28,8 @@ Map<String, dynamic> _$TeamToJson(Team instance) => <String, dynamic>{
   'isPublic': instance.isPublic,
   'joinCode': instance.joinCode,
   'teamPicture': instance.teamPicture,
+  'city': instance.city,
   'captainId': instance.captainId,
   'memberCount': instance.memberCount,
+  'isMember': instance.isMember,
 };

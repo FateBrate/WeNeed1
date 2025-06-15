@@ -309,6 +309,10 @@ namespace WeNeed1.Service.Migrations
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("TransactionId")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -324,9 +328,9 @@ namespace WeNeed1.Service.Migrations
                         new
                         {
                             Id = 201,
-                            EndTime = new DateTime(2025, 6, 13, 11, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 14, 11, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 100,
-                            StartTime = new DateTime(2025, 6, 13, 10, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 14, 10, 0, 0, 0, DateTimeKind.Local),
                             Status = 2,
                             TotalPrice = 20m,
                             UserId = 10
@@ -335,9 +339,9 @@ namespace WeNeed1.Service.Migrations
                         {
                             Id = 202,
                             CancellationReason = "Nevrijeme",
-                            EndTime = new DateTime(2025, 6, 14, 13, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 15, 13, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 101,
-                            StartTime = new DateTime(2025, 6, 14, 12, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 15, 12, 0, 0, 0, DateTimeKind.Local),
                             Status = 3,
                             TotalPrice = 25m,
                             UserId = 12
@@ -345,9 +349,9 @@ namespace WeNeed1.Service.Migrations
                         new
                         {
                             Id = 203,
-                            EndTime = new DateTime(2025, 6, 13, 15, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 14, 15, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 102,
-                            StartTime = new DateTime(2025, 6, 13, 14, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 14, 14, 0, 0, 0, DateTimeKind.Local),
                             Status = 1,
                             TotalPrice = 30m,
                             UserId = 13
@@ -355,9 +359,9 @@ namespace WeNeed1.Service.Migrations
                         new
                         {
                             Id = 204,
-                            EndTime = new DateTime(2025, 6, 13, 18, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 14, 18, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 103,
-                            StartTime = new DateTime(2025, 6, 13, 17, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 14, 17, 0, 0, 0, DateTimeKind.Local),
                             Status = 4,
                             TotalPrice = 35m,
                             UserId = 14
@@ -365,9 +369,9 @@ namespace WeNeed1.Service.Migrations
                         new
                         {
                             Id = 205,
-                            EndTime = new DateTime(2025, 6, 12, 17, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 13, 17, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 104,
-                            StartTime = new DateTime(2025, 6, 12, 16, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 13, 16, 0, 0, 0, DateTimeKind.Local),
                             Status = 2,
                             TotalPrice = 22m,
                             UserId = 11
@@ -376,9 +380,9 @@ namespace WeNeed1.Service.Migrations
                         {
                             Id = 206,
                             CancellationReason = "Nevrijeme",
-                            EndTime = new DateTime(2025, 6, 11, 14, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 12, 14, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 105,
-                            StartTime = new DateTime(2025, 6, 11, 13, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 12, 13, 0, 0, 0, DateTimeKind.Local),
                             Status = 3,
                             TotalPrice = 20m,
                             UserId = 12
@@ -386,9 +390,9 @@ namespace WeNeed1.Service.Migrations
                         new
                         {
                             Id = 207,
-                            EndTime = new DateTime(2025, 6, 13, 19, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 14, 19, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 106,
-                            StartTime = new DateTime(2025, 6, 13, 18, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 14, 18, 0, 0, 0, DateTimeKind.Local),
                             Status = 1,
                             TotalPrice = 28m,
                             UserId = 13
@@ -396,9 +400,9 @@ namespace WeNeed1.Service.Migrations
                         new
                         {
                             Id = 208,
-                            EndTime = new DateTime(2025, 6, 13, 21, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 14, 21, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 107,
-                            StartTime = new DateTime(2025, 6, 13, 20, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 14, 20, 0, 0, 0, DateTimeKind.Local),
                             Status = 4,
                             TotalPrice = 18m,
                             UserId = 14
@@ -406,9 +410,9 @@ namespace WeNeed1.Service.Migrations
                         new
                         {
                             Id = 209,
-                            EndTime = new DateTime(2025, 6, 15, 15, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 16, 15, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 108,
-                            StartTime = new DateTime(2025, 6, 15, 14, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 16, 14, 0, 0, 0, DateTimeKind.Local),
                             Status = 1,
                             TotalPrice = 24m,
                             UserId = 10
@@ -416,9 +420,9 @@ namespace WeNeed1.Service.Migrations
                         new
                         {
                             Id = 2010,
-                            EndTime = new DateTime(2025, 6, 14, 16, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 15, 16, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 109,
-                            StartTime = new DateTime(2025, 6, 14, 15, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 15, 15, 0, 0, 0, DateTimeKind.Local),
                             Status = 2,
                             TotalPrice = 32m,
                             UserId = 11
@@ -427,9 +431,9 @@ namespace WeNeed1.Service.Migrations
                         {
                             Id = 2011,
                             CancellationReason = "Kvar na mreži",
-                            EndTime = new DateTime(2025, 6, 16, 11, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 17, 11, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 100,
-                            StartTime = new DateTime(2025, 6, 16, 10, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 17, 10, 0, 0, 0, DateTimeKind.Local),
                             Status = 3,
                             TotalPrice = 20m,
                             UserId = 12
@@ -437,9 +441,9 @@ namespace WeNeed1.Service.Migrations
                         new
                         {
                             Id = 2012,
-                            EndTime = new DateTime(2025, 6, 10, 13, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 11, 13, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 101,
-                            StartTime = new DateTime(2025, 6, 10, 12, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 11, 12, 0, 0, 0, DateTimeKind.Local),
                             Status = 4,
                             TotalPrice = 25m,
                             UserId = 13
@@ -447,9 +451,9 @@ namespace WeNeed1.Service.Migrations
                         new
                         {
                             Id = 2013,
-                            EndTime = new DateTime(2025, 6, 12, 11, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 13, 11, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 102,
-                            StartTime = new DateTime(2025, 6, 12, 10, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 13, 10, 0, 0, 0, DateTimeKind.Local),
                             Status = 1,
                             TotalPrice = 30m,
                             UserId = 14
@@ -457,9 +461,9 @@ namespace WeNeed1.Service.Migrations
                         new
                         {
                             Id = 2014,
-                            EndTime = new DateTime(2025, 6, 13, 12, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 14, 12, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 103,
-                            StartTime = new DateTime(2025, 6, 13, 11, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 14, 11, 0, 0, 0, DateTimeKind.Local),
                             Status = 2,
                             TotalPrice = 35m,
                             UserId = 10
@@ -468,9 +472,9 @@ namespace WeNeed1.Service.Migrations
                         {
                             Id = 2015,
                             CancellationReason = "Kvar na grijanju",
-                            EndTime = new DateTime(2025, 6, 14, 14, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 15, 14, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 104,
-                            StartTime = new DateTime(2025, 6, 14, 13, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 15, 13, 0, 0, 0, DateTimeKind.Local),
                             Status = 3,
                             TotalPrice = 22m,
                             UserId = 11
@@ -478,9 +482,9 @@ namespace WeNeed1.Service.Migrations
                         new
                         {
                             Id = 2016,
-                            EndTime = new DateTime(2025, 6, 13, 15, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 14, 15, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 105,
-                            StartTime = new DateTime(2025, 6, 13, 14, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 14, 14, 0, 0, 0, DateTimeKind.Local),
                             Status = 4,
                             TotalPrice = 20m,
                             UserId = 12
@@ -488,9 +492,9 @@ namespace WeNeed1.Service.Migrations
                         new
                         {
                             Id = 2017,
-                            EndTime = new DateTime(2025, 6, 15, 18, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 16, 18, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 106,
-                            StartTime = new DateTime(2025, 6, 15, 17, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 16, 17, 0, 0, 0, DateTimeKind.Local),
                             Status = 2,
                             TotalPrice = 28m,
                             UserId = 13
@@ -498,9 +502,9 @@ namespace WeNeed1.Service.Migrations
                         new
                         {
                             Id = 2018,
-                            EndTime = new DateTime(2025, 6, 12, 19, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 13, 19, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 107,
-                            StartTime = new DateTime(2025, 6, 12, 18, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 13, 18, 0, 0, 0, DateTimeKind.Local),
                             Status = 1,
                             TotalPrice = 18m,
                             UserId = 14
@@ -509,9 +513,9 @@ namespace WeNeed1.Service.Migrations
                         {
                             Id = 2019,
                             CancellationReason = "Nevrijeme",
-                            EndTime = new DateTime(2025, 6, 13, 20, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 14, 20, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 108,
-                            StartTime = new DateTime(2025, 6, 13, 19, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 14, 19, 0, 0, 0, DateTimeKind.Local),
                             Status = 3,
                             TotalPrice = 24m,
                             UserId = 11
@@ -519,9 +523,9 @@ namespace WeNeed1.Service.Migrations
                         new
                         {
                             Id = 2020,
-                            EndTime = new DateTime(2025, 6, 14, 21, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2025, 6, 15, 21, 0, 0, 0, DateTimeKind.Local),
                             SportsFieldId = 109,
-                            StartTime = new DateTime(2025, 6, 14, 20, 0, 0, 0, DateTimeKind.Local),
+                            StartTime = new DateTime(2025, 6, 15, 20, 0, 0, 0, DateTimeKind.Local),
                             Status = 4,
                             TotalPrice = 32m,
                             UserId = 12
@@ -868,7 +872,7 @@ namespace WeNeed1.Service.Migrations
                         {
                             Id = 101,
                             Content = "Sjajno iskustvo, teren je bio vrhunski pripremljen!.",
-                            Created = new DateTime(2025, 6, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            Created = new DateTime(2025, 6, 4, 0, 0, 0, 0, DateTimeKind.Local),
                             Rating = 4.5m,
                             SportsCenterId = 5,
                             UserId = 10
@@ -877,7 +881,7 @@ namespace WeNeed1.Service.Migrations
                         {
                             Id = 102,
                             Content = "Osoblje je bilo ljubazno i susretljivo. Preporučujem svima!",
-                            Created = new DateTime(2025, 6, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            Created = new DateTime(2025, 6, 6, 0, 0, 0, 0, DateTimeKind.Local),
                             Rating = 5.0m,
                             SportsCenterId = 6,
                             UserId = 11
@@ -886,7 +890,7 @@ namespace WeNeed1.Service.Migrations
                         {
                             Id = 103,
                             Content = "Odlična atmosfera i dobro održavani tereni.",
-                            Created = new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Local),
+                            Created = new DateTime(2025, 6, 8, 0, 0, 0, 0, DateTimeKind.Local),
                             Rating = 3.8m,
                             SportsCenterId = 7,
                             UserId = 12
@@ -895,7 +899,7 @@ namespace WeNeed1.Service.Migrations
                         {
                             Id = 104,
                             Content = "Rezervacija je prošla glatko i bez ikakvih problema.",
-                            Created = new DateTime(2025, 6, 9, 0, 0, 0, 0, DateTimeKind.Local),
+                            Created = new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Local),
                             Rating = 4.2m,
                             SportsCenterId = 8,
                             UserId = 13
@@ -904,7 +908,7 @@ namespace WeNeed1.Service.Migrations
                         {
                             Id = 105,
                             Content = "Malo skuplje, ali vrijedno svake marke..",
-                            Created = new DateTime(2025, 6, 11, 0, 0, 0, 0, DateTimeKind.Local),
+                            Created = new DateTime(2025, 6, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             Rating = 3.5m,
                             SportsCenterId = 9,
                             UserId = 14
@@ -913,7 +917,7 @@ namespace WeNeed1.Service.Migrations
                         {
                             Id = 106,
                             Content = "Fantastic experience overall.",
-                            Created = new DateTime(2025, 6, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            Created = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Local),
                             Rating = 4.8m,
                             SportsCenterId = 6,
                             UserId = 10
@@ -922,7 +926,7 @@ namespace WeNeed1.Service.Migrations
                         {
                             Id = 107,
                             Content = "Tereni su bili čisti, ali svlačionice bi mogle biti bolje.",
-                            Created = new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Local),
+                            Created = new DateTime(2025, 6, 11, 0, 0, 0, 0, DateTimeKind.Local),
                             Rating = 4.7m,
                             SportsCenterId = 7,
                             UserId = 11
@@ -931,7 +935,7 @@ namespace WeNeed1.Service.Migrations
                         {
                             Id = 108,
                             Content = "Kvalitet opreme je bio iznad očekivanja.",
-                            Created = new DateTime(2025, 6, 6, 0, 0, 0, 0, DateTimeKind.Local),
+                            Created = new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Local),
                             Rating = 4.0m,
                             SportsCenterId = 8,
                             UserId = 12
@@ -940,7 +944,7 @@ namespace WeNeed1.Service.Migrations
                         {
                             Id = 109,
                             Content = "Could use better lighting at night.",
-                            Created = new DateTime(2025, 6, 8, 0, 0, 0, 0, DateTimeKind.Local),
+                            Created = new DateTime(2025, 6, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             Rating = 3.9m,
                             SportsCenterId = 9,
                             UserId = 13
@@ -949,7 +953,7 @@ namespace WeNeed1.Service.Migrations
                         {
                             Id = 1010,
                             Content = "Definitivno ću se ponovo vratiti!",
-                            Created = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Local),
+                            Created = new DateTime(2025, 6, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             Rating = 5.0m,
                             SportsCenterId = 5,
                             UserId = 14
@@ -1573,8 +1577,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "jasmin.smajic@gmail.com",
                             FirstName = "Jasmin",
                             LastName = "Smajic",
-                            PasswordHash = "Eo2GuDhzexN1H9L1ETi4ehX6RmdaJm5KKcKTFbPzLdo=",
-                            PasswordSalt = "RsZOQ6Xpr0ebU83NGpW25FB5iogS5H0YdcN6NOvmy3qANEqAHnWuzhz2kaWUTcZmYOZ+X2AsQP8Z8aXOjyxzsg==",
+                            PasswordHash = "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=",
+                            PasswordSalt = "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==",
                             PhoneNumber = "061111111",
                             Role = 1,
                             UserName = "jasmin"
@@ -1585,8 +1589,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "fatih.drek@gmail.com",
                             FirstName = "Fatih",
                             LastName = "Drek",
-                            PasswordHash = "Eo2GuDhzexN1H9L1ETi4ehX6RmdaJm5KKcKTFbPzLdo=",
-                            PasswordSalt = "RsZOQ6Xpr0ebU83NGpW25FB5iogS5H0YdcN6NOvmy3qANEqAHnWuzhz2kaWUTcZmYOZ+X2AsQP8Z8aXOjyxzsg==",
+                            PasswordHash = "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=",
+                            PasswordSalt = "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==",
                             PhoneNumber = "062222222",
                             Role = 1,
                             UserName = "fatih"
@@ -1597,8 +1601,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "mehmed.dervisic@gmail.com",
                             FirstName = "Mehmed",
                             LastName = "Dervisic",
-                            PasswordHash = "Eo2GuDhzexN1H9L1ETi4ehX6RmdaJm5KKcKTFbPzLdo=",
-                            PasswordSalt = "RsZOQ6Xpr0ebU83NGpW25FB5iogS5H0YdcN6NOvmy3qANEqAHnWuzhz2kaWUTcZmYOZ+X2AsQP8Z8aXOjyxzsg==",
+                            PasswordHash = "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=",
+                            PasswordSalt = "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==",
                             PhoneNumber = "063333333",
                             Role = 1,
                             UserName = "mehmed"
@@ -1609,8 +1613,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "amra.hadzic@gmail.com",
                             FirstName = "Amra",
                             LastName = "Hadzic",
-                            PasswordHash = "Eo2GuDhzexN1H9L1ETi4ehX6RmdaJm5KKcKTFbPzLdo=",
-                            PasswordSalt = "RsZOQ6Xpr0ebU83NGpW25FB5iogS5H0YdcN6NOvmy3qANEqAHnWuzhz2kaWUTcZmYOZ+X2AsQP8Z8aXOjyxzsg==",
+                            PasswordHash = "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=",
+                            PasswordSalt = "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==",
                             PhoneNumber = "064444444",
                             Role = 1,
                             UserName = "amra"
@@ -1621,8 +1625,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "tarik.kljucanin@gmail.com",
                             FirstName = "Tarik",
                             LastName = "Kljucanin",
-                            PasswordHash = "Eo2GuDhzexN1H9L1ETi4ehX6RmdaJm5KKcKTFbPzLdo=",
-                            PasswordSalt = "RsZOQ6Xpr0ebU83NGpW25FB5iogS5H0YdcN6NOvmy3qANEqAHnWuzhz2kaWUTcZmYOZ+X2AsQP8Z8aXOjyxzsg==",
+                            PasswordHash = "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=",
+                            PasswordSalt = "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==",
                             PhoneNumber = "065555555",
                             Role = 1,
                             UserName = "tarik"
@@ -1633,8 +1637,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "haris.orahovcic@gmail.com",
                             FirstName = "Haris",
                             LastName = "Orahovcic",
-                            PasswordHash = "Eo2GuDhzexN1H9L1ETi4ehX6RmdaJm5KKcKTFbPzLdo=",
-                            PasswordSalt = "RsZOQ6Xpr0ebU83NGpW25FB5iogS5H0YdcN6NOvmy3qANEqAHnWuzhz2kaWUTcZmYOZ+X2AsQP8Z8aXOjyxzsg==",
+                            PasswordHash = "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=",
+                            PasswordSalt = "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==",
                             PhoneNumber = "066666666",
                             Rating = 4.7000000000000002,
                             Role = 2,
@@ -1646,8 +1650,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "selma.kovacevic@gmail.com",
                             FirstName = "Selma",
                             LastName = "Kovacevic",
-                            PasswordHash = "Eo2GuDhzexN1H9L1ETi4ehX6RmdaJm5KKcKTFbPzLdo=",
-                            PasswordSalt = "RsZOQ6Xpr0ebU83NGpW25FB5iogS5H0YdcN6NOvmy3qANEqAHnWuzhz2kaWUTcZmYOZ+X2AsQP8Z8aXOjyxzsg==",
+                            PasswordHash = "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=",
+                            PasswordSalt = "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==",
                             PhoneNumber = "067777777",
                             Rating = 4.9000000000000004,
                             Role = 2,
@@ -1659,8 +1663,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "adnan.avdic@gmail.com",
                             FirstName = "Adnan",
                             LastName = "Avdic",
-                            PasswordHash = "Eo2GuDhzexN1H9L1ETi4ehX6RmdaJm5KKcKTFbPzLdo=",
-                            PasswordSalt = "RsZOQ6Xpr0ebU83NGpW25FB5iogS5H0YdcN6NOvmy3qANEqAHnWuzhz2kaWUTcZmYOZ+X2AsQP8Z8aXOjyxzsg==",
+                            PasswordHash = "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=",
+                            PasswordSalt = "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==",
                             PhoneNumber = "068888888",
                             Rating = 4.2999999999999998,
                             Role = 2,
@@ -1672,8 +1676,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "lejla.mujic@gmail.com",
                             FirstName = "Lejla",
                             LastName = "Mujic",
-                            PasswordHash = "Eo2GuDhzexN1H9L1ETi4ehX6RmdaJm5KKcKTFbPzLdo=",
-                            PasswordSalt = "RsZOQ6Xpr0ebU83NGpW25FB5iogS5H0YdcN6NOvmy3qANEqAHnWuzhz2kaWUTcZmYOZ+X2AsQP8Z8aXOjyxzsg==",
+                            PasswordHash = "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=",
+                            PasswordSalt = "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==",
                             PhoneNumber = "069999999",
                             Rating = 4.7999999999999998,
                             Role = 2,
@@ -1685,8 +1689,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "nermin.besic@gmail.com",
                             FirstName = "Nermin",
                             LastName = "Besic",
-                            PasswordHash = "Eo2GuDhzexN1H9L1ETi4ehX6RmdaJm5KKcKTFbPzLdo=",
-                            PasswordSalt = "RsZOQ6Xpr0ebU83NGpW25FB5iogS5H0YdcN6NOvmy3qANEqAHnWuzhz2kaWUTcZmYOZ+X2AsQP8Z8aXOjyxzsg==",
+                            PasswordHash = "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=",
+                            PasswordSalt = "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==",
                             PhoneNumber = "060000000",
                             Rating = 4.5,
                             Role = 2,
@@ -1698,8 +1702,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "amir.hodzic@gmail.com",
                             FirstName = "Amir",
                             LastName = "Hodzic",
-                            PasswordHash = "Eo2GuDhzexN1H9L1ETi4ehX6RmdaJm5KKcKTFbPzLdo=",
-                            PasswordSalt = "RsZOQ6Xpr0ebU83NGpW25FB5iogS5H0YdcN6NOvmy3qANEqAHnWuzhz2kaWUTcZmYOZ+X2AsQP8Z8aXOjyxzsg==",
+                            PasswordHash = "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=",
+                            PasswordSalt = "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==",
                             PhoneNumber = "061111111",
                             Rating = 4.2000000000000002,
                             Role = 2,
@@ -1711,8 +1715,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "sara.jusic@gmail.com",
                             FirstName = "Sara",
                             LastName = "Jusic",
-                            PasswordHash = "Eo2GuDhzexN1H9L1ETi4ehX6RmdaJm5KKcKTFbPzLdo=",
-                            PasswordSalt = "RsZOQ6Xpr0ebU83NGpW25FB5iogS5H0YdcN6NOvmy3qANEqAHnWuzhz2kaWUTcZmYOZ+X2AsQP8Z8aXOjyxzsg==",
+                            PasswordHash = "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=",
+                            PasswordSalt = "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==",
                             PhoneNumber = "062222222",
                             Rating = 4.7000000000000002,
                             Role = 2,
@@ -1724,8 +1728,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "denis.kovac@gmail.com",
                             FirstName = "Denis",
                             LastName = "Kovac",
-                            PasswordHash = "Eo2GuDhzexN1H9L1ETi4ehX6RmdaJm5KKcKTFbPzLdo=",
-                            PasswordSalt = "RsZOQ6Xpr0ebU83NGpW25FB5iogS5H0YdcN6NOvmy3qANEqAHnWuzhz2kaWUTcZmYOZ+X2AsQP8Z8aXOjyxzsg==",
+                            PasswordHash = "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=",
+                            PasswordSalt = "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==",
                             PhoneNumber = "063333333",
                             Rating = 4.4000000000000004,
                             Role = 2,
@@ -1737,8 +1741,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "mina.babic@gmail.com",
                             FirstName = "Mina",
                             LastName = "Babic",
-                            PasswordHash = "Eo2GuDhzexN1H9L1ETi4ehX6RmdaJm5KKcKTFbPzLdo=",
-                            PasswordSalt = "RsZOQ6Xpr0ebU83NGpW25FB5iogS5H0YdcN6NOvmy3qANEqAHnWuzhz2kaWUTcZmYOZ+X2AsQP8Z8aXOjyxzsg==",
+                            PasswordHash = "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=",
+                            PasswordSalt = "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==",
                             PhoneNumber = "064444444",
                             Rating = 4.5999999999999996,
                             Role = 2,
@@ -1750,8 +1754,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "tarik.smajic@gmail.com",
                             FirstName = "Tarik",
                             LastName = "Smajic",
-                            PasswordHash = "Eo2GuDhzexN1H9L1ETi4ehX6RmdaJm5KKcKTFbPzLdo=",
-                            PasswordSalt = "RsZOQ6Xpr0ebU83NGpW25FB5iogS5H0YdcN6NOvmy3qANEqAHnWuzhz2kaWUTcZmYOZ+X2AsQP8Z8aXOjyxzsg==",
+                            PasswordHash = "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=",
+                            PasswordSalt = "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==",
                             PhoneNumber = "065555555",
                             Rating = 4.2999999999999998,
                             Role = 2,

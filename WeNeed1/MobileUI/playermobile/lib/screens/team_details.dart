@@ -9,6 +9,7 @@ import 'package:playermobile/screens/team_members.dart';
 import '../../models/team.dart';
 import '../../services/session_serivce.dart';
 import '../widgets/master_screen.dart';
+import 'game.dart';
 
 class TeamDetailsScreen extends StatefulWidget {
   final int teamId;
@@ -28,7 +29,8 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
   String? _error;
 
   int? _currentUserId;
-  bool get isCaptain => _team?.captainId != null && _currentUserId == _team!.captainId;
+  bool get isCaptain =>
+      _team?.captainId != null && _currentUserId == _team!.captainId;
 
   @override
   void initState() {
@@ -82,14 +84,23 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
   Future<void> _deleteTeam() async {
     final confirm = await showDialog<bool>(
       context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Potvrda brisanja'),
-        content: const Text('Da li ste sigurni da želite obrisati ovaj tim?'),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Ne')),
-          TextButton(onPressed: () => Navigator.pop(context, true), child: const Text('Da')),
-        ],
-      ),
+      builder:
+          (_) => AlertDialog(
+            title: const Text('Potvrda brisanja'),
+            content: const Text(
+              'Da li ste sigurni da želite obrisati ovaj tim?',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text('Ne'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: const Text('Da'),
+              ),
+            ],
+          ),
     );
 
     if (confirm != true) return;
@@ -109,30 +120,37 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (_) => TeamScreen()),
-              (route) => false,
+          (route) => false,
         );
       }
     } catch (e) {
       setState(() {
         _isProcessing = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Greška pri brisanju tima: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Greška pri brisanju tima: $e')));
     }
   }
 
   Future<void> _leaveTeam() async {
     final confirm = await showDialog<bool>(
       context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Potvrda napuštanja'),
-        content: const Text('Da li želite napustiti ovaj tim?'),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Ne')),
-          TextButton(onPressed: () => Navigator.pop(context, true), child: const Text('Da')),
-        ],
-      ),
+      builder:
+          (_) => AlertDialog(
+            title: const Text('Potvrda napuštanja'),
+            content: const Text('Da li želite napustiti ovaj tim?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text('Ne'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: const Text('Da'),
+              ),
+            ],
+          ),
     );
 
     if (confirm != true) return;
@@ -152,16 +170,16 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (_) => TeamScreen()),
-              (route) => false,
+          (route) => false,
         );
       }
     } catch (e) {
       setState(() {
         _isProcessing = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Greška pri napuštanju tima: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Greška pri napuštanju tima: $e')));
     }
   }
 
@@ -196,27 +214,31 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
             // slika tima i ime
             _team!.teamPicture != null && _team!.teamPicture!.isNotEmpty
                 ? ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.memory(
-                base64Decode(_team!.teamPicture!),
-                width: 150,
-                height: 150,
-                fit: BoxFit.cover,
-              ),
-            )
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.memory(
+                    base64Decode(_team!.teamPicture!),
+                    width: 150,
+                    height: 150,
+                    fit: BoxFit.cover,
+                  ),
+                )
                 : Container(
-              width: 150,
-              height: 150,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(Icons.group, size: 80, color: Colors.white),
-            ),
+                  width: 150,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Icon(Icons.group, size: 80, color: Colors.white),
+                ),
             const SizedBox(height: 16),
             Text(
               _team!.name ?? 'N/A',
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(height: 4),
             if (isCaptain)
@@ -228,7 +250,10 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
                 ),
                 child: const Text(
                   'Kapiten',
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             const SizedBox(height: 8),
@@ -266,7 +291,10 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
                   if (isCaptain) ...[
                     ElevatedButton.icon(
                       icon: const Icon(Icons.edit, color: Colors.white),
-                      label: const Text('Uredi tim', style: TextStyle(color: Colors.white)),
+                      label: const Text(
+                        'Uredi tim',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -275,37 +303,56 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
                           ),
                         );
                       },
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
                     ),
                     ElevatedButton.icon(
                       icon: const Icon(Icons.delete, color: Colors.white),
-                      label: const Text('Obriši tim', style: TextStyle(color: Colors.white)),
+                      label: const Text(
+                        'Obriši tim',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       onPressed: _deleteTeam,
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                      ),
                     ),
                   ] else if (_team!.isMember) ...[
                     ElevatedButton.icon(
                       icon: const Icon(Icons.exit_to_app, color: Colors.white),
-                      label: const Text('Napusti tim', style: TextStyle(color: Colors.white)),
+                      label: const Text(
+                        'Napusti tim',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       onPressed: _leaveTeam,
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orange,
+                      ),
                     ),
                   ] else ...[
                     ElevatedButton.icon(
                       icon: const Icon(Icons.group_add, color: Colors.white),
-                      label: const Text('Pridruži se timu', style: TextStyle(color: Colors.white)),
+                      label: const Text(
+                        'Pridruži se timu',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       onPressed: _joinTeam,
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                      ),
                     ),
                   ],
                 ],
               ),
 
-
             const SizedBox(height: 24),
             const Divider(color: Colors.white24),
             ListTile(
-              title: const Text('Članovi tima', style: TextStyle(color: Colors.white)),
+              title: const Text(
+                'Članovi tima',
+                style: TextStyle(color: Colors.white),
+              ),
               trailing: const Icon(Icons.arrow_forward, color: Colors.white),
               onTap: () {
                 Navigator.push(
@@ -317,10 +364,17 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
               },
             ),
             ListTile(
-              title: const Text('Mečevi', style: TextStyle(color: Colors.white)),
+              title: const Text(
+                'Mečevi',
+                style: TextStyle(color: Colors.white),
+              ),
               trailing: const Icon(Icons.arrow_forward, color: Colors.white),
               onTap: () {
-                // TODO: Navigate to team matches page
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => GamesScreen(teamId: _team!.id!),
+                  ),
+                );
               },
             ),
 
@@ -329,7 +383,9 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
                 padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
                 child: Card(
                   color: Colors.blueGrey.shade700,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
@@ -337,12 +393,19 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
                       children: [
                         const Text(
                           'Opis tima:',
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                         const SizedBox(height: 8),
                         Text(
                           _team!.description!,
-                          style: const TextStyle(fontSize: 16, color: Colors.white),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
                         ),
                       ],
                     ),
@@ -355,7 +418,5 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
         ),
       ),
     );
-
-
   }
 }

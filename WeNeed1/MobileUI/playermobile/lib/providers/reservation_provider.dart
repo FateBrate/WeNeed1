@@ -52,4 +52,20 @@ class ReservationProvider extends BaseProvider<Reservation> {
     }
   }
 
+  Future<Reservation?> pay(int id, String transactionId) async {
+    final uri = Uri.parse(baseUrl).resolve('/Reservation/$id/pay');
+    final headers = createHeaders();
+
+    final body = jsonEncode(transactionId);
+
+    final response = await http.patch(uri, headers: headers, body: body);
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return fromJson(data);
+    } else {
+      throw Exception('Failed to pay reservation: ${response.statusCode}');
+    }
+  }
+
 }

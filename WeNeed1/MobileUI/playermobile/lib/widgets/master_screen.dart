@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../screens/login.dart';
+import '../screens/sport_center.dart';
 import '../screens/team.dart';
 
 class MobileMasterScreenWidget extends StatelessWidget {
@@ -54,6 +55,9 @@ class MobileMasterScreenWidget extends StatelessWidget {
                     title: const Text('Sportski Centri', style: TextStyle(color: Colors.white)),
                     onTap: () {
                       Navigator.pop(context);
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const SportsCentersScreen(),
+                      ));
                     },
                   ),
                   ListTile(

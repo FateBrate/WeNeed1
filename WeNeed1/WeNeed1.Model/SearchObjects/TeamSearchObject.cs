@@ -9,5 +9,9 @@ namespace WeNeed1.Model.SearchObjects
         public string? Name { get; set; }
         public bool? NotMember { get; set; }
         public int? UserId { get; set; }
+        
+        public bool? IsPublic { get; set; } 
+        
+        public string? JoinCode { get; set; } 
     }
 }

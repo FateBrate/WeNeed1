@@ -24,15 +24,24 @@ namespace WeNeed1.Service.Impl
                 query = query.Where(t => t.Sport == search.Sport);
 
             if (!string.IsNullOrEmpty(search.City))
-                query = query.Where(t => t.City != null && t.City.Equals(search.City, StringComparison.OrdinalIgnoreCase));
+                query = query.Where(t => t.City != null && 
+                                         t.City.ToLower().Contains(search.City.ToLower()));
 
             if (!string.IsNullOrEmpty(search.Name))
-                query = query.Where(t => t.Name != null && t.Name.Contains(search.Name, StringComparison.OrdinalIgnoreCase));
+                query = query.Where(t => t.Name != null && 
+                                         t.Name.ToLower().Contains(search.Name.ToLower()));
 
             if (search.NotMember == true && search.UserId != null)
                 query = query.Where(t => !t.UserTeams.Any(ut => ut.UserId == search.UserId));
             else if (search.UserId != null)
                 query = query.Where(t => t.UserTeams.Any(ut => ut.UserId == search.UserId));
+            
+            if (search.IsPublic == true)
+                query = query.Where(t => t.IsPublic == true);
+            
+            if (!string.IsNullOrWhiteSpace(search.JoinCode))
+                query = query.Where(t => t.JoinCode != null &&
+                                         t.JoinCode.ToLower() == search.JoinCode.ToLower());
 
             return query;
         }
@@ -49,7 +58,13 @@ namespace WeNeed1.Service.Impl
                 throw new UserException("Team not found.");
             }
 
-            return _mapper.Map<TeamResponseDto>(team);
+            var dto = _mapper.Map<TeamResponseDto>(team);
+
+            var user = await _userService.GetCurrentUserAsync();
+            
+            dto.IsMember = team.UserTeams.Any(ut => ut.UserId == user.Id);
+
+            return dto;
         }
 
         public override async Task<TeamResponseDto> Insert(TeamRequestDto request)

@@ -16,6 +16,7 @@ namespace WeNeed1.Model.Payloads
         public User? Captain { get; set; }
 
         public int MemberCount { get; set; }
+        public bool IsMember { get; set; }
 
         public List<User> TeamMembers { get; set; } = new List<User>();
 

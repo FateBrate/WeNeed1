@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:playermobile/models/match.dart';
 import 'package:playermobile/widgets/master_screen.dart';
 
 import '../providers/match.dart';
+import '../widgets/custom_snackbar.dart';
 
 class EditorCancelScreen extends StatefulWidget {
   final int matchId;
@@ -56,9 +56,7 @@ class _EditorCancelScreenState extends State<EditorCancelScreen> {
         });
 
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Meč je uspješno završen.")),
-          );
+          CustomSnackbar.show(context, "Meč je uspješno završen.", SnackbarType.success);
           Navigator.pop(context, true);
         }
       } catch (e) {
@@ -77,9 +75,7 @@ class _EditorCancelScreenState extends State<EditorCancelScreen> {
       });
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Meč je uspješno otkazan.")),
-        );
+        CustomSnackbar.show(context, "Meč je uspješno otkazan.", SnackbarType.success);
         Navigator.pop(context, true);
       }
     } catch (e) {
@@ -88,9 +84,7 @@ class _EditorCancelScreenState extends State<EditorCancelScreen> {
   }
 
   void _showError(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), backgroundColor: Colors.red),
-    );
+    CustomSnackbar.show(context, message, SnackbarType.error);
   }
 
 
@@ -105,13 +99,22 @@ class _EditorCancelScreenState extends State<EditorCancelScreen> {
         child: Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextFormField(
-                decoration: const InputDecoration(labelText: "Rezultat"),
+                decoration: const InputDecoration(
+                  labelText: "Rezultat",
+                  helperText: "Unesite rezultat u formatu broj:broj (npr. 2:1)",
+                  suffixIcon: Icon(Icons.info_outline),
+                ),
                 onSaved: (value) => _result = value,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "Unesite rezultat";
+                  }
+                  final regex = RegExp(r'^\d+:\d+$');
+                  if (!regex.hasMatch(value)) {
+                    return "Format mora biti npr. 2:1";
                   }
                   return null;
                 },
@@ -124,7 +127,6 @@ class _EditorCancelScreenState extends State<EditorCancelScreen> {
                 onPressed: _finishMatch,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
-                  foregroundColor: Colors.white,
                 ),
               ),
               const SizedBox(height: 12),
@@ -134,11 +136,11 @@ class _EditorCancelScreenState extends State<EditorCancelScreen> {
                 onPressed: _cancelMatch,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
                 ),
               ),
             ],
           ),
+
         ),
       ),
     );

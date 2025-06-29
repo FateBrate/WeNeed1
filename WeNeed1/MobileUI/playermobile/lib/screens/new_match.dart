@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:playermobile/screens/game.dart';
 import '../providers/match.dart';
+import '../widgets/master_screen.dart';
 
 class NewMatchScreen extends StatefulWidget {
   final int teamId;
 
-  const NewMatchScreen({Key? key, required this.teamId}) : super(key: key);
+  const NewMatchScreen({super.key, required this.teamId});
 
   @override
   State<NewMatchScreen> createState() => _NewMatchScreenState();
@@ -20,11 +21,12 @@ class _NewMatchScreenState extends State<NewMatchScreen> {
 
   Future<void> _pickDate() async {
     final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
     final date = await showDatePicker(
       context: context,
-      initialDate: now,
-      firstDate: now.subtract(const Duration(days: 365)),
-      lastDate: now.add(const Duration(days: 365)),
+      initialDate: today,
+      firstDate: today,
+      lastDate: today.add(const Duration(days: 365)),
     );
     if (date != null) {
       setState(() {
@@ -45,6 +47,7 @@ class _NewMatchScreenState extends State<NewMatchScreen> {
     }
   }
 
+
   DateTime? get _combinedDateTime {
     if (selectedDate == null || selectedTime == null) return null;
     return DateTime(
@@ -60,6 +63,16 @@ class _NewMatchScreenState extends State<NewMatchScreen> {
     if (_combinedDateTime == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Molimo odaberite datum i vrijeme.")),
+      );
+      return;
+    }
+
+    final nowPlusOneHour = DateTime.now().add(const Duration(hours: 1));
+
+    if (_combinedDateTime!.isBefore(nowPlusOneHour)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text("Vrijeme meča mora biti barem 1 sat od sada.")),
       );
       return;
     }
@@ -85,7 +98,6 @@ class _NewMatchScreenState extends State<NewMatchScreen> {
           builder: (context) => GamesScreen(teamId: widget.teamId),
         ),
       );
-
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Greška prilikom kreiranja meča: $e")),
@@ -100,13 +112,12 @@ class _NewMatchScreenState extends State<NewMatchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Novi meč"),
-      ),
-      body: Padding(
+    return MobileMasterScreenWidget(
+      title: "Novi meč",
+      child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
               title: const Text("Datum"),
@@ -118,6 +129,7 @@ class _NewMatchScreenState extends State<NewMatchScreen> {
                 onPressed: _pickDate,
               ),
             ),
+            const Divider(thickness: 1, height: 32),
             ListTile(
               title: const Text("Vrijeme"),
               subtitle: Text(selectedTime == null
@@ -129,11 +141,13 @@ class _NewMatchScreenState extends State<NewMatchScreen> {
               ),
             ),
             const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: _isLoading ? null : _submit,
-              child: _isLoading
-                  ? const CircularProgressIndicator(color: Colors.white)
-                  : const Text("Kreiraj meč"),
+            Center(
+              child: ElevatedButton(
+                onPressed: _isLoading ? null : _submit,
+                child: _isLoading
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : const Text("Kreiraj meč"),
+              ),
             ),
           ],
         ),

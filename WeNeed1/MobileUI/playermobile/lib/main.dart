@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:playermobile/providers/user_provider.dart';
 import 'package:playermobile/screens/login.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey="pk_test_51RZspNPxAmoaM21xXeLBdVCpKN8CcQpf1QSGUJ4nbQla9GNAJQSJHrfHov0xhBzzf9OMjvM8Fyb6VB6EowJqO1bM00ong8kgTF";
+  await Stripe.instance.applySettings();
   runApp(MultiProvider(
     providers: [ChangeNotifierProvider(create: (_) => UserProvider()),
     ],
@@ -81,7 +85,7 @@ class MyMaterialApp extends StatelessWidget {
     return MaterialApp(
       title: "We need 1",
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFF13151B),
+        scaffoldBackgroundColor: const Color(0xFF000000),
         colorScheme: ColorScheme.fromSeed(
           seedColor: Color(0xFF115DFB),
           brightness: Brightness.dark,

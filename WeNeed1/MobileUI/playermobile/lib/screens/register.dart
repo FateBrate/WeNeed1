@@ -104,7 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   const SizedBox(height: 30),
                   const Text(
-                    "Registracija Menadžera",
+                    "Registracija Igrača",
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),

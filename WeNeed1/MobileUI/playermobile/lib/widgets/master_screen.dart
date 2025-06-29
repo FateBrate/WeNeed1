@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../screens/login.dart';
+import '../screens/profile.dart';
+import '../screens/reservations.dart';
 import '../screens/sport_center.dart';
 import '../screens/team.dart';
 
@@ -19,9 +21,9 @@ class MobileMasterScreenWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
-        backgroundColor: Colors.black,
+        backgroundColor: const Color(0xFF000000),
       ),
-      backgroundColor: const Color(0xFF121212),
+      backgroundColor: const Color(0xFF042742),
       drawer: Drawer(
         backgroundColor: const Color(0xFF1E1E1E),
         child: Column(
@@ -61,11 +63,23 @@ class MobileMasterScreenWidget extends StatelessWidget {
                     },
                   ),
                   ListTile(
+                    leading: const Icon(Icons.event, color: Colors.white),
+                    title: const Text('Moje rezervacije', style: TextStyle(color: Colors.white)),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const MyReservationsScreen(),
+                      ));
+                    },
+                  ),
+                  ListTile(
                     leading: const Icon(Icons.person, color: Colors.white),
                     title: const Text('Profil', style: TextStyle(color: Colors.white)),
                     onTap: () {
                       Navigator.pop(context);
-                      // Navigacija na Profil screen
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ProfileScreen(),
+                      ));
                     },
                   ),
                 ],

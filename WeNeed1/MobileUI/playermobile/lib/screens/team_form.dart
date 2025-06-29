@@ -5,7 +5,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:playermobile/screens/team.dart';
 import 'package:playermobile/screens/team_details.dart';
 import '../models/team.dart';
 import '../providers/team_provider.dart';
@@ -149,7 +148,6 @@ class _TeamFormScreenState extends State<TeamFormScreen> {
   }
 
 
-  @override
   @override
   Widget build(BuildContext context) {
     return MobileMasterScreenWidget(

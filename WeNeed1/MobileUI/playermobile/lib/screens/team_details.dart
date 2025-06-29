@@ -363,20 +363,21 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
                 );
               },
             ),
-            ListTile(
-              title: const Text(
-                'Mečevi',
-                style: TextStyle(color: Colors.white),
+            if (_team!.isMember)
+              ListTile(
+                title: const Text(
+                  'Mečevi',
+                  style: TextStyle(color: Colors.white),
+                ),
+                trailing: const Icon(Icons.arrow_forward, color: Colors.white),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => GamesScreen(teamId: _team!.id!),
+                    ),
+                  );
+                },
               ),
-              trailing: const Icon(Icons.arrow_forward, color: Colors.white),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => GamesScreen(teamId: _team!.id!),
-                  ),
-                );
-              },
-            ),
 
             if (_team!.description != null && _team!.description!.isNotEmpty)
               Padding(

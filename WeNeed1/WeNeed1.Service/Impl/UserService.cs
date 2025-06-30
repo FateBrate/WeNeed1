@@ -38,6 +38,20 @@ namespace WeNeed1.Service.Impl
                 _context.SportsCenters.Add(sportsCenter);
             }
         }
+        
+        public override async Task<Model.User> GetById(int id)
+        {
+            var entity = await _context.Users
+                .Include(u => u.UserSports)
+                .Include(u => u.SportsCenter)
+                .FirstOrDefaultAsync(u => u.Id == id);
+
+            if (entity == null)
+                throw new Exception("User not found");
+
+            return _mapper.Map<Model.User>(entity);
+        }
+
 
         public override IQueryable<User> AddFilter(IQueryable<User> query, UserSearchObject? search = null)
         {
@@ -89,7 +103,9 @@ namespace WeNeed1.Service.Impl
             if (userIdClaim == null)
                 throw new UserException("User is not authenticated");
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userIdClaim);
+            var user = await _context.Users
+                .Include(u => u.UserSports)
+                .FirstOrDefaultAsync(u => u.UserName == userIdClaim);
 
             if (user == null)
                 throw new UserException("User not found");

@@ -83,6 +83,11 @@ public class ReservationService: BaseCRUDService<ReservationResponseDto, Reserva
         {
             query = query.Where(r => r.Status == search.Status.Value);
         }
+        
+        if (search.UserId.HasValue)
+        {
+            query = query.Where(r => r.UserId == search.UserId.Value);
+        }
 
         return query
             .Include(r => r.SportsField)
@@ -187,20 +192,17 @@ public class ReservationService: BaseCRUDService<ReservationResponseDto, Reserva
         return _mapper.Map<ReservationResponseDto>(reservation);
     }
     
-    public async Task<ReservationResponseDto> PayReservation(int id)
+    public async Task<ReservationResponseDto> PayReservation(int id, string transactionId)
     {
         var reservation = await _context.Reservations.FindAsync(id);
         if (reservation == null)
-        {
             throw new Exception("Reservation not found.");
-        }
 
         if (reservation.Status != ReservationStatus.CREATED)
-        {
             throw new Exception("Only created reservations can be marked as payed.");
-        }
 
         reservation.Status = ReservationStatus.PAYED;
+        reservation.TransactionId = transactionId;
 
         await _context.SaveChangesAsync();
         return _mapper.Map<ReservationResponseDto>(reservation);

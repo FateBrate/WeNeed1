@@ -487,6 +487,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 10,
             JoinCode = null,
             Sport = Sport.FUTSAL,
+            City = "Mostar",
             TeamPicture = null
         },
         new Team
@@ -498,6 +499,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 10,
             JoinCode = "JOIN2",
             Sport = Sport.BEACH_VOLLEYBALL,
+            City = "Mostar",
             TeamPicture = null
         },
         new Team
@@ -509,6 +511,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 11,
             JoinCode = null,
             Sport = Sport.BASKETBALL,
+            City = "Travnik",
             TeamPicture = null
         },
         new Team
@@ -520,6 +523,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 11,
             JoinCode = "JOIN4",
             Sport = Sport.TENNIS,
+            City = "Travnik",
             TeamPicture = null
         },
         new Team
@@ -531,6 +535,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 12,
             JoinCode = null,
             Sport = Sport.VOLLEYBALL,
+            City = "Sarajevo",
             TeamPicture = null
         },
         new Team
@@ -542,6 +547,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 12,
             JoinCode = "JOIN6",
             Sport = Sport.HANDBALL,
+            City = "Sarajevo",
             TeamPicture = null
         },
         new Team
@@ -553,6 +559,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 13,
             JoinCode = null,
             Sport = Sport.FUTSAL,
+            City = "Sarajevo",
             TeamPicture = null
         },
         new Team
@@ -564,6 +571,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 13,
             JoinCode = "JOIN8",
             Sport = Sport.BASKETBALL,
+            City = "Zenica",
             TeamPicture = null
         },
         new Team
@@ -575,6 +583,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 14,
             JoinCode = null,
             Sport = Sport.BEACH_VOLLEYBALL,
+            City = "Zenica",
             TeamPicture = null
         },
         new Team
@@ -586,6 +595,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 14,
             JoinCode = "JOIN10",
             Sport = Sport.MINI_FOOTBALL,
+            City = "Tuzla",
             TeamPicture = null
         },
         new Team
@@ -597,6 +607,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 15,
             JoinCode = null,
             Sport = Sport.VOLLEYBALL,
+            City = "Tuzla",
             TeamPicture = null
         },
         new Team
@@ -608,6 +619,7 @@ public partial class WeNeed1Context : DbContext
             CaptainId = 15,
             JoinCode = "JOIN12",
             Sport = Sport.HANDBALL,
+            City = "Tuzla",
             TeamPicture = null
         }
     );
@@ -777,6 +789,41 @@ public partial class WeNeed1Context : DbContext
             new Comment { Id = 108, UserId = 12, MatchId = 10, Content = "Amazing teamwork and strategy.", Created = new DateTime(2025, 8, 4, 20, 0, 0) },
             new Comment { Id = 109, UserId = 13, MatchId = 10, Content = "Čestitke na visokoj pobjedi!", Created = new DateTime(2025, 8, 4, 20, 30, 0) },
             new Comment { Id = 1010, UserId = 14, MatchId = 14, Content = "Close game, both teams showed heart.", Created = new DateTime(2025, 8, 19, 20, 0, 0) }
+        );
+    }
+
+    private void SeedUserSports(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<UserSport>().HasData(
+            new UserSport { Id = 1, UserId = 10, Sport = Sport.FOOTBALL },
+            new UserSport { Id = 2, UserId = 10, Sport = Sport.BASKETBALL },
+            new UserSport { Id = 3, UserId = 10, Sport = Sport.TENNIS },
+
+            new UserSport { Id = 4, UserId = 11, Sport = Sport.VOLLEYBALL },
+            new UserSport { Id = 5, UserId = 11, Sport = Sport.FOOTBALL },
+
+            new UserSport { Id = 6, UserId = 12, Sport = Sport.MINI_FOOTBALL },
+
+            new UserSport { Id = 7, UserId = 13, Sport = Sport.HANDBALL },
+            new UserSport { Id = 8, UserId = 13, Sport = Sport.BASKETBALL },
+            new UserSport { Id = 9, UserId = 13, Sport = Sport.TENNIS },
+
+            new UserSport { Id = 10, UserId = 14, Sport = Sport.FOOTBALL },
+            new UserSport { Id = 11, UserId = 14, Sport = Sport.BEACH_VOLLEYBALL },
+
+            new UserSport { Id = 12, UserId = 15, Sport = Sport.BASKETBALL },
+
+            new UserSport { Id = 13, UserId = 16, Sport = Sport.FUTSAL },
+            new UserSport { Id = 14, UserId = 16, Sport = Sport.TENNIS },
+            new UserSport { Id = 15, UserId = 16, Sport = Sport.HANDBALL },
+
+            new UserSport { Id = 16, UserId = 17, Sport = Sport.FOOTBALL },
+            new UserSport { Id = 17, UserId = 17, Sport = Sport.FUTSAL },
+
+            new UserSport { Id = 18, UserId = 18, Sport = Sport.VOLLEYBALL },
+
+            new UserSport { Id = 19, UserId = 19, Sport = Sport.BASKETBALL },
+            new UserSport { Id = 20, UserId = 19, Sport = Sport.MINI_FOOTBALL }
         );
     }
 

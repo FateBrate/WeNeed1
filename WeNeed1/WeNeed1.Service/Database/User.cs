@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using WeNeed1.Model.Enums;
+﻿using WeNeed1.Model.Enums;
 
 namespace WeNeed1.Service.Database;
 
@@ -37,4 +35,7 @@ public partial class User
     public virtual ICollection<Squad>? Squads { get; } = new List<Squad>();
     
     public virtual SportsCenter? SportsCenter { get; set; }
+
+    public virtual ICollection<UserSport> UserSports { get; set; } = new List<UserSport>();
+
 }

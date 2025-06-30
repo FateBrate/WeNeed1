@@ -130,6 +130,27 @@ namespace WeNeed1.Service.Impl
                 }
                 return _mapper.Map<Model.User>(user);
         }
+
+        public async Task UpdateUserSportsAsync(int userId, List<Sport> sports)
+        {
+            var user = await _context.Users.Include(u => u.UserSports).FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+                throw new Exception("User not found");
+
+            _context.UserSports.RemoveRange(user.UserSports);
+
+            foreach (var sport in sports.Distinct())
+            {
+                user.UserSports.Add(new UserSport
+                {
+                    UserId = userId,
+                    Sport = sport
+                });
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
     }
     
 }

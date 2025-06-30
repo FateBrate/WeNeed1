@@ -1,0 +1,682 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace WeNeed1.Service.Migrations
+{
+    /// <inheritdoc />
+    public partial class attendence : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "MatchAttendances",
+                columns: table => new
+                {
+                    MatchId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    IsAttending = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MatchAttendances", x => new { x.MatchId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_MatchAttendances_Matches_MatchId",
+                        column: x => x.MatchId,
+                        principalTable: "Matches",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MatchAttendances_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 201,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 15, 11, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 15, 10, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 202,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 16, 13, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 16, 12, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 203,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 15, 15, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 15, 14, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 204,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 15, 18, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 15, 17, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 205,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 14, 17, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 14, 16, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 206,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 13, 14, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 13, 13, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 207,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 15, 19, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 15, 18, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 208,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 15, 21, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 15, 20, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 209,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 17, 15, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 17, 14, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2010,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 16, 16, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 16, 15, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2011,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 18, 11, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 18, 10, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2012,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 12, 13, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 12, 12, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2013,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 14, 11, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 14, 10, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2014,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 15, 12, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 15, 11, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2015,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 16, 14, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 16, 13, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2016,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 15, 15, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 15, 14, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2017,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 17, 18, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 17, 17, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2018,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 14, 19, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 14, 18, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2019,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 15, 20, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 15, 19, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2020,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 16, 21, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 16, 20, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 101,
+                column: "Created",
+                value: new DateTime(2025, 6, 5, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 102,
+                column: "Created",
+                value: new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 103,
+                column: "Created",
+                value: new DateTime(2025, 6, 9, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 104,
+                column: "Created",
+                value: new DateTime(2025, 6, 11, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 105,
+                column: "Created",
+                value: new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 106,
+                column: "Created",
+                value: new DateTime(2025, 6, 14, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 107,
+                column: "Created",
+                value: new DateTime(2025, 6, 12, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 108,
+                column: "Created",
+                value: new DateTime(2025, 6, 8, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 109,
+                column: "Created",
+                value: new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 1010,
+                column: "Created",
+                value: new DateTime(2025, 6, 15, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 5,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "8N7a5QS40QvEfhil9AUBArJk9ZW4sUc/qr8ZWBh0/JY=", "ZxfCk42eQqYDH+CtmhYY+RU89fRqrfQKANFln8CpuGJOJaauRY4XzUxDEwllesyeCR6V3/4dAxlM99hgQj+J2Q==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 6,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "8N7a5QS40QvEfhil9AUBArJk9ZW4sUc/qr8ZWBh0/JY=", "ZxfCk42eQqYDH+CtmhYY+RU89fRqrfQKANFln8CpuGJOJaauRY4XzUxDEwllesyeCR6V3/4dAxlM99hgQj+J2Q==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 7,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "8N7a5QS40QvEfhil9AUBArJk9ZW4sUc/qr8ZWBh0/JY=", "ZxfCk42eQqYDH+CtmhYY+RU89fRqrfQKANFln8CpuGJOJaauRY4XzUxDEwllesyeCR6V3/4dAxlM99hgQj+J2Q==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 8,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "8N7a5QS40QvEfhil9AUBArJk9ZW4sUc/qr8ZWBh0/JY=", "ZxfCk42eQqYDH+CtmhYY+RU89fRqrfQKANFln8CpuGJOJaauRY4XzUxDEwllesyeCR6V3/4dAxlM99hgQj+J2Q==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 9,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "8N7a5QS40QvEfhil9AUBArJk9ZW4sUc/qr8ZWBh0/JY=", "ZxfCk42eQqYDH+CtmhYY+RU89fRqrfQKANFln8CpuGJOJaauRY4XzUxDEwllesyeCR6V3/4dAxlM99hgQj+J2Q==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 10,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "8N7a5QS40QvEfhil9AUBArJk9ZW4sUc/qr8ZWBh0/JY=", "ZxfCk42eQqYDH+CtmhYY+RU89fRqrfQKANFln8CpuGJOJaauRY4XzUxDEwllesyeCR6V3/4dAxlM99hgQj+J2Q==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 11,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "8N7a5QS40QvEfhil9AUBArJk9ZW4sUc/qr8ZWBh0/JY=", "ZxfCk42eQqYDH+CtmhYY+RU89fRqrfQKANFln8CpuGJOJaauRY4XzUxDEwllesyeCR6V3/4dAxlM99hgQj+J2Q==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 12,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "8N7a5QS40QvEfhil9AUBArJk9ZW4sUc/qr8ZWBh0/JY=", "ZxfCk42eQqYDH+CtmhYY+RU89fRqrfQKANFln8CpuGJOJaauRY4XzUxDEwllesyeCR6V3/4dAxlM99hgQj+J2Q==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 13,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "8N7a5QS40QvEfhil9AUBArJk9ZW4sUc/qr8ZWBh0/JY=", "ZxfCk42eQqYDH+CtmhYY+RU89fRqrfQKANFln8CpuGJOJaauRY4XzUxDEwllesyeCR6V3/4dAxlM99hgQj+J2Q==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 14,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "8N7a5QS40QvEfhil9AUBArJk9ZW4sUc/qr8ZWBh0/JY=", "ZxfCk42eQqYDH+CtmhYY+RU89fRqrfQKANFln8CpuGJOJaauRY4XzUxDEwllesyeCR6V3/4dAxlM99hgQj+J2Q==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 15,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "8N7a5QS40QvEfhil9AUBArJk9ZW4sUc/qr8ZWBh0/JY=", "ZxfCk42eQqYDH+CtmhYY+RU89fRqrfQKANFln8CpuGJOJaauRY4XzUxDEwllesyeCR6V3/4dAxlM99hgQj+J2Q==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 16,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "8N7a5QS40QvEfhil9AUBArJk9ZW4sUc/qr8ZWBh0/JY=", "ZxfCk42eQqYDH+CtmhYY+RU89fRqrfQKANFln8CpuGJOJaauRY4XzUxDEwllesyeCR6V3/4dAxlM99hgQj+J2Q==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 17,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "8N7a5QS40QvEfhil9AUBArJk9ZW4sUc/qr8ZWBh0/JY=", "ZxfCk42eQqYDH+CtmhYY+RU89fRqrfQKANFln8CpuGJOJaauRY4XzUxDEwllesyeCR6V3/4dAxlM99hgQj+J2Q==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 18,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "8N7a5QS40QvEfhil9AUBArJk9ZW4sUc/qr8ZWBh0/JY=", "ZxfCk42eQqYDH+CtmhYY+RU89fRqrfQKANFln8CpuGJOJaauRY4XzUxDEwllesyeCR6V3/4dAxlM99hgQj+J2Q==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 19,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "8N7a5QS40QvEfhil9AUBArJk9ZW4sUc/qr8ZWBh0/JY=", "ZxfCk42eQqYDH+CtmhYY+RU89fRqrfQKANFln8CpuGJOJaauRY4XzUxDEwllesyeCR6V3/4dAxlM99hgQj+J2Q==" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MatchAttendances_UserId",
+                table: "MatchAttendances",
+                column: "UserId");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "MatchAttendances");
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 201,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 14, 11, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 14, 10, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 202,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 15, 13, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 15, 12, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 203,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 14, 15, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 14, 14, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 204,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 14, 18, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 14, 17, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 205,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 13, 17, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 13, 16, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 206,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 12, 14, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 12, 13, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 207,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 14, 19, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 14, 18, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 208,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 14, 21, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 14, 20, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 209,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 16, 15, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 16, 14, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2010,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 15, 16, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 15, 15, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2011,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 17, 11, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 17, 10, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2012,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 11, 13, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 11, 12, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2013,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 13, 11, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 13, 10, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2014,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 14, 12, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 14, 11, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2015,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 15, 14, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 15, 13, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2016,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 14, 15, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 14, 14, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2017,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 16, 18, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 16, 17, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2018,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 13, 19, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 13, 18, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2019,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 14, 20, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 14, 19, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservations",
+                keyColumn: "Id",
+                keyValue: 2020,
+                columns: new[] { "EndTime", "StartTime" },
+                values: new object[] { new DateTime(2025, 6, 15, 21, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 6, 15, 20, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 101,
+                column: "Created",
+                value: new DateTime(2025, 6, 4, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 102,
+                column: "Created",
+                value: new DateTime(2025, 6, 6, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 103,
+                column: "Created",
+                value: new DateTime(2025, 6, 8, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 104,
+                column: "Created",
+                value: new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 105,
+                column: "Created",
+                value: new DateTime(2025, 6, 12, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 106,
+                column: "Created",
+                value: new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 107,
+                column: "Created",
+                value: new DateTime(2025, 6, 11, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 108,
+                column: "Created",
+                value: new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 109,
+                column: "Created",
+                value: new DateTime(2025, 6, 9, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reviews",
+                keyColumn: "Id",
+                keyValue: 1010,
+                column: "Created",
+                value: new DateTime(2025, 6, 14, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 5,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=", "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 6,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=", "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 7,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=", "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 8,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=", "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 9,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=", "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 10,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=", "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 11,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=", "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 12,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=", "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 13,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=", "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 14,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=", "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 15,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=", "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 16,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=", "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 17,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=", "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 18,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=", "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==" });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 19,
+                columns: new[] { "PasswordHash", "PasswordSalt" },
+                values: new object[] { "ztZMA8Pb3PO8CLcBG3WvUA0L9qUEQnQgjJ/zfxR06ec=", "JLt3lq1DwRDFN0a/r+siHnWJc25iI0bPtVodTdP8ukyi9pMmDGT34BnaPwabuystf82kGGIXeZBS5ezWwoGpkw==" });
+        }
+    }
+}

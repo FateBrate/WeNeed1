@@ -41,10 +41,10 @@ public class ReservationController : BaseCRUDController<ReservationResponseDto, 
     }
     
     [HttpPatch("{id}/pay")]
-    [Authorize (Roles = "PLAYER")]
-    public async Task<IActionResult> PayReservation(int id)
+    [Authorize(Roles = "PLAYER")]
+    public async Task<IActionResult> PayReservation(int id, [FromBody] string transactionId)
     {
-        var updatedReservation = await _reservationService.PayReservation(id);
+        var updatedReservation = await _reservationService.PayReservation(id, transactionId);
         return Ok(updatedReservation);
     }
     

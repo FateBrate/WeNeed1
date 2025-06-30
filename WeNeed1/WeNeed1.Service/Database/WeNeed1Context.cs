@@ -36,6 +36,10 @@ public partial class WeNeed1Context : DbContext
     public virtual DbSet<UserTeam> UserTeams { get; set; }
 
     public virtual DbSet<UserSquad> UsersSquad { get; set; }
+
+    public virtual DbSet<MatchAttendance> MatchAttendances { get; set; }
+
+    public virtual DbSet<UserSport> UserSports { get; set; }
     //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
     //        => optionsBuilder.UseSqlServer("Server=localhost;Database=WeNeed1;Trusted_Connection=True;TrustServerCertificate=True");
@@ -76,7 +80,29 @@ public partial class WeNeed1Context : DbContext
             .HasOne(us => us.Squad)
             .WithMany(s => s.UserSquads)
             .HasForeignKey(us => us.SquadId);
-        
+
+        modelBuilder.Entity<MatchAttendance>()
+    .HasKey(ma => new { ma.MatchId, ma.UserId });
+
+        modelBuilder.Entity<MatchAttendance>()
+            .HasOne(ma => ma.Match)
+            .WithMany(m => m.MatchAttendances)
+            .HasForeignKey(ma => ma.MatchId);
+
+        modelBuilder.Entity<MatchAttendance>()
+            .HasOne(ma => ma.User)
+            .WithMany()
+            .HasForeignKey(ma => ma.UserId);
+
+        modelBuilder.Entity<UserSport>()
+            .HasKey(us => us.Id);
+
+        modelBuilder.Entity<UserSport>()
+            .HasOne(us => us.User)
+            .WithMany(u => u.UserSports)
+            .HasForeignKey(us => us.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         SeedUsers(modelBuilder);
         SeedSportCenters(modelBuilder);
         SeedSportFields(modelBuilder);
@@ -88,6 +114,7 @@ public partial class WeNeed1Context : DbContext
         SeedUserSquads(modelBuilder);
         SeedMatches(modelBuilder);
         SeedComments(modelBuilder);
+        SeedUserSports(modelBuilder);
     }       
     
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

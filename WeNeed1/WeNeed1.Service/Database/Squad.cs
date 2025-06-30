@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace WeNeed1.Service.Database;
+﻿namespace WeNeed1.Service.Database;
 
 public partial class Squad
 {

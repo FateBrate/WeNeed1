@@ -9,4 +9,8 @@ public class MatchResponseDto
     public DateTime MatchDate { get; set; }
     public string Result { get; set; }
     public MatchStatus Status { get; set; }
+
+    public int AttendingCount { get; set; }
+    public int NotAttendingCount { get; set; }
+    public bool? IsCurrentUserAttending { get; set; }
 }

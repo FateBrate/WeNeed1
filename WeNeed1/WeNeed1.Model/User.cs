@@ -25,5 +25,7 @@ namespace WeNeed1.Model
         
         public SportsCenterResponseDto? SportsCenter { get; set; }
 
+        public List<Sport> Sports { get; set; } = new();
+
     }
 }

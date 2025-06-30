@@ -18,7 +18,6 @@ class TeamMembersScreen extends StatefulWidget {
 
 class _TeamMembersScreenState extends State<TeamMembersScreen> {
   late Future<Team> _teamFuture;
-  Team? _team;
   List<User> _members = [];
 
   @override
@@ -40,7 +39,6 @@ class _TeamMembersScreenState extends State<TeamMembersScreen> {
         [];
 
     setState(() {
-      _team = team;
       _members = members;
     });
 
@@ -86,7 +84,6 @@ class _TeamMembersScreenState extends State<TeamMembersScreen> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Image and role (player/captain) column
                     Column(
                       children: [
                         member.profilePicture != null && member.profilePicture!.isNotEmpty
@@ -112,7 +109,6 @@ class _TeamMembersScreenState extends State<TeamMembersScreen> {
                       ],
                     ),
                     const SizedBox(width: 16),
-                    // Name and info button
                     Expanded(
                       child: Row(
                         children: [
@@ -151,7 +147,7 @@ class _TeamMembersScreenState extends State<TeamMembersScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => MemberScreen(user: member),
+                                  builder: (_) => MemberScreen(userId: member.id!),
                                 ),
                               );
                             },

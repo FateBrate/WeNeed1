@@ -10,6 +10,7 @@ class User {
   String? role;
   String? phoneNumber;
   String? profilePicture;
+  List<String>? sports;
 
   User({
     this.id,
@@ -20,6 +21,7 @@ class User {
     this.role,
     this.phoneNumber,
     this.profilePicture,
+    this.sports,
   });
 
 

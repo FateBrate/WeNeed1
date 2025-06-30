@@ -9,6 +9,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import '../models/user.dart';
 import '../providers/user_provider.dart';
 import '../screens/login.dart';
+import '../services/sport_translation_service.dart';
 import '../widgets/master_screen.dart';
 import '../widgets/custom_snackbar.dart';
 
@@ -28,7 +29,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool _isLoading = true;
   File? _pickedFile;
   String? _profileImageBase64;
-
+  final List<String> _allSports = [
+    'FOOTBALL',
+    'BASKETBALL',
+    'FUTSAL',
+    'VOLLEYBALL',
+    'BEACH_VOLLEYBALL',
+    'MINI_FOOTBALL',
+    'HANDBALL',
+    'TENNIS'
+  ];
+  List<String> _selectedSports = [];
   @override
   void initState() {
     super.initState();
@@ -41,6 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _user = user;
       _profileImageBase64 = user.profilePicture;
       _isLoading = false;
+      _selectedSports = List<String>.from(user.sports ?? []);
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -130,6 +142,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  Future<void> _saveSports() async {
+    if (_user?.id == null) return;
+
+    try {
+      await _userProvider.updateUserSports(_user!.id!, _selectedSports);
+      if (mounted) {
+          CustomSnackbar.show(context, "Sportovi uspješno sačuvani", SnackbarType.success);
+      }
+    } catch (e) {
+      if (mounted) {
+        CustomSnackbar.show(context, "Greška: $e", SnackbarType.error);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_isLoading || _user == null) {
@@ -215,8 +242,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             ),
-
             const Divider(height: 32),
+
+            const Text("Sportovi", style: TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 4,
+              children: _allSports.map((sport) {
+                return FilterChip(
+                  label: Text(SportTranslationService.translate(sport)),
+                  selected: _selectedSports.contains(sport),
+                  onSelected: (bool selected) {
+                    setState(() {
+                      if (selected) {
+                        _selectedSports.add(sport);
+                      } else {
+                        _selectedSports.remove(sport);
+                      }
+                    });
+                  },
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 12),
+            ElevatedButton(
+              onPressed: _saveSports,
+              child: const Text("Sačuvaj sportove"),
+            ),
+            const Divider(height: 32),
+
 
             // --- Password Change ---
             const Text("Promijeni lozinku", style: TextStyle(fontWeight: FontWeight.bold)),

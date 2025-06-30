@@ -42,10 +42,19 @@ class UserProvider extends BaseProvider<User> {
     final response = await http.put(uri, headers: headers, body: body);
 
     if (response.statusCode != 200) {
-      print('Change password failed!');
-      print('Status code: ${response.statusCode}');
-      print('Response body: ${response.body}');
       throw Exception("Greška u promijeni lozinke: ${response.body}");
+    }
+  }
+
+  Future<void> updateUserSports(int id, List<String> sports) async {
+    final uri = Uri.parse(baseUrl).resolve('/User/$id/sports');
+    final headers = createHeaders();
+    final body = jsonEncode(sports);
+
+    final response = await http.patch(uri, headers: headers, body: body);
+
+    if (response.statusCode != 200) {
+      throw Exception("Greška pri ažuriranju sportova: ${response.body}");
     }
   }
 }

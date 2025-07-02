@@ -1,10 +1,12 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:playermobile/screens/team_details.dart';
 import '../../models/user.dart';
-import '../providers/user_provider.dart';
+import '../../models/team.dart';
 import '../services/sport_translation_service.dart';
 import '../widgets/master_screen.dart';
+import '../providers/user_provider.dart';
+import '../providers/team_provider.dart';
 
 class MemberScreen extends StatefulWidget {
   final int userId;
@@ -15,28 +17,32 @@ class MemberScreen extends StatefulWidget {
 }
 
 class _MemberScreenState extends State<MemberScreen> {
+  final _userProvider = UserProvider();
+  final _teamProvider = TeamProvider();
+
   User? _user;
+  List<Team> _teams = [];
   bool _isLoading = true;
-  final  _userProvider = UserProvider();
+
   @override
   void initState() {
     super.initState();
-    _loadUser();
+    _loadData();
   }
 
-  Future<void> _loadUser() async {
+  Future<void> _loadData() async {
     try {
       final user = await _userProvider.getById(widget.userId);
+      final teamResult = await _teamProvider.get(filter: {'userId': widget.userId, 'isPublic': true});
       setState(() {
         _user = user;
+        _teams = teamResult.result;
         _isLoading = false;
       });
     } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
+      setState(() => _isLoading = false);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to load user: $e')),
+        SnackBar(content: Text('Greška prilikom učitavanja: $e')),
       );
     }
   }
@@ -65,7 +71,7 @@ class _MemberScreenState extends State<MemberScreen> {
     }
 
     if (_user == null) {
-      return Center(child: Text('User not found'));
+      return const Center(child: Text('Korisnik nije pronađen'));
     }
 
     return MobileMasterScreenWidget(
@@ -111,6 +117,47 @@ class _MemberScreenState extends State<MemberScreen> {
                 ),
               ),
             ],
+            if (_teams.isNotEmpty) ...[
+              const SizedBox(height: 24),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text("Timovi", style: TextStyle(fontWeight: FontWeight.bold)),
+              ),
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: _teams.map((team) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => TeamDetailsScreen(teamId: team.id!),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.grey.shade200,
+                        image: team.teamPicture != null
+                            ? DecorationImage(
+                          image: MemoryImage(base64Decode(team.teamPicture!)),
+                          fit: BoxFit.cover,
+                        )
+                            : null,
+                      ),
+                      child: team.teamPicture == null
+                          ? const Center(child: Icon(Icons.group, size: 32, color: Colors.grey))
+                          : null,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ]
           ],
         ),
       ),

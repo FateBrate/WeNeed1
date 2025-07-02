@@ -45,4 +45,18 @@ class TeamProvider extends BaseProvider<Team> {
       throw Exception('Failed to leave the team');
     }
   }
+
+  Future<void> addToTeam(int teamId, int userId) async {
+    final uri = Uri.parse(baseUrl)
+        .resolve('Team/$teamId/add')
+        .replace(queryParameters: {'userId': userId.toString()});
+
+    final headers = createHeaders();
+
+    final response = await http.post(uri, headers: headers);
+
+    if (!isValidResponse(response)) {
+      throw Exception('Failed to add user to the team');
+    }
+  }
 }

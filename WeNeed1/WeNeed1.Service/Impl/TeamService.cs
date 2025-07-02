@@ -133,21 +133,17 @@ namespace WeNeed1.Service.Impl
         }
         public async Task AddToTeam(int teamId, int userId)
         {
-            var currentUser = await _userService.GetCurrentUserAsync();
-
-
+            
             var team = await _context.Teams.FindAsync(teamId);
-            if (team == null || team.CaptainId != currentUser.Id)
-                throw new UserException("Only the team captain can add users to the team.");
-
-
+            if (team == null)
+                throw new UserException("Team not found");
+            
             var existingUserTeam = await _context.UserTeams
                 .FirstOrDefaultAsync(ut => ut.UserId == userId && ut.TeamId == teamId);
 
             if (existingUserTeam != null)
                 throw new UserException("User is already a member of the team.");
-
-
+            
             var userTeam = new UserTeam
             {
                 UserId = userId,

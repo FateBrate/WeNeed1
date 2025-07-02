@@ -55,13 +55,28 @@ namespace WeNeed1.Service.Impl
 
         public override IQueryable<User> AddFilter(IQueryable<User> query, UserSearchObject? search = null)
         {
-            if (!string.IsNullOrEmpty(search?.FirstName))
+            if (!string.IsNullOrEmpty(search?.FullName))
             {
-                query = query.Where(x => x.FirstName.StartsWith(search.FirstName));
+                var fullNameLower = search.FullName.ToLower();
+
+                query = query.Where(x =>
+                    (x.FirstName + " " + x.LastName).ToLower().Contains(fullNameLower) ||
+                    (x.LastName + " " + x.FirstName).ToLower().Contains(fullNameLower));
+            }
+
+            if (search?.Role != null)
+            {
+                query = query.Where(x => x.Role == search.Role);
+            }
+
+            if (search?.ExcludeTeamId != null)
+            {
+                query = query.Where(x => !x.UserTeams.Any(ut => ut.TeamId == search.ExcludeTeamId));
             }
 
             return base.AddFilter(query, search);
         }
+
 
         public static string GenerateSalt()
         {

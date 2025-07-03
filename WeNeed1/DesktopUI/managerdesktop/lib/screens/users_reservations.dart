@@ -85,8 +85,8 @@ class _ReservationScreenState extends State<ReservationScreen> {
   @override
   Widget build(BuildContext context) {
     final totalPages = (_totalCount / _pageSize).ceil();
-
     return MasterScreenWidget(
+      title: "Korisnici i rezervacije",
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Align(
@@ -98,15 +98,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Tereni",
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'Korisnici / Rezervacije',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
-                  ),
                   const SizedBox(height: 24),
                   Wrap(
                     spacing: 16,
@@ -148,20 +139,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
                               _loadReservations();
                             });
                           },
-                        ),
-                      ),
-                      SizedBox(
-                        height: 60,
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            _currentPage = 0;
-                            _loadReservations();
-                          },
-                          icon: const Icon(Icons.search),
-                          label: const Text("Pretraga"),
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(200, 60),
-                          ),
                         ),
                       ),
                     ],

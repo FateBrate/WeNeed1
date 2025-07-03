@@ -112,12 +112,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
 
     return MasterScreenWidget(
+      title: "Profil vlasnika",
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // --- Ažuriranje profila ---
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,7 +173,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             const SizedBox(width: 32),
-            // --- Promjena lozinke ---
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,7 +187,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           name: 'oldPassword',
                           decoration: const InputDecoration(labelText: 'Trenutna lozinka'),
                           obscureText: true,
-                          validator: FormBuilderValidators.required(errorText: "Polje 'Trenutna lozinka' je obavezno"),
+                          validator: FormBuilderValidators.compose([
+                            FormBuilderValidators.required(errorText: "Polje 'trenutna lozinka' je obavezno"),
+                            FormBuilderValidators.minLength(8, errorText: 'Lozinka mora imati najmanje 8 znakova'),
+                          ]),
                         ),
                         FormBuilderTextField(
                           name: 'newPassword',
@@ -196,7 +198,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           obscureText: true,
                           validator: FormBuilderValidators.compose([
                             FormBuilderValidators.required(errorText: "Polje 'Nova lozinka' je obavezno"),
-                            FormBuilderValidators.minLength(6),
+                            FormBuilderValidators.minLength(8, errorText: 'Lozinka mora imati najmanje 8 znakova'),
                           ]),
                         ),
                         FormBuilderTextField(

@@ -16,8 +16,8 @@ class MasterScreenWidget extends StatefulWidget {
         this.child,
         this.title,
         this.titleWidget,
-        Key? key,
-    }) : super(key: key);
+        super.key,
+    });
 
     @override
     State<MasterScreenWidget> createState() => _MasterScreenWidgetState();
@@ -32,42 +32,63 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
             ),
             drawer: Drawer(
                 child: Container(
-                    color: Color(0xFF13151B),
+                    color: const Color(0xFF13151B),
                     child: Column(
                         children: [
+                            const SizedBox(height: 40),
+                            Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                                child: Column(
+                                    children: [
+                                        const Icon(Icons.manage_accounts_rounded, size: 48, color: Colors.white),
+                                        const SizedBox(height: 8),
+                                        const Text(
+                                            'WeNeed1',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                letterSpacing: 1.2,
+                                            ),
+                                        ),
+                                    ],
+                                ),
+                            ),
+                            const Divider(color: Colors.white54),
                             Expanded(
                                 child: ListView(
+                                    padding: const EdgeInsets.symmetric(vertical: 8),
                                     children: [
                                         ListTile(
-                                            leading: Icon(Icons.sports_soccer, color: Colors.white),
+                                            leading: const Icon(Icons.sports_soccer, color: Colors.white),
                                             title: const Text('Tereni', style: TextStyle(color: Colors.white)),
                                             onTap: () {
                                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => FieldsScreen()));
                                             },
                                         ),
                                         ListTile(
-                                            leading: Icon(Icons.people, color: Colors.white),
+                                            leading: const Icon(Icons.people, color: Colors.white),
                                             title: const Text('Korisnici i Rezervacije', style: TextStyle(color: Colors.white)),
                                             onTap: () {
                                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => ReservationScreen()));
                                             },
                                         ),
                                         ListTile(
-                                            leading: Icon(Icons.bar_chart, color: Colors.white),
+                                            leading: const Icon(Icons.bar_chart, color: Colors.white),
                                             title: const Text('Izvještaji', style: TextStyle(color: Colors.white)),
                                             onTap: () {
                                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => ReportScreen()));
                                             },
                                         ),
                                         ListTile(
-                                            leading: Icon(Icons.settings, color: Colors.white),
+                                            leading: const Icon(Icons.settings, color: Colors.white),
                                             title: const Text('Postavke Sportskog Centra', style: TextStyle(color: Colors.white)),
                                             onTap: () {
                                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsScreen()));
                                             },
                                         ),
                                         ListTile(
-                                            leading: Icon(Icons.person, color: Colors.white),
+                                            leading: const Icon(Icons.person, color: Colors.white),
                                             title: const Text('Profil', style: TextStyle(color: Colors.white)),
                                             onTap: () {
                                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfileScreen()));
@@ -77,14 +98,28 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
                                 ),
                             ),
                             const Divider(color: Colors.white54),
-                            ListTile(
-                                leading: Icon(Icons.logout, color: Colors.white),
-                                title: const Text('Odjava', style: TextStyle(color: Colors.white)),
-                                onTap: () {
-                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
-                                },
+                            Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Column(
+                                    children: [
+                                        const Text(
+                                            'WeNeed1 © 2025',
+                                            style: TextStyle(color: Colors.white70, fontSize: 12),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        ListTile(
+                                            leading: const Icon(Icons.logout, color: Colors.white),
+                                            title: const Text('Odjava', style: TextStyle(color: Colors.white)),
+                                            onTap: () {
+                                                Navigator.of(context).pushReplacement(
+                                                    MaterialPageRoute(builder: (context) => LoginPage()),
+                                                );
+                                            },
+                                        ),
+                                    ],
+                                ),
                             ),
-                            const SizedBox(height: 20),
+                            const SizedBox(height: 12),
                         ],
                     ),
                 ),

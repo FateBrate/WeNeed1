@@ -99,20 +99,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
 
     return MasterScreenWidget(
+      title: "Postavke sportskog centra",
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Postavke",
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              "Postavke sportskog centra",
-              style: TextStyle(fontSize: 16, color: Colors.grey),
-            ),
             const SizedBox(height: 16),
             FormBuilder(
               key: _formKey,

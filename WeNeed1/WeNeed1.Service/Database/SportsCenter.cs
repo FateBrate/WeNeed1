@@ -22,4 +22,7 @@ public partial class SportsCenter
     public virtual User? Manager { get; set; }
     
     public byte[]? Image { get; set; }
+
+    public virtual ICollection<SportsCenterRecommendation> BaseRecommendations { get; set; } = new List<SportsCenterRecommendation>();
+    public virtual ICollection<SportsCenterRecommendation> RecommendedBy { get; set; } = new List<SportsCenterRecommendation>();
 }

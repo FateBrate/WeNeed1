@@ -40,6 +40,10 @@ public partial class WeNeed1Context : DbContext
     public virtual DbSet<MatchAttendance> MatchAttendances { get; set; }
 
     public virtual DbSet<UserSport> UserSports { get; set; }
+
+    public virtual DbSet<SportsCenterRecommendation> SportsCenterRecommendations { get; set; }
+
+    public virtual DbSet<SportsTeamRecommendation> SportsTeamRecommendations { get; set; }
     //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
     //        => optionsBuilder.UseSqlServer("Server=localhost;Database=WeNeed1;Trusted_Connection=True;TrustServerCertificate=True");
@@ -102,6 +106,32 @@ public partial class WeNeed1Context : DbContext
             .WithMany(u => u.UserSports)
             .HasForeignKey(us => us.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<SportsCenterRecommendation>(entity =>
+        {
+            entity.HasOne(d => d.BaseSportsCenter)
+                .WithMany(p => p.BaseRecommendations)
+                .HasForeignKey(d => d.BaseSportsCenterId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(d => d.RecommendedSportsCenter)
+                .WithMany(p => p.RecommendedBy)
+                .HasForeignKey(d => d.RecommendedSportsCenterId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<SportsTeamRecommendation>(entity =>
+        {
+            entity.HasOne(d => d.BaseTeam)
+                .WithMany(t => t.BaseRecommendations)
+                .HasForeignKey(d => d.BaseTeamId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(d => d.RecommendedTeam)
+                .WithMany(t => t.RecommendedBy)
+                .HasForeignKey(d => d.RecommendedTeamId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
 
         SeedUsers(modelBuilder);
         SeedSportCenters(modelBuilder);

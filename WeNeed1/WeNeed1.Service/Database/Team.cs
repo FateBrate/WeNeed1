@@ -35,4 +35,7 @@ public partial class Team
     public virtual ICollection<Match>? Matches { get; } = new List<Match>();
 
     public virtual ICollection<Squad>? Squads { get; } = new List<Squad>();
+
+    public virtual ICollection<SportsTeamRecommendation> BaseRecommendations { get; set; } = new List<SportsTeamRecommendation>();
+    public virtual ICollection<SportsTeamRecommendation> RecommendedBy { get; set; } = new List<SportsTeamRecommendation>();
 }

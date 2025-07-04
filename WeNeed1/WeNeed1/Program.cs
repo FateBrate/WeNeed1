@@ -18,6 +18,10 @@ builder.Services.AddTransient<ISportsFieldService, SportsFieldService>();
 builder.Services.AddTransient<IMatchService, MatchService>();
 builder.Services.AddTransient<ICommentService, CommentService>();
 builder.Services.AddTransient<IReservationService, ReservationService>();
+builder.Services.AddScoped<SportsCenterRecommenderService>();
+builder.Services.AddHostedService<SportCenterRecommenderStartupTrainer>();
+builder.Services.AddScoped<TeamRecommenderService>();
+builder.Services.AddHostedService<TeamRecommenderStartupTrainer>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -71,6 +75,11 @@ using (var scope = app.Services.CreateScope())
     
     var imageSeeder = new ImageSeeder(dataContext);
     imageSeeder.Seed();
+    var sportsCenterRecommender = scope.ServiceProvider.GetRequiredService<SportsCenterRecommenderService>();
+    sportsCenterRecommender.TrainModelAsync().Wait();
+
+    var teamRecommender = scope.ServiceProvider.GetRequiredService<TeamRecommenderService>();
+    teamRecommender.TrainModelAsync().Wait();
 }
 
 app.UseHttpsRedirection();

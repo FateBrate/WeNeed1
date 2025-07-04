@@ -32,6 +32,7 @@ namespace WeNeed1.Service.Impl
 
         public override IQueryable<Squad> AddFilter(IQueryable<Squad> query, SquadSearchObject? search = null)
         {
+            query = query.Include(s => s.UserSquads).ThenInclude(us => us.User);
             if (search?.TeamId.HasValue == true)
             {
                 query = query.Where(s => s.TeamId == search.TeamId.Value);

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:playermobile/providers/team_provider.dart';
+import 'package:playermobile/screens/squad.dart';
 import 'package:playermobile/screens/team.dart';
 import 'package:playermobile/screens/team_form.dart';
 import 'package:playermobile/screens/team_members.dart';
@@ -211,7 +212,6 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            // slika tima i ime
             _team!.teamPicture != null && _team!.teamPicture!.isNotEmpty
                 ? ClipRRect(
                   borderRadius: BorderRadius.circular(12),
@@ -359,6 +359,21 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => TeamMembersScreen(teamId: _team!.id!),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text(
+                'Ekipe',
+                style: TextStyle(color: Colors.white),
+              ),
+              trailing: const Icon(Icons.arrow_forward, color: Colors.white),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SquadScreen(teamId: _team!.id!),
                   ),
                 );
               },

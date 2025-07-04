@@ -84,22 +84,6 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  void _showSuccessDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const Text("Uspjeh"),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("Zatvori"),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -187,7 +171,10 @@ class _RegisterPageState extends State<RegisterPage> {
                             labelText: 'Lozinka',
                             border: OutlineInputBorder(),
                           ),
-                          validator: FormBuilderValidators.required(errorText: 'Obavezno polje'),
+                          validator: FormBuilderValidators.compose([
+                            FormBuilderValidators.required(errorText: 'Obavezno polje'),
+                            FormBuilderValidators.minLength(8, errorText: 'Lozinka mora imati najmanje 8 znakova'),
+                          ]),
                         ),
                         const SizedBox(height: 16),
                         FormBuilderTextField(
@@ -197,7 +184,10 @@ class _RegisterPageState extends State<RegisterPage> {
                             labelText: 'Potvrdi lozinku',
                             border: OutlineInputBorder(),
                           ),
-                          validator: FormBuilderValidators.required(errorText: 'Obavezno polje'),
+                          validator: FormBuilderValidators.compose([
+                            FormBuilderValidators.required(errorText: 'Obavezno polje'),
+                            FormBuilderValidators.minLength(8, errorText: 'Lozinka mora imati najmanje 8 znakova'),
+                          ]),
                         ),
                         const SizedBox(height: 30),
                         _isLoading

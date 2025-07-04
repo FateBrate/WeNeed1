@@ -10,8 +10,8 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import '../providers/sport_field_provider.dart';
 import '../services/session_serivce.dart';
 import '../widgets/confirmation_dialog.dart';
+import '../widgets/custom_snackbar.dart';
 import '../widgets/master_screen.dart';
-
 
 class SportFieldFormScreen extends StatefulWidget {
   final int? sportFieldId;
@@ -69,10 +69,19 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
     }
   }
 
-  Future getImage() async {
+  Future getImage(BuildContext context) async {
     var result = await FilePicker.platform.pickFiles(type: FileType.image);
+
     if (result != null && result.files.single.path != null) {
-      _image = File(result.files.single.path!);
+      final file = File(result.files.single.path!);
+      final fileSizeInMB = file.lengthSync() / (1024 * 1024);
+
+      if (fileSizeInMB > 5) {
+        CustomSnackbar.show(context, "Slika ne smije biti veća od 5MB.", SnackbarType.error);
+        return;
+      }
+
+      _image = file;
       _base64Image = base64Encode(_image!.readAsBytesSync());
     }
   }
@@ -130,6 +139,7 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
   @override
   Widget build(BuildContext context) {
     return MasterScreenWidget(
+      title: widget.sportFieldId == null ? "Dodaj novi teren" : "Uredi teren",
       child: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
@@ -139,13 +149,8 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                widget.sportFieldId == null ? "Dodaj novi teren" : "Uredi teren",
-                style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-              ),
               const SizedBox(height: 16),
 
-              // NAME
               FormBuilderTextField(
                 name: 'name',
                 decoration: const InputDecoration(labelText: "Naziv"),
@@ -155,7 +160,6 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
               ),
               const SizedBox(height: 12),
 
-              // SPORT TYPE
               FormBuilderTextField(
                 name: 'sportType',
                 decoration: const InputDecoration(labelText: "Sport"),
@@ -165,7 +169,6 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
               ),
               const SizedBox(height: 12),
 
-              // DESCRIPTION
               FormBuilderTextField(
                 name: 'description',
                 decoration: const InputDecoration(labelText: "Opis"),
@@ -176,7 +179,6 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
               ),
               const SizedBox(height: 12),
 
-              // PRICE
               FormBuilderTextField(
                 name: 'pricePerHour',
                 decoration: const InputDecoration(labelText: "Cena po satu"),
@@ -191,7 +193,6 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
               ),
               const SizedBox(height: 16),
 
-              // IMAGE
               Text(
                 "Slika",
                 style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -234,16 +235,18 @@ class _SportFieldFormScreenState extends State<SportFieldFormScreen> {
 
               ElevatedButton.icon(
                 onPressed: () async {
-                  await getImage();
+                  await getImage(context);
                   setState(() {});
                 },
                 icon: const Icon(Icons.upload),
                 label: const Text("Izaberi sliku"),
               ),
-
+              const Text(
+                'Maksimalna veličina slike: 5 MB',
+                style: TextStyle(fontSize: 12, color: Colors.white70),
+              ),
               const SizedBox(height: 24),
 
-              // SAVE BUTTON
               Center(
                 child: Column(
                   children: [

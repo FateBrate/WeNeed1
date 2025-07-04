@@ -145,6 +145,7 @@ class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
     return MasterScreenWidget(
+      title: "Izvještaji",
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(

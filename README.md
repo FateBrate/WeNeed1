@@ -14,7 +14,7 @@ docker-compose up --build
 
 ## 🖥️ Admin App
 
-Inside `WeNeed1/UI/weneed1_admin`, run:
+Inside `WeNeed1/DesktopUI/managerdesktop/`, run:
 
 ```
 flutter run -d windows
@@ -28,7 +28,7 @@ flutter run -d windows
 
 ## 📱 Mobile App
 
-Inside `WeNeed1/UI/weneed1_mobile`, run:
+Inside `WeNeed1/MobileUI/playermobile`, run:
 
 ```
 flutter run \

@@ -129,4 +129,39 @@ public class MatchService : BaseCRUDService<MatchResponseDto, Match, MatchSearch
 
         await _context.SaveChangesAsync();
     }
+
+    public async Task<int> GetPlayedMatchCountForCurrentUser()
+    {
+        var currentUser = await _userService.GetCurrentUserAsync();
+
+        return await _context.MatchAttendances
+            .Include(ma => ma.Match)
+            .Where(ma =>
+                ma.UserId == currentUser.Id &&
+                ma.IsAttending &&
+                ma.Match.Status == MatchStatus.FINISHED)
+            .CountAsync();
+    }
+
+    public async Task<LastMatchSummaryDto?> GetLastMatchSummaryForCurrentUser()
+    {
+        var currentUser = await _userService.GetCurrentUserAsync();
+        var userId = currentUser.Id;
+
+        var lastMatch = await _context.Matches
+            .Include(m => m.MatchAttendances)
+            .Where(m => m.Status == MatchStatus.FINISHED &&
+                        m.MatchAttendances.Any(a => a.UserId == userId && a.IsAttending))
+            .OrderByDescending(m => m.MatchDate)
+            .FirstOrDefaultAsync();
+
+        if (lastMatch == null)
+            return null;
+
+        return new LastMatchSummaryDto
+        {
+            Result = lastMatch.Result,
+            MatchDate = lastMatch.MatchDate
+        };
+    }
 }

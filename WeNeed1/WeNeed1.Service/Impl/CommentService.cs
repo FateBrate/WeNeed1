@@ -44,6 +44,7 @@ namespace WeNeed1.Service.Impl
 
         public override IQueryable<Comment> AddFilter(IQueryable<Comment> query, CommentSearchObject search)
         {
+            query = query.Include(c => c.User);
             if (search.MatchId.HasValue)
             {
                 query = query.Where(c => c.MatchId == search.MatchId.Value);

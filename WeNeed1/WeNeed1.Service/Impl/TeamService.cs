@@ -191,6 +191,23 @@ namespace WeNeed1.Service.Impl
             return dtoList;
         }
 
+        public override async Task<TeamResponseDto> Delete(int id)
+        {
+            var team = await _context.Teams.FindAsync(id);
+            if (team == null)
+                throw new UserException("Team not found.");
+
+            var recommendations = _context.SportsTeamRecommendations
+                .Where(r => r.RecommendedTeamId == id);
+            _context.SportsTeamRecommendations.RemoveRange(recommendations);
+
+
+            _context.Teams.Remove(team);
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<TeamResponseDto>(team);
+        }
+
     }
 
 }

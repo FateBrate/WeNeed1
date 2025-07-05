@@ -7,6 +7,7 @@ import 'package:playermobile/screens/reservations.dart';
 import '../models/sport_field.dart';
 import '../providers/reservation_provider.dart';
 import '../providers/sport_field_provider.dart';
+import '../widgets/custom_snackbar.dart';
 import '../widgets/master_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
@@ -53,50 +54,60 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       "startTime": startTime.toIso8601String(),
     };
 
-    final response = await ReservationProvider().insert(request);
+    try {
+      final response = await ReservationProvider().insert(request);
 
-    if (response != null) {
-      if (!mounted) return;
+      if (response != null) {
+        if (!mounted) return;
 
-      final payNow = await showDialog<bool>(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text("Rezervacija uspješna"),
-          content: const Text("Želite li odmah platiti rezervaciju?"),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: const Text("Ne"),
-            ),
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: const Text("Da"),
-            ),
-          ],
-        ),
-      );
+        CustomSnackbar.show(context, "Rezervacija je uspješno kreirana.", SnackbarType.success);
 
-      if (payNow == true) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => StripePaymentScreen(reservationId: response.id!,
-          amount: _field?.pricePerHour ?? 0.0, ),
+        final payNow = await showDialog<bool>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text("Rezervacija uspješna"),
+            content: const Text("Želite li odmah platiti rezervaciju?"),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text("Ne"),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: const Text("Da"),
+              ),
+            ],
           ),
         );
+
+        if (!mounted) return;
+
+        if (payNow == true) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => StripePaymentScreen(
+                reservationId: response.id!,
+                amount: _field?.pricePerHour ?? 0.0,
+              ),
+            ),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MyReservationsScreen(),
+            ),
+          );
+        }
       } else {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MyReservationsScreen(),
-          ),
-        );
+        if (!mounted) return;
+        CustomSnackbar.show(context, "Greška prilikom rezervacije. Pokušajte ponovo.", SnackbarType.error);
+        // ništa dalje se ne dešava
       }
-    } else {
+    } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Greška prilikom rezervacije.")),
-      );
+      CustomSnackbar.show(context, "Došlo je do greške: $e", SnackbarType.error);
     }
   }
 

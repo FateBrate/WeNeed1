@@ -65,7 +65,7 @@ class _AvailableSlotsScreenState extends State<AvailableSlotsScreen> {
               onPressed: _pickDate,
               icon: const Icon(Icons.calendar_today),
               label: Text(
-                "Odabrani datum: ${_selectedDate.toLocal().toString().split(' ')[0]}",
+                "Odaberi datum: ${_selectedDate.toLocal().toString().split(' ')[0]}",
               ),
             ),
             const SizedBox(height: 16),
@@ -90,7 +90,9 @@ class _AvailableSlotsScreenState extends State<AvailableSlotsScreen> {
                             selectedTime: slot,
                           ),
                         ),
-                      );
+                      ).then((_) {
+                        _loadSlots(); // Refresh slots on return
+                      });
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),

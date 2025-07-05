@@ -4,6 +4,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 import 'package:playermobile/screens/reservations.dart';
 import '../providers/reservation_provider.dart';
+import '../widgets/custom_snackbar.dart';
 import '../widgets/master_screen.dart';
 
 class StripePaymentScreen extends StatefulWidget {
@@ -46,7 +47,7 @@ class _StripePaymentScreenState extends State<StripePaymentScreen> {
       await ReservationProvider().pay(widget.reservationId, transactionId);
 
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Plaćanje uspješno!")));
+      CustomSnackbar.show(context, "Plaćanje uspješno!", SnackbarType.success);
 
       Navigator.pushReplacement(
         context,
@@ -56,14 +57,17 @@ class _StripePaymentScreenState extends State<StripePaymentScreen> {
       );
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Greška prilikom plaćanja: $e")),
+      CustomSnackbar.show(
+        context,
+        "Greška prilikom plaćanja: $e",
+        SnackbarType.error,
       );
       Navigator.pop(context);
     } finally {
       setState(() => _isLoading = false);
     }
   }
+
 
   Future<Map<String, dynamic>?> _createPaymentIntent(int amount, String currency) async {
     try {

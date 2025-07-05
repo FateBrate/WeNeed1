@@ -72,28 +72,69 @@ class _CommentsScreenState extends State<CommentsScreen> {
               itemCount: _comments.length,
               itemBuilder: (context, index) {
                 final c = _comments[index];
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: c.profilePicture != null
-                        ? MemoryImage(
-                      // Remove the data URI prefix if exists, decode only the base64 part
-                      base64Decode(
-                        c.profilePicture!.contains(',')
-                            ? c.profilePicture!.split(',').last
-                            : c.profilePicture!,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: c.profilePicture != null
+                            ? MemoryImage(
+                          base64Decode(
+                            c.profilePicture!.contains(',')
+                                ? c.profilePicture!.split(',').last
+                                : c.profilePicture!,
+                          ),
+                        )
+                            : null,
+                        child: c.profilePicture == null ? const Icon(Icons.person) : null,
                       ),
-                    )
-                        : null,
-                    child: c.profilePicture == null
-                        ? const Icon(Icons.person)
-                        : null,
-                  ),
-                  title: Text(c.userName ?? "Nepoznat korisnik"),
-                  subtitle: Text(c.content ?? ""),
-                  trailing: Text(
-                    c.created != null
-                        ? DateFormat('dd.MM.yyyy HH:mm').format(c.created!)
-                        : "Nepoznat datum",
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  c.userName ?? "Nepoznat korisnik",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                Text(
+                                  c.created != null
+                                      ? DateFormat('dd.MM.yyyy HH:mm').format(c.created!)
+                                      : "Nepoznat datum",
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 6),
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: Colors.blueGrey[50],
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                c.content ?? "",
+                                style: const TextStyle(fontSize: 12,
+                                    color: Colors.black87
+
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 );
               },

@@ -60,7 +60,7 @@ class _SportsFieldsScreenState extends State<SportsFieldsScreen> {
                 Expanded(
                   child: TextField(
                     controller: _searchController,
-                    decoration: const InputDecoration(labelText: "Pretraga po imenu"),
+                    decoration: const InputDecoration(labelText: "Naziv"),
                   ),
                 ),
                 const SizedBox(width: 8),

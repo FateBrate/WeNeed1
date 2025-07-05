@@ -86,7 +86,7 @@ namespace WeNeed1.Service.Impl
             var recommendedTeams = await _context.Teams
                 .Include(t => t.UserTeams)
                 .ThenInclude(ut => ut.User)
-                .Where(t => recommendedTeamIds.Contains(t.Id))
+                .Where(t => recommendedTeamIds.Contains(t.Id) && !userTeams.Contains(t.Id) && t.IsPublic == true)
                 .ToListAsync();
 
             var scoredRecommendations = recommended.Select(r =>
@@ -108,6 +108,7 @@ namespace WeNeed1.Service.Impl
                 .OrderByDescending(r => r.TotalScore)
                 .Select(r => r.Recommendation.RecommendedTeamId)
                 .Distinct()
+                .Take(5)
                 .ToList();
 
             var result = recommendedTeams

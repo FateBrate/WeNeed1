@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/review.dart';
 import '../providers/review_provider.dart';
+import '../widgets/custom_snackbar.dart';
 import '../widgets/master_screen.dart';
 
 class ReviewScreen extends StatefulWidget {
@@ -45,8 +46,10 @@ class _ReviewScreenState extends State<ReviewScreen> {
   Future<void> _addReview() async {
     final content = _contentController.text.trim();
     if (content.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Molimo unesite sadržaj recenzije.")),
+      CustomSnackbar.show(
+        context,
+        "Molimo unesite sadržaj recenzije.",
+        SnackbarType.error,
       );
       return;
     }
@@ -58,13 +61,17 @@ class _ReviewScreenState extends State<ReviewScreen> {
       _contentController.clear();
       _rating = 3.0;
       await _loadReviews();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Recenzija je uspješno dodana.")),
+      CustomSnackbar.show(
+        context,
+        "Recenzija je uspješno dodana.",
+        SnackbarType.success,
       );
     } catch (e) {
       print(e);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Greška pri dodavanju recenzije: $e")),
+      CustomSnackbar.show(
+        context,
+        "Greška pri dodavanju recenzije: $e",
+        SnackbarType.error,
       );
     }
   }

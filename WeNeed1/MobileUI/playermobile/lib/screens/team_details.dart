@@ -9,6 +9,7 @@ import 'package:playermobile/screens/team_members.dart';
 
 import '../../models/team.dart';
 import '../../services/session_serivce.dart';
+import '../widgets/custom_snackbar.dart';
 import '../widgets/master_screen.dart';
 import 'game.dart';
 
@@ -68,40 +69,32 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
       await _teamService.joinTeam(widget.teamId);
       await _loadTeamDetails();
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Uspešno ste se pridružili timu.')),
-      );
+      CustomSnackbar.show(context, 'Uspješno ste se pridružili timu.', SnackbarType.success);
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Greška pri pridruživanju timu: $e')),
-      );
+      CustomSnackbar.show(context, 'Greška pri pridruživanju timu: $e', SnackbarType.error);
     } finally {
       setState(() {
         _isProcessing = false;
       });
     }
   }
-
   Future<void> _deleteTeam() async {
     final confirm = await showDialog<bool>(
       context: context,
-      builder:
-          (_) => AlertDialog(
-            title: const Text('Potvrda brisanja'),
-            content: const Text(
-              'Da li ste sigurni da želite obrisati ovaj tim?',
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: const Text('Ne'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pop(context, true),
-                child: const Text('Da'),
-              ),
-            ],
+      builder: (_) => AlertDialog(
+        title: const Text('Potvrda brisanja'),
+        content: const Text('Da li ste sigurni da želite obrisati ovaj tim?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Ne'),
           ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Da'),
+          ),
+        ],
+      ),
     );
 
     if (confirm != true) return;
@@ -114,44 +107,41 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
       await _teamService.delete(widget.teamId);
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Tim je uspešno obrisan.')),
-        );
+        CustomSnackbar.show(context, 'Tim je uspješno obrisan.', SnackbarType.success);
 
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (_) => TeamScreen()),
-          (route) => false,
+          MaterialPageRoute(builder: (_) => const TeamScreen()),
+              (route) => false,
         );
       }
     } catch (e) {
       setState(() {
         _isProcessing = false;
       });
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Greška pri brisanju tima: $e')));
+
+      CustomSnackbar.show(context, 'Greška pri brisanju tima: $e', SnackbarType.error);
     }
   }
+
 
   Future<void> _leaveTeam() async {
     final confirm = await showDialog<bool>(
       context: context,
-      builder:
-          (_) => AlertDialog(
-            title: const Text('Potvrda napuštanja'),
-            content: const Text('Da li želite napustiti ovaj tim?'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: const Text('Ne'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pop(context, true),
-                child: const Text('Da'),
-              ),
-            ],
+      builder: (_) => AlertDialog(
+        title: const Text('Potvrda napuštanja'),
+        content: const Text('Da li želite napustiti ovaj tim?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Ne'),
           ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Da'),
+          ),
+        ],
+      ),
     );
 
     if (confirm != true) return;
@@ -164,25 +154,23 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
       await _teamService.leaveTeam(widget.teamId);
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Uspešno ste napustili tim.')),
-        );
+        CustomSnackbar.show(context, 'Uspješno ste napustili tim.', SnackbarType.success);
 
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (_) => TeamScreen()),
-          (route) => false,
+          MaterialPageRoute(builder: (_) => const TeamScreen()),
+              (route) => false,
         );
       }
     } catch (e) {
       setState(() {
         _isProcessing = false;
       });
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Greška pri napuštanju tima: $e')));
+
+      CustomSnackbar.show(context, 'Greška pri napuštanju tima: $e', SnackbarType.error);
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -348,6 +336,7 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
 
             const SizedBox(height: 24),
             const Divider(color: Colors.white24),
+            if (_team!.isMember)
             ListTile(
               title: const Text(
                 'Članovi tima',
@@ -363,6 +352,7 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
                 );
               },
             ),
+            if (_team!.isMember)
             ListTile(
               title: const Text(
                 'Ekipe',

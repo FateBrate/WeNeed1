@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../screens/home.dart';
 import '../screens/login.dart';
 import '../screens/profile.dart';
 import '../screens/reservations.dart';
@@ -42,6 +43,16 @@ class MobileMasterScreenWidget extends StatelessWidget {
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: [
+                  ListTile(
+                    leading: const Icon(Icons.home, color: Colors.white),
+                    title: const Text('Početna', style: TextStyle(color: Colors.white)),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const HomePage(),
+                      ));
+                    },
+                  ),
                   ListTile(
                     leading: const Icon(Icons.groups, color: Colors.white),
                     title: const Text('Timovi', style: TextStyle(color: Colors.white)),

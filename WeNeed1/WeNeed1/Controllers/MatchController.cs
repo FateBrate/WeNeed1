@@ -35,5 +35,18 @@ namespace WeNeed1.Controllers
 
             return Ok(new { message = "Attendance updated." });
         }
+
+        [HttpGet("summary")]
+        public async Task<IActionResult> GetMatchSummary()
+        {
+            var count = await _matchService.GetPlayedMatchCountForCurrentUser();
+            var lastMatchSummary = await _matchService.GetLastMatchSummaryForCurrentUser();
+
+            return Ok(new
+            {
+                playedMatches = count,
+                lastMatch = lastMatchSummary
+            });
+        }
     }
 }

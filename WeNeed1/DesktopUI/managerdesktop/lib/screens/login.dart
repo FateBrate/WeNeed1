@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:managerdesktop/screens/register.dart';
 import 'package:managerdesktop/services/session_serivce.dart';
-
 import '../providers/sport_center_provider.dart';
 import '../utils/utils.dart';
+import '../widgets/custom_snackbar.dart';
 import 'fields.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,24 +14,27 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
 
   Future<void> _login(BuildContext context) async {
-    final username = _usernameController.text;
-    final password = _passwordController.text;
-
-    if (username.isEmpty || password.isEmpty) {
-      _showErrorDialog("Unesite korisničko ime i lozinku.");
+    if (!_formKey.currentState!.validate()) {
+      CustomSnackbar.show(context, "Popunite sva obavezna polja", SnackbarType.error);
       return;
     }
+
+    final username = _usernameController.text.trim();
+    final password = _passwordController.text.trim();
 
     setState(() {
       _isLoading = true;
     });
+
     Authorization.username = username;
     Authorization.password = password;
+
     try {
       var sportsCenterProvider = SportsCenterProvider();
       var sportsCenter = await sportsCenterProvider.getMySportsCenter();
@@ -43,28 +46,12 @@ class _LoginPageState extends State<LoginPage> {
         MaterialPageRoute(builder: (context) => const FieldsScreen()),
       );
     } catch (e) {
-      _showErrorDialog("Nesupješna prijava. Unesite ispravne kredencijale.");
+      CustomSnackbar.show(context, "Neuspješna prijava. Unesite ispravne kredencijale.", SnackbarType.error);
     } finally {
       setState(() {
         _isLoading = false;
       });
     }
-  }
-
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const Text("Greška"),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("Uredu"),
-          ),
-        ],
-      ),
-    );
   }
 
   @override
@@ -91,57 +78,72 @@ class _LoginPageState extends State<LoginPage> {
                     double maxWidth = constraints.maxWidth < 500 ? constraints.maxWidth : 500;
                     return SizedBox(
                       width: maxWidth,
-                      child: Column(
-                        children: [
-                          TextField(
-                            controller: _usernameController,
-                            decoration: const InputDecoration(
-                              labelText: 'Korisničko ime',
-                              prefixIcon: Icon(Icons.person),
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          TextField(
-                            controller: _passwordController,
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                              labelText: 'Lozinka',
-                              prefixIcon: Icon(Icons.lock),
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(height: 30),
-                          _isLoading
-                              ? const CircularProgressIndicator()
-                              : ElevatedButton(
-                            onPressed: () => _login(context),
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                              textStyle: const TextStyle(fontSize: 18),
-                            ),
-                            child: const Text("Prijava"),
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text("Nema registrovan nalog? "),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => const RegisterPage()),
-                                  );
-                                },
-                                child: const Text(
-                                  "Registrujte se",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              controller: _usernameController,
+                              decoration: const InputDecoration(
+                                labelText: 'Korisničko ime *',
+                                prefixIcon: Icon(Icons.person),
+                                border: OutlineInputBorder(),
                               ),
-                            ],
-                          ),
-                        ],
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'Korisničko ime je obavezno';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 20),
+                            TextFormField(
+                              controller: _passwordController,
+                              obscureText: true,
+                              decoration: const InputDecoration(
+                                labelText: 'Lozinka *',
+                                prefixIcon: Icon(Icons.lock),
+                                border: OutlineInputBorder(),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'Lozinka je obavezna';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 30),
+                            _isLoading
+                                ? const CircularProgressIndicator()
+                                : ElevatedButton(
+                              onPressed: () => _login(context),
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                                textStyle: const TextStyle(fontSize: 18),
+                              ),
+                              child: const Text("Prijava"),
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text("Nema registrovan nalog? "),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => const RegisterPage()),
+                                    );
+                                  },
+                                  child: const Text(
+                                    "Registrujte se",
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },

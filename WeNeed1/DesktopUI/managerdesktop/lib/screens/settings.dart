@@ -25,6 +25,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
   String? _base64Image;
   File? _image;
 
+  static const List<String> bosniaCities = [
+    'Mostar',
+    'Travnik',
+    'Sarajevo',
+    'Zenica',
+    'Tuzla',
+    'Banja Luka',
+    'Bihać',
+    'Goražde',
+    'Brčko',
+    'Gradačac',
+    'Konjic',
+    'Trebinje',
+    'Bugojno',
+    'Doboj',
+    'Bijeljina',
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -129,13 +147,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     validator: FormBuilderValidators.required(errorText: "Polje 'Naziv' je obavezno"),
                   ),
                   const SizedBox(height: 8),
-                  FormBuilderTextField(
-                    name: 'address',
-                    initialValue: _sportsCenter!.address,
-                    decoration: const InputDecoration(labelText: 'Adresa'),
-                    validator: FormBuilderValidators.required(errorText: "Polje 'Adresa' je obavezno"),
+
+                  // Replace address with dropdown for city
+                  FormBuilderDropdown<String>(
+                    name: 'city',
+                    decoration: const InputDecoration(
+                      labelText: 'Grad',
+                    ),
+                    hint: const Text('Odaberi grad'),
+                    initialValue: _sportsCenter!.city,
+                    items: bosniaCities
+                        .map((city) => DropdownMenuItem(
+                      value: city,
+                      child: Text(city),
+                    ))
+                        .toList(),
+                    validator: FormBuilderValidators.required(errorText: "Polje 'Grad' je obavezno"),
                   ),
                   const SizedBox(height: 8),
+
+                  // Text field for street (previously address)
+                  FormBuilderTextField(
+                    name: 'street',
+                    initialValue: _sportsCenter!.street,
+                    decoration: const InputDecoration(labelText: 'Ulica'),
+                    validator: FormBuilderValidators.required(errorText: "Polje 'Ulica' je obavezno"),
+                  ),
+                  const SizedBox(height: 8),
+
                   FormBuilderTextField(
                     name: 'description',
                     initialValue: _sportsCenter!.description,

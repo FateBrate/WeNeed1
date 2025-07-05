@@ -21,6 +21,7 @@ class _ReportScreenState extends State<ReportScreen> {
   User? selectedUser;
   int? selectedReportType;
   int? selectedMonth;
+  int selectedYear = DateTime.now().year;
   ManagerReport? managerReport;
 
   List<User> users = [];
@@ -56,7 +57,7 @@ class _ReportScreenState extends State<ReportScreen> {
     final filter = {
       'userId': selectedUser!.id,
       'reportType': selectedReportType,
-      'year': DateTime.now().year,
+      'year': selectedYear,
     };
 
     if (selectedReportType == 1) {
@@ -161,16 +162,29 @@ class _ReportScreenState extends State<ReportScreen> {
                     _buildKpiCard("Korisnici", users.length.toString()),
                   ],
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 ElevatedButton.icon(
                   onPressed: _exportManagerReportToPdf,
-                  icon: Icon(Icons.print),
-                  label: Text("Printaj izvještaj za sportski centar"),
+                  icon: const Icon(Icons.print),
+                  label: const Text("Printaj izvještaj za sportski centar"),
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
               ],
-              DropdownButton<User>(
-                hint: Text("Odaberite korisnika"),
+
+              const Text(
+                "Korisnik",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+              users.isEmpty
+                  ? const Padding(
+                padding: EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  "Nema dostupnih korisnika za izvještaj.",
+                  style: TextStyle(color: Colors.redAccent, fontStyle: FontStyle.italic),
+                ),
+              )
+                  : DropdownButton<User>(
+                hint: const Text("Odaberite korisnika"),
                 value: selectedUser,
                 isExpanded: true,
                 items: users.map((u) {
@@ -178,45 +192,81 @@ class _ReportScreenState extends State<ReportScreen> {
                 }).toList(),
                 onChanged: (value) => setState(() => selectedUser = value),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
+
+              const Text(
+                "Tip izvještaja",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
               DropdownButton<int>(
-                hint: Text("Odaberite tip izvještaja"),
+                hint: const Text("Odaberite tip izvještaja"),
                 value: selectedReportType,
                 isExpanded: true,
-                items: [
+                items: const [
                   DropdownMenuItem(value: 1, child: Text("Mjesečni")),
                   DropdownMenuItem(value: 2, child: Text("Godišnji")),
                 ],
-                onChanged: (value) => setState(() => selectedReportType = value),
+                onChanged: (value) {
+                  setState(() {
+                    selectedReportType = value;
+                    if (value == 1 && selectedMonth == null) {
+                      selectedMonth = DateTime.now().month;
+                    }
+                  });
+                },
               ),
+              const SizedBox(height: 16),
+
+              const Text(
+                "Godina",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+              DropdownButton<int>(
+                hint: const Text("Odaberite godinu"),
+                value: selectedYear,
+                isExpanded: true,
+                items: List.generate(11, (index) {
+                  final year = 2020 + index;
+                  return DropdownMenuItem(value: year, child: Text(year.toString()));
+                }),
+                onChanged: (value) => setState(() => selectedYear = value!),
+              ),
+
               if (selectedReportType == 1) ...[
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
+                const Text(
+                  "Mjesec",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
                 DropdownButton<int>(
-                  hint: Text("Odaberite mjesec"),
+                  hint: const Text("Odaberite mjesec"),
                   value: selectedMonth,
                   isExpanded: true,
                   items: List.generate(12, (i) {
                     final month = i + 1;
                     return DropdownMenuItem(
-                        value: month, child: Text(DateFormat.MMMM('bs_BA').format(DateTime(0, month))));
+                      value: month,
+                      child: Text(DateFormat.MMMM('bs_BA').format(DateTime(0, month))),
+                    );
                   }),
                   onChanged: (value) => setState(() => selectedMonth = value),
                 ),
               ],
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
+
               ElevatedButton(
                 onPressed: (selectedUser != null && selectedReportType != null)
                     ? _generateReport
                     : null,
-                child: Text("Generiši izvještaj"),
+                child: const Text("Generiši izvještaj"),
               ),
             ],
           ),
         ),
       ),
-
     );
   }
+
 }
 
 Widget _buildKpiCard(String title, String value) {

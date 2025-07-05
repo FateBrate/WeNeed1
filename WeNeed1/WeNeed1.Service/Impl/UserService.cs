@@ -27,13 +27,15 @@ namespace WeNeed1.Service.Impl
             
             if (insert.Role == Role.MANAGER)
             {
+                var defaultCenterImage = File.ReadAllBytes("sportCenterImageSeed.jpg");
                 var sportsCenter = new SportsCenter
                 {
                     Name = $"{insert.FirstName}'s Sports Center",
                     Street = "Unesite ulicu",
                     City = null,
                     Description = "Managed by " + insert.FirstName,
-                    Manager = entity
+                    Manager = entity,
+                    Image = defaultCenterImage
                 };
 
                 _context.SportsCenters.Add(sportsCenter);

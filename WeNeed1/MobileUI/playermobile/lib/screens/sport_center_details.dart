@@ -87,7 +87,11 @@ class _SportCenterDetailsScreenState extends State<SportCenterDetailsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text("Adresa:", style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(_center!.address ?? "-"),
+                    Text(
+                      (_center!.city != null && _center!.street != null)
+                          ? "${_center!.city}, ${_center!.street}"
+                          : "-",
+                    ),
                     const SizedBox(height: 12),
                     const Text("Opis:", style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(_center!.description ?? "-"),

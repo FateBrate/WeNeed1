@@ -32,7 +32,7 @@ public class SportsCenterService : BaseCRUDService<SportsCenterResponseDto, Spor
     {
         if (!string.IsNullOrEmpty(search.Name))
         {
-            query = query.Where(x => x.Name.ToLower().StartsWith(search.Name));
+            query = query.Where(x => x.Name.ToLower().Contains(search.Name.ToLower()));
         }
         return query;
     }

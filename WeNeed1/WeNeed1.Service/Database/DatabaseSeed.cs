@@ -77,6 +77,137 @@ public partial class WeNeed1Context : DbContext
                 ProfilePicture = null
             },
 
+            new User
+            {
+                Id = 901,
+                FirstName = "Elmma",
+                LastName = "Karic",
+                Email = "elma.karic@gmail.com",
+                UserName = "elmma",
+                PasswordHash = hash,
+                PasswordSalt = salt,
+                PhoneNumber = "066666666",
+                Role = Role.MANAGER,
+                ProfilePicture = null
+            },
+            new User
+            {
+                Id = 902,
+                FirstName = "Dino",
+                LastName = "Begovic",
+                Email = "dino.begovic@gmail.com",
+                UserName = "dino",
+                PasswordHash = hash,
+                PasswordSalt = salt,
+                PhoneNumber = "067777777",
+                Role = Role.MANAGER,
+                ProfilePicture = null
+            },
+            new User
+            {
+                Id = 900,
+                FirstName = "Kasim",
+                LastName = "Softic",
+                Email = "lejla.softic@gmail.com",
+                UserName = "kasim",
+                PasswordHash = hash,
+                PasswordSalt = salt,
+                PhoneNumber = "068888888",
+                Role = Role.MANAGER,
+                ProfilePicture = null
+            },
+            new User
+            {
+                Id = 903,
+                FirstName = "Adnan",
+                LastName = "Suljic",
+                Email = "adnan.suljic@gmail.com",
+                UserName = "adnann",
+                PasswordHash = hash,
+                PasswordSalt = salt,
+                PhoneNumber = "069999999",
+                Role = Role.MANAGER,
+                ProfilePicture = null
+            },
+            new User
+            {
+                Id = 904,
+                FirstName = "Emina",
+                LastName = "Celik",
+                Email = "emina.celik@gmail.com",
+                UserName = "eminna",
+                PasswordHash = hash,
+                PasswordSalt = salt,
+                PhoneNumber = "061000001",
+                Role = Role.MANAGER,
+                ProfilePicture = null
+            },
+            new User
+            {
+                Id = 905,
+                FirstName = "Mirza",
+                LastName = "Cengic",
+                Email = "mirza.cengic@gmail.com",
+                UserName = "mirzaa",
+                PasswordHash = hash,
+                PasswordSalt = salt,
+                PhoneNumber = "061000002",
+                Role = Role.MANAGER,
+                ProfilePicture = null
+            },
+            new User
+            {
+                Id = 906,
+                FirstName = "Alma",
+                LastName = "Salihovic",
+                Email = "alma.salihovic@gmail.com",
+                UserName = "almaa",
+                PasswordHash = hash,
+                PasswordSalt = salt,
+                PhoneNumber = "061000003",
+                Role = Role.MANAGER,
+                ProfilePicture = null
+            },
+            new User
+            {
+                Id = 907,
+                FirstName = "Emirr",
+                LastName = "Avdic",
+                Email = "emirr.avdic@gmail.com",
+                UserName = "emirr",
+                PasswordHash = hash,
+                PasswordSalt = salt,
+                PhoneNumber = "061000004",
+                Role = Role.MANAGER,
+                ProfilePicture = null
+            },
+            new User
+            {
+                Id = 908,
+                FirstName = "Ajla",
+                LastName = "Redzic",
+                Email = "ajla.redzic@gmail.com",
+                UserName = "ajlaa",
+                PasswordHash = hash,
+                PasswordSalt = salt,
+                PhoneNumber = "061000005",
+                Role = Role.MANAGER,
+                ProfilePicture = null
+            },
+            new User
+            {
+                Id = 909,
+                FirstName = "Tarikk",
+                LastName = "Selimovic",
+                Email = "tarik.selimovic@gmail.com",
+                UserName = "tselimovic",
+                PasswordHash = hash,
+                PasswordSalt = salt,
+                PhoneNumber = "061000006",
+                Role = Role.MANAGER,
+                ProfilePicture = null
+            },
+
             // Players
             new User
             {
@@ -217,31 +348,46 @@ public partial class WeNeed1Context : DbContext
         Role = Role.PLAYER,
         ProfilePicture = null,
         Rating = 4.3
-    }
-
-        );
+    },
+        new User
+        {
+            Id = 20,
+            FirstName = "Inas",
+            LastName = "Bajrak",
+            Email = "inas.bajrak@gmail.com",
+            UserName = "inas",
+            PasswordHash = hash,
+            PasswordSalt = salt,
+            PhoneNumber = "065555555",
+            Role = Role.PLAYER,
+            ProfilePicture = null,
+            Rating = 4.3
+        }
+    );
     }
 
     private void SeedSportCenters(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<SportsCenter>().HasData(
-            new SportsCenter
-            {
-                Id = 5,
-                Name = "Sportska Dvorana Donji Vakuf",
-                Address = "Armije BiH",
-                Description = "Dvorana u Donjem Vakufu",
-                StartTime = new TimeSpan(10, 0, 0),
-                EndTime = new TimeSpan(23, 0, 0),
-                ManagerId = 5,
-                Image = null
-            },
+         new SportsCenter
+         {
+             Id = 5,
+             Name = "Sportska Dvorana Bugojno",
+             Street = "Zelenih Beretki 12",
+             City = "Bugojno",
+             Description = "Dvorana u Bugojnu",
+             StartTime = new TimeSpan(10, 0, 0),
+             EndTime = new TimeSpan(23, 0, 0),
+             ManagerId = 5,
+             Image = null
+         },
             new SportsCenter
             {
                 Id = 6,
-                Name = "Centar za Sport i Rekreaciju Sarajevo",
-                Address = "Zmaja od Bosne bb",
-                Description = "Moderno opremljen sportski centar u Sarajevu",
+                Name = "Centar za Sport Trebinje",
+                Street = "Obala Kulina Bana 7",
+                City = "Trebinje",
+                Description = "Sportski centar u Trebinju",
                 StartTime = new TimeSpan(10, 0, 0),
                 EndTime = new TimeSpan(23, 0, 0),
                 ManagerId = 6,
@@ -250,9 +396,10 @@ public partial class WeNeed1Context : DbContext
             new SportsCenter
             {
                 Id = 7,
-                Name = "Sportska Arena Mostar",
-                Address = "Aleksina Međa 45",
-                Description = "Savremena arena za različite sportove",
+                Name = "Arena Sarajevo",
+                Street = "Ivana Gorana Kovačića 6",
+                City = "Sarajevo",
+                Description = "Savremeni sportski kompleks u Sarajevu",
                 StartTime = new TimeSpan(10, 0, 0),
                 EndTime = new TimeSpan(23, 0, 0),
                 ManagerId = 7,
@@ -261,9 +408,10 @@ public partial class WeNeed1Context : DbContext
             new SportsCenter
             {
                 Id = 8,
-                Name = "Sportski Centar Tuzla",
-                Address = "Meše Selimovića 88",
-                Description = "Multifunkcionalni prostor za rekreaciju",
+                Name = "Sportska Arena Mostar",
+                Street = "Zelenih Beretki 24",
+                City = "Mostar",
+                Description = "Moderna dvorana u Mostaru",
                 StartTime = new TimeSpan(10, 0, 0),
                 EndTime = new TimeSpan(23, 0, 0),
                 ManagerId = 8,
@@ -273,13 +421,128 @@ public partial class WeNeed1Context : DbContext
             {
                 Id = 9,
                 Name = "FitZone Zenica",
-                Address = "Crkvice bb",
+                Street = "Zelenih Beretki 66",
+                City = "Zenica",
                 Description = "Najmoderniji sportski centar u Zenici",
                 StartTime = new TimeSpan(10, 0, 0),
                 EndTime = new TimeSpan(23, 0, 0),
                 ManagerId = 9,
                 Image = null
-            });
+            },
+
+
+                new SportsCenter
+                {
+                    Id = 900,
+                    Name = "Arena Travnik",
+                    Street = "Bosanska 13",
+                    City = "Travnik",
+                    Description = "Sportska dvorana u Travniku",
+                    StartTime = new TimeSpan(10, 0, 0),
+                    EndTime = new TimeSpan(23, 0, 0),
+                    ManagerId = 900
+                },
+                new SportsCenter
+                {
+                    Id = 901,
+                    Name = "Dvorana Brčko",
+                    Street = "Trg Mladih 21",
+                    City = "Brčko",
+                    Description = "Sportska hala u Brčkom",
+                    StartTime = new TimeSpan(10, 0, 0),
+                    EndTime = new TimeSpan(23, 0, 0),
+                    ManagerId = 901
+                },
+                new SportsCenter
+                {
+                    Id = 902,
+                    Name = "Sportski Centar Goražde",
+                    Street = "Ribarska 5",
+                    City = "Goražde",
+                    Description = "Multifunkcionalni centar u Goraždu",
+                    StartTime = new TimeSpan(10, 0, 0),
+                    EndTime = new TimeSpan(23, 0, 0),
+                    ManagerId = 902
+                },
+                new SportsCenter
+                {
+                    Id = 903,
+                    Name = "Rekreativni Centar Doboj",
+                    Street = "Stjepana Radića 9",
+                    City = "Doboj",
+                    Description = "Sportski prostor u Doboju",
+                    StartTime = new TimeSpan(10, 0, 0),
+                    EndTime = new TimeSpan(23, 0, 0),
+                    ManagerId = 903
+                },
+                new SportsCenter
+                {
+                    Id = 904,
+                    Name = "Centar Banja Luka",
+                    Street = "Kralja Petra I 17",
+                    City = "Banja Luka",
+                    Description = "Savremeni sportski kompleks",
+                    StartTime = new TimeSpan(10, 0, 0),
+                    EndTime = new TimeSpan(23, 0, 0),
+                    ManagerId = 904
+                },
+                new SportsCenter
+                {
+                    Id = 905,
+                    Name = "Gradačac Arena",
+                    Street = "Branilaca grada 3",
+                    City = "Gradačac",
+                    Description = "Centar za sport i rekreaciju",
+                    StartTime = new TimeSpan(10, 0, 0),
+                    EndTime = new TimeSpan(23, 0, 0),
+                    ManagerId = 905
+                },
+                new SportsCenter
+                {
+                    Id = 906,
+                    Name = "Bijeljina FitZone",
+                    Street = "Njegoševa 44",
+                    City = "Bijeljina",
+                    Description = "Fitness i sportski centar u Bijeljini",
+                    StartTime = new TimeSpan(10, 0, 0),
+                    EndTime = new TimeSpan(23, 0, 0),
+                    ManagerId = 906
+                },
+                new SportsCenter
+                {
+                    Id = 907,
+                    Name = "Konjic Sports Hall",
+                    Street = "Varda 11",
+                    City = "Konjic",
+                    Description = "Sportska dvorana u Konjicu",
+                    StartTime = new TimeSpan(10, 0, 0),
+                    EndTime = new TimeSpan(23, 0, 0),
+                    ManagerId = 907
+                },
+                new SportsCenter
+                {
+                    Id = 908,
+                    Name = "Bihać Sports Arena",
+                    Street = "Una bb",
+                    City = "Bihać",
+                    Description = "Moderna sportska arena u Bihaću",
+                    StartTime = new TimeSpan(10, 0, 0),
+                    EndTime = new TimeSpan(23, 0, 0),
+                    ManagerId = 908
+                },
+                new SportsCenter
+                {
+                    Id = 909,
+                    Name = "Travnik Sports Hub",
+                    Street = "Hasana Brkića 8",
+                    City = "Travnik",
+                    Description = "Novi centar za sport i rekreaciju",
+                    StartTime = new TimeSpan(10, 0, 0),
+                    EndTime = new TimeSpan(23, 0, 0),
+                    ManagerId = 909
+                }
+            );
+            
     }
 
     private void SeedSportFields(ModelBuilder modelBuilder)
@@ -394,7 +657,118 @@ public partial class WeNeed1Context : DbContext
             PricePerHour = 32,
             SportsCenterId = 9,
             Image = null
-        });
+        },
+        new SportsField
+        {
+            Id = 200,
+            Name = "Teren 1 - Travnik",
+            SportType = "Košarka",
+            Description = "Natkriveni teren pogodan za sve vremenske uslove.",
+            Capacity = 10,
+            PricePerHour = 25,
+            SportsCenterId = 900,
+            Image = null
+        },
+        new SportsField
+        {
+            Id = 201,
+            Name = "Teren 1 - Brčko",
+            SportType = "Fudbal",
+            Description = "Teren sa reflektorima i vještačkom travom.",
+            Capacity = 12,
+            PricePerHour = 30,
+            SportsCenterId = 901,
+            Image = null
+        },
+        new SportsField
+        {
+            Id = 202,
+            Name = "Teren 1 - Goražde",
+            SportType = "Tenis",
+            Description = "Teren sa crvenom šljakom idealan za rekreativce.",
+            Capacity = 4,
+            PricePerHour = 20,
+            SportsCenterId = 902,
+            Image = null
+        },
+        new SportsField
+        {
+            Id = 203,
+            Name = "Teren 1 - Doboj",
+            SportType = "Odbojka",
+            Description = "Teren za odbojku na pijesku, otvoreni tip.",
+            Capacity = 6,
+            PricePerHour = 18,
+            SportsCenterId = 903,
+            Image = null
+        },
+        new SportsField
+        {
+            Id = 204,
+            Name = "Teren 1 - Banja Luka",
+            SportType = "Košarka",
+            Description = "Dvoranski teren, klimatiziran prostor.",
+            Capacity = 10,
+            PricePerHour = 27,
+            SportsCenterId = 904,
+            Image = null
+        },
+        new SportsField
+        {
+            Id = 205,
+            Name = "Teren 1 - Gradačac",
+            SportType = "Fudbal",
+            Description = "Mini teren pogodan za futsal i treninge.",
+            Capacity = 10,
+            PricePerHour = 22,
+            SportsCenterId = 905,
+            Image = null
+        },
+        new SportsField
+        {
+            Id = 206,
+            Name = "Teren 1 - Bijeljina",
+            SportType = "Tenis",
+            Description = "Moderno opremljeni teren sa LED osvjetljenjem.",
+            Capacity = 2,
+            PricePerHour = 28,
+            SportsCenterId = 906,
+            Image = null
+        },
+        new SportsField
+        {
+            Id = 207,
+            Name = "Teren 1 - Konjic",
+            SportType = "Košarka",
+            Description = "Teren uz rijeku, odličan ambijent za igru.",
+            Capacity = 10,
+            PricePerHour = 23,
+            SportsCenterId = 907,
+            Image = null
+        },
+        new SportsField
+        {
+            Id = 208,
+            Name = "Teren 1 - Bihać",
+            SportType = "Fudbal",
+            Description = "Teren sa prirodnom travom i tribinama.",
+            Capacity = 14,
+            PricePerHour = 35,
+            SportsCenterId = 908,
+            Image = null
+        },
+        new SportsField
+        {
+            Id = 209,
+            Name = "Teren 1 - Travnik Hub",
+            SportType = "Košarka",
+            Description = "Multifunkcionalni teren u modernom ambijentu.",
+            Capacity = 8,
+            PricePerHour = 26,
+            SportsCenterId = 909,
+            Image = null
+        }
+        );
 
     }
 
@@ -454,7 +828,109 @@ public partial class WeNeed1Context : DbContext
             new Reservation { Id = 2047, UserId = 11, SportsFieldId = 103, StartTime = new DateTime(today.Year + 1, 7, 16).AddHours(13), EndTime = new DateTime(today.Year + 1, 7, 16).AddHours(14), TotalPrice = 35, Status = ReservationStatus.PAYED, CancellationReason = null },
             new Reservation { Id = 2048, UserId = 12, SportsFieldId = 103, StartTime = new DateTime(today.Year - 1, 8, 26).AddHours(10), EndTime = new DateTime(today.Year - 1, 8, 26).AddHours(11), TotalPrice = 35, Status = ReservationStatus.FINISHED, CancellationReason = null },
             new Reservation { Id = 2049, UserId = 13, SportsFieldId = 103, StartTime = new DateTime(today.Year - 1, 10, 31).AddHours(15), EndTime = new DateTime(today.Year - 1, 10, 31).AddHours(16), TotalPrice = 35, Status = ReservationStatus.CANCELLED, CancellationReason = "Nevrijeme" },
-            new Reservation { Id = 2050, UserId = 14, SportsFieldId = 103, StartTime = new DateTime(today.Year - 1, 12, 25).AddHours(9), EndTime = new DateTime(today.Year - 1, 12, 25).AddHours(10), TotalPrice = 35, Status = ReservationStatus.PAYED, CancellationReason = null }
+            new Reservation { Id = 2050, UserId = 14, SportsFieldId = 103, StartTime = new DateTime(today.Year - 1, 12, 25).AddHours(9), EndTime = new DateTime(today.Year - 1, 12, 25).AddHours(10), TotalPrice = 35, Status = ReservationStatus.PAYED, CancellationReason = null },
+             new Reservation
+             {
+                 Id = 2051,
+                 UserId = 10,
+                 SportsFieldId = 200,
+                 StartTime = new DateTime(today.Year + 1, 1, 5, 12, 0, 0),
+                 EndTime = new DateTime(today.Year + 1, 1, 5, 13, 0, 0),
+                 TotalPrice = 25,
+                 Status = ReservationStatus.CREATED
+             },
+    new Reservation
+    {
+        Id = 2052,
+        UserId = 11,
+        SportsFieldId = 201,
+        StartTime = new DateTime(today.Year, 9, 10, 14, 0, 0),
+        EndTime = new DateTime(today.Year, 9, 10, 15, 0, 0),
+        TotalPrice = 30,
+        Status = ReservationStatus.PAYED
+    },
+    new Reservation
+    {
+        Id = 2053,
+        UserId = 12,
+        SportsFieldId = 202,
+        StartTime = new DateTime(today.Year - 1, 6, 3, 17, 0, 0),
+        EndTime = new DateTime(today.Year - 1, 6, 3, 18, 0, 0),
+        TotalPrice = 20,
+        Status = ReservationStatus.FINISHED
+    },
+    new Reservation
+    {
+        Id = 2054,
+        UserId = 13,
+        SportsFieldId = 203,
+        StartTime = new DateTime(today.Year - 1, 11, 20, 10, 0, 0),
+        EndTime = new DateTime(today.Year - 1, 11, 20, 11, 0, 0),
+        TotalPrice = 18,
+        Status = ReservationStatus.CANCELLED,
+        CancellationReason = "Nedostatak igrača"
+    },
+    new Reservation
+    {
+        Id = 2055,
+        UserId = 14,
+        SportsFieldId = 204,
+        StartTime = new DateTime(today.Year + 1, 3, 15, 19, 0, 0),
+        EndTime = new DateTime(today.Year + 1, 3, 15, 20, 0, 0),
+        TotalPrice = 27,
+        Status = ReservationStatus.CREATED
+    },
+    new Reservation
+    {
+        Id = 2056,
+        UserId = 14,
+        SportsFieldId = 205,
+        StartTime = new DateTime(today.Year, 10, 1, 9, 0, 0),
+        EndTime = new DateTime(today.Year, 10, 1, 10, 0, 0),
+        TotalPrice = 22,
+        Status = ReservationStatus.PAYED
+    },
+    new Reservation
+    {
+        Id = 2057,
+        UserId = 13,
+        SportsFieldId = 206,
+        StartTime = new DateTime(today.Year - 1, 5, 11, 15, 0, 0),
+        EndTime = new DateTime(today.Year - 1, 5, 11, 16, 0, 0),
+        TotalPrice = 28,
+        Status = ReservationStatus.FINISHED
+    },
+    new Reservation
+    {
+        Id = 2058,
+        UserId = 12,
+        SportsFieldId = 207,
+        StartTime = new DateTime(today.Year - 1, 8, 22, 13, 0, 0),
+        EndTime = new DateTime(today.Year - 1, 8, 22, 14, 0, 0),
+        TotalPrice = 23,
+        Status = ReservationStatus.CANCELLED,
+        CancellationReason = "Loše vrijeme"
+    },
+    new Reservation
+    {
+        Id = 2059,
+        UserId = 11,
+        SportsFieldId = 208,
+        StartTime = new DateTime(today.Year + 1, 2, 8, 16, 0, 0),
+        EndTime = new DateTime(today.Year + 1, 2, 8, 17, 0, 0),
+        TotalPrice = 35,
+        Status = ReservationStatus.CREATED
+    },
+    new Reservation
+    {
+        Id = 2060,
+        UserId = 11,
+        SportsFieldId = 209,
+        StartTime = new DateTime(today.Year, 12, 3, 11, 0, 0),
+        EndTime = new DateTime(today.Year, 12, 3, 12, 0, 0),
+        TotalPrice = 26,
+        Status = ReservationStatus.PAYED
+    }
         );
     }
 
@@ -470,7 +946,97 @@ public partial class WeNeed1Context : DbContext
             new Review { Id = 107, UserId = 11, SportsCenterId = 7, Content = "Tereni su bili čisti, ali svlačionice bi mogle biti bolje.", Rating = 4.7m, Created = DateTime.Today.AddDays(-3) },
             new Review { Id = 108, UserId = 12, SportsCenterId = 8, Content = "Kvalitet opreme je bio iznad očekivanja.", Rating = 4.0m, Created = DateTime.Today.AddDays(-7) },
             new Review { Id = 109, UserId = 13, SportsCenterId = 9, Content = "Could use better lighting at night.", Rating = 3.9m, Created = DateTime.Today.AddDays(-5) },
-            new Review { Id = 1010, UserId = 14, SportsCenterId = 5, Content = "Definitivno ću se ponovo vratiti!", Rating = 5.0m, Created = DateTime.Today }
+            new Review { Id = 1010, UserId = 14, SportsCenterId = 5, Content = "Definitivno ću se ponovo vratiti!", Rating = 5.0m, Created = DateTime.Today },
+                new Review
+                {
+                    Id = 1011,
+                    UserId = 15,
+                    SportsCenterId = 900,
+                    Content = "Vrlo čist i dobro organizovan centar.",
+                    Rating = 4.6m,
+                    Created = DateTime.Today.AddDays(-9)
+                },
+    new Review
+    {
+        Id = 1012,
+        UserId = 10,
+        SportsCenterId = 901,
+        Content = "Sve je bilo odlično, osim parkinga.",
+        Rating = 3.9m,
+        Created = DateTime.Today.AddDays(-8)
+    },
+    new Review
+    {
+        Id = 1013,
+        UserId = 11,
+        SportsCenterId = 902,
+        Content = "Topla preporuka za sve sportiste.",
+        Rating = 4.7m,
+        Created = DateTime.Today.AddDays(-7)
+    },
+    new Review
+    {
+        Id = 1014,
+        UserId = 12,
+        SportsCenterId = 903,
+        Content = "Ljubazno osoblje i dobra oprema.",
+        Rating = 4.2m,
+        Created = DateTime.Today.AddDays(-6)
+    },
+    new Review
+    {
+        Id = 1015,
+        UserId = 13,
+        SportsCenterId = 904,
+        Content = "Sve u svemu, pozitivno iskustvo.",
+        Rating = 4.0m,
+        Created = DateTime.Today.AddDays(-5)
+    },
+    new Review
+    {
+        Id = 1016,
+        UserId = 14,
+        SportsCenterId = 905,
+        Content = "Malo skuplje, ali teren je fantastičan.",
+        Rating = 3.8m,
+        Created = DateTime.Today.AddDays(-4)
+    },
+    new Review
+    {
+        Id = 1017,
+        UserId = 14,
+        SportsCenterId = 906,
+        Content = "Sve preporuke! Odlična organizacija.",
+        Rating = 4.9m,
+        Created = DateTime.Today.AddDays(-3)
+    },
+    new Review
+    {
+        Id = 1018,
+        UserId = 14,
+        SportsCenterId = 907,
+        Content = "Zadovoljan uslugom i ambijentom.",
+        Rating = 4.3m,
+        Created = DateTime.Today.AddDays(-2)
+    },
+    new Review
+    {
+        Id = 1019,
+        UserId = 12,
+        SportsCenterId = 908,
+        Content = "Tereni odlični, ali nema kafića u blizini.",
+        Rating = 3.7m,
+        Created = DateTime.Today.AddDays(-1)
+    },
+    new Review
+    {
+        Id = 1020,
+        UserId = 11,
+        SportsCenterId = 909,
+        Content = "Sjajno iskustvo! Definitivno dolazim opet.",
+        Rating = 5.0m,
+        Created = DateTime.Today
+    }
         );
     
     }
@@ -621,7 +1187,216 @@ public partial class WeNeed1Context : DbContext
             Sport = Sport.HANDBALL,
             City = "Tuzla",
             TeamPicture = null
+        },
+        new Team
+        {
+            Id = 1013,
+            Name = "Futsal Wolves",
+            Description = "Strastveni tim futsal entuzijasta.",
+            IsPublic = true,
+            CaptainId = 10,
+            JoinCode = null,
+            Sport = Sport.FUTSAL,
+            City = "Mostar",
+            TeamPicture = null
+        },
+        new Team
+        {
+            Id = 1014,
+            Name = "Sand Blazers",
+            Description = "Dominacija na pijesku.",
+            IsPublic = false,
+            CaptainId = 10,
+            JoinCode = "JOIN14",
+            Sport = Sport.BEACH_VOLLEYBALL,
+            City = "Mostar",
+            TeamPicture = null
+        },
+        new Team
+        {
+            Id = 1015,
+            Name = "Airball Masters",
+            Description = "Visoko leteći košarkaški tim.",
+            IsPublic = true,
+            CaptainId = 11,
+            JoinCode = null,
+            Sport = Sport.BASKETBALL,
+            City = "Travnik",
+            TeamPicture = null
+        },
+        new Team
+        {
+            Id = 1016,
+            Name = "Net Aces",
+            Description = "Stručnjaci za teniske duele.",
+            IsPublic = false,
+            CaptainId = 11,
+            JoinCode = "JOIN16",
+            Sport = Sport.TENNIS,
+            City = "Travnik",
+            TeamPicture = null
+        },
+        new Team
+        {
+            Id = 1017,
+            Name = "Volley Kings",
+            Description = "Vladari mreže u Sarajevu.",
+            IsPublic = true,
+            CaptainId = 12,
+            JoinCode = null,
+            Sport = Sport.VOLLEYBALL,
+            City = "Sarajevo",
+            TeamPicture = null
+        },
+        new Team
+        {
+            Id = 1018,
+            Name = "Handball Titans",
+            Description = "Nepobjedivi rukometni tim.",
+            IsPublic = false,
+            CaptainId = 12,
+            JoinCode = "JOIN18",
+            Sport = Sport.HANDBALL,
+            City = "Sarajevo",
+            TeamPicture = null
+        },
+        new Team
+        {
+            Id = 1019,
+            Name = "Futsal Tornado",
+            Description = "Brzi napadi i čvrsta odbrana.",
+            IsPublic = true,
+            CaptainId = 13,
+            JoinCode = null,
+            Sport = Sport.FUTSAL,
+            City = "Sarajevo",
+            TeamPicture = null
+        },
+        new Team
+        {
+            Id = 1020,
+            Name = "Basket Blitz",
+            Description = "Eksplozivan stil igre pod obručima.",
+            IsPublic = false,
+            CaptainId = 13,
+            JoinCode = "JOIN20",
+            Sport = Sport.BASKETBALL,
+            City = "Zenica",
+            TeamPicture = null
+        },
+        new Team
+        {
+            Id = 1021,
+            Name = "Sand Kings",
+            Description = "Specijalisti za beach volley turnire.",
+            IsPublic = true,
+            CaptainId = 14,
+            JoinCode = null,
+            Sport = Sport.BEACH_VOLLEYBALL,
+            City = "Zenica",
+            TeamPicture = null
+        },
+        new Team
+        {
+            Id = 1022,
+            Name = "Mini Football Force",
+            Description = "Neprekidna akcija na malim terenima.",
+            IsPublic = false,
+            CaptainId = 14,
+            JoinCode = "JOIN22",
+            Sport = Sport.MINI_FOOTBALL,
+            City = "Tuzla",
+            TeamPicture = null
+        },
+        new Team
+        {
+            Id = 1023,
+            Name = "VolleyStorm",
+            Description = "Grmljavina na mreži.",
+            IsPublic = true,
+            CaptainId = 15,
+            JoinCode = null,
+            Sport = Sport.VOLLEYBALL,
+            City = "Tuzla",
+            TeamPicture = null
+        },
+        new Team
+        {
+            Id = 1024,
+            Name = "Throwmasters",
+            Description = "Tim s najoštrijim napadima.",
+            IsPublic = false,
+            CaptainId = 15,
+            JoinCode = "JOIN24",
+            Sport = Sport.HANDBALL,
+            City = "Tuzla",
+            TeamPicture = null
+        },
+         new Team
+         {
+             Id = 9000,
+             Name = "Team Alfa",
+             Description = "Tim s najoštrijim napadima.",
+             IsPublic = true,
+             CaptainId = 20,
+             JoinCode = null,
+             Sport = Sport.BEACH_VOLLEYBALL,
+             City = "Mostar",
+             TeamPicture = null
+         },
+
+        new Team
+        {
+            Id = 9001,
+            Name = "Team Beta",
+            Description = "Tim s najoštrijim napadima.",
+            IsPublic = true,
+            CaptainId = 16,
+            JoinCode = null,
+            Sport = Sport.BASKETBALL,
+            City = "Tuzla",
+            TeamPicture = null
+        },
+
+        new Team
+        {
+            Id = 9002,
+            Name = "Team Gama",
+            Description = "Tim s najoštrijim napadima.",
+            IsPublic = true,
+            CaptainId = 13,
+            JoinCode = null,
+            Sport = Sport.BASKETBALL,
+            City = "Zenica",
+            TeamPicture = null
+        },
+
+        new Team
+        {
+            Id = 9003,
+            Name = "Team Delta",
+            Description = "Tim s najoštrijim napadima.",
+            IsPublic = true,
+            CaptainId = 11,
+            JoinCode = null,
+            Sport = Sport.BASKETBALL,
+            City = "Tuzla",
+            TeamPicture = null
+        },
+
+        new Team
+        {
+            Id = 9004,
+            Name = "Team Zeta",
+            Description = "Tim s najoštrijim napadima.",
+            IsPublic = true,
+            CaptainId = 11,
+            JoinCode = null,
+            Sport = Sport.TENNIS,
+            City = "Tuzla",
+            TeamPicture = null
         }
+
     );
 
     }
@@ -659,7 +1434,87 @@ public partial class WeNeed1Context : DbContext
             new UserTeam { UserId = 16, TeamId = 104, IsCaptain = false },
             new UserTeam { UserId = 17, TeamId = 104, IsCaptain = false },
             new UserTeam { UserId = 18, TeamId = 104, IsCaptain = false },
-            new UserTeam { UserId = 19, TeamId = 104, IsCaptain = false }
+            new UserTeam { UserId = 19, TeamId = 104, IsCaptain = false },
+            new UserTeam { UserId = 10, TeamId = 1013, IsCaptain = true },
+            new UserTeam { UserId = 10, TeamId = 1014, IsCaptain = true },
+            new UserTeam { UserId = 11, TeamId = 1015, IsCaptain = true },
+            new UserTeam { UserId = 11, TeamId = 1016, IsCaptain = true },
+            new UserTeam { UserId = 12, TeamId = 1017, IsCaptain = true },
+            new UserTeam { UserId = 12, TeamId = 1018, IsCaptain = true },
+            new UserTeam { UserId = 13, TeamId = 1019, IsCaptain = true },
+            new UserTeam { UserId = 13, TeamId = 1020, IsCaptain = true },
+            new UserTeam { UserId = 14, TeamId = 1021, IsCaptain = true },
+            new UserTeam { UserId = 14, TeamId = 1022, IsCaptain = true },
+            new UserTeam { UserId = 15, TeamId = 1023, IsCaptain = true },
+            new UserTeam { UserId = 15, TeamId = 1024, IsCaptain = true },
+
+            new UserTeam { UserId = 11, TeamId = 1013, IsCaptain = false },
+            new UserTeam { UserId = 12, TeamId = 1013, IsCaptain = false },
+            new UserTeam { UserId = 13, TeamId = 1013, IsCaptain = false },
+            new UserTeam { UserId = 14, TeamId = 1013, IsCaptain = false },
+            new UserTeam { UserId = 15, TeamId = 1013, IsCaptain = false },
+            new UserTeam { UserId = 16, TeamId = 1013, IsCaptain = false },
+            new UserTeam { UserId = 17, TeamId = 1013, IsCaptain = false },
+            new UserTeam { UserId = 18, TeamId = 1013, IsCaptain = false },
+            new UserTeam { UserId = 19, TeamId = 1013, IsCaptain = false },
+
+            new UserTeam { UserId = 11, TeamId = 1014, IsCaptain = false },
+            new UserTeam { UserId = 12, TeamId = 1015, IsCaptain = false },
+            new UserTeam { UserId = 13, TeamId = 1016, IsCaptain = false },
+            new UserTeam { UserId = 14, TeamId = 1017, IsCaptain = false },
+            new UserTeam { UserId = 15, TeamId = 1018, IsCaptain = false },
+            new UserTeam { UserId = 16, TeamId = 1019, IsCaptain = false },
+            new UserTeam { UserId = 17, TeamId = 1020, IsCaptain = false },
+            new UserTeam { UserId = 18, TeamId = 1021, IsCaptain = false },
+            new UserTeam { UserId = 19, TeamId = 1022, IsCaptain = false },
+            new UserTeam { UserId = 10, TeamId = 1023, IsCaptain = false },
+            new UserTeam { UserId = 11, TeamId = 1024, IsCaptain = false },
+            new UserTeam { UserId = 18, TeamId = 9000, IsCaptain = false },
+            new UserTeam { UserId = 17, TeamId = 9000, IsCaptain = false },
+            new UserTeam { UserId = 12, TeamId = 9000, IsCaptain = false },
+            new UserTeam { UserId = 16, TeamId = 9000, IsCaptain = false },
+            new UserTeam { UserId = 15, TeamId = 9000, IsCaptain = false },
+            new UserTeam { UserId = 14, TeamId = 9000, IsCaptain = false },
+            new UserTeam { UserId = 13, TeamId = 9000, IsCaptain = false },
+            new UserTeam { UserId = 19, TeamId = 9000, IsCaptain = false },
+            new UserTeam { UserId = 20, TeamId = 9000, IsCaptain = true },
+
+            new UserTeam { UserId = 15, TeamId = 9001, IsCaptain = false },
+            new UserTeam { UserId = 13, TeamId = 9001, IsCaptain = false },
+            new UserTeam { UserId = 11, TeamId = 9001, IsCaptain = false },
+            new UserTeam { UserId = 12, TeamId = 9001, IsCaptain = false },
+            new UserTeam { UserId = 14, TeamId = 9001, IsCaptain = false },
+            new UserTeam { UserId = 20, TeamId = 9001, IsCaptain = false },
+            new UserTeam { UserId = 18, TeamId = 9001, IsCaptain = false },
+            new UserTeam { UserId = 17, TeamId = 9001, IsCaptain = false },
+            new UserTeam { UserId = 16, TeamId = 9001, IsCaptain = true },
+
+            new UserTeam { UserId = 16, TeamId = 9002, IsCaptain = false },
+            new UserTeam { UserId = 11, TeamId = 9002, IsCaptain = false },
+            new UserTeam { UserId = 20, TeamId = 9002, IsCaptain = false },
+            new UserTeam { UserId = 12, TeamId = 9002, IsCaptain = false },
+            new UserTeam { UserId = 15, TeamId = 9002, IsCaptain = false },
+            new UserTeam { UserId = 18, TeamId = 9002, IsCaptain = false },
+            new UserTeam { UserId = 13, TeamId = 9002, IsCaptain = true },
+
+            new UserTeam { UserId = 17, TeamId = 9003, IsCaptain = false },
+            new UserTeam { UserId = 19, TeamId = 9003, IsCaptain = false },
+            new UserTeam { UserId = 12, TeamId = 9003, IsCaptain = false },
+            new UserTeam { UserId = 14, TeamId = 9003, IsCaptain = false },
+            new UserTeam { UserId = 16, TeamId = 9003, IsCaptain = false },
+            new UserTeam { UserId = 18, TeamId = 9003, IsCaptain = false },
+            new UserTeam { UserId = 13, TeamId = 9003, IsCaptain = false },
+            new UserTeam { UserId = 20, TeamId = 9003, IsCaptain = false },
+            new UserTeam { UserId = 11, TeamId = 9003, IsCaptain = true },
+
+            new UserTeam { UserId = 16, TeamId = 9004, IsCaptain = false },
+            new UserTeam { UserId = 14, TeamId = 9004, IsCaptain = false },
+            new UserTeam { UserId = 17, TeamId = 9004, IsCaptain = false },
+            new UserTeam { UserId = 12, TeamId = 9004, IsCaptain = false },
+            new UserTeam { UserId = 20, TeamId = 9004, IsCaptain = false },
+            new UserTeam { UserId = 18, TeamId = 9004, IsCaptain = false },
+            new UserTeam { UserId = 13, TeamId = 9004, IsCaptain = false },
+            new UserTeam { UserId = 11, TeamId = 9004, IsCaptain = true }
         );
     }
     
@@ -700,7 +1555,38 @@ public partial class WeNeed1Context : DbContext
             new Squad { Id = 1022, Name = "Blokeri", TeamId = 1011 },
 
             new Squad { Id = 1023, Name = "Mrežni Napadači", TeamId = 1012 },
-            new Squad { Id = 1024, Name = "Ofanzivaši", TeamId = 1012 }
+            new Squad { Id = 1024, Name = "Ofanzivaši", TeamId = 1012 },
+              new Squad { Id = 1025, Name = "Crvene Strijele", TeamId = 1013 },
+        new Squad { Id = 1026, Name = "Zlatni Orlovi", TeamId = 1013 },
+
+        new Squad { Id = 1027, Name = "Ledeni Tigrovi", TeamId = 1014 },
+        new Squad { Id = 1028, Name = "Sivi Vjetrovi", TeamId = 1014 },
+
+        new Squad { Id = 1029, Name = "Plavi Talasi", TeamId = 1015 },
+        new Squad { Id = 1030, Name = "Vatreni Klizači", TeamId = 1015 },
+
+        new Squad { Id = 1031, Name = "Sjene Ulice", TeamId = 1016 },
+        new Squad { Id = 1032, Name = "Noćni Jahači", TeamId = 1016 },
+
+        new Squad { Id = 1033, Name = "Tihi Ubice", TeamId = 1017 },
+        new Squad { Id = 1034, Name = "Brze Strele", TeamId = 1017 },
+
+        new Squad { Id = 1035, Name = "Bijeli Medvjedi", TeamId = 1018 },
+
+        new Squad { Id = 1036, Name = "Leteći Zmajevi", TeamId = 1019 },
+        new Squad { Id = 1037, Name = "Plameni Šampioni", TeamId = 1019 },
+
+        new Squad { Id = 1038, Name = "Graditelji Igre", TeamId = 1020 },
+        new Squad { Id = 1039, Name = "Zlatni Asovi", TeamId = 1020 },
+
+        new Squad { Id = 1040, Name = "Timski Strijelci", TeamId = 1021 },
+
+        new Squad { Id = 1041, Name = "Munjeviti Servisi", TeamId = 1022 },
+
+        new Squad { Id = 1042, Name = "Lavlje Srce", TeamId = 1023 },
+        new Squad { Id = 1043, Name = "Nezaustavljivi", TeamId = 1023 },
+
+        new Squad { Id = 1044, Name = "Taktički Umovi", TeamId = 1024 }
         );
     }
     
@@ -772,7 +1658,42 @@ public partial class WeNeed1Context : DbContext
 
         new Match { Id = 14, TeamId = 101, MatchDate = new DateTime(2025, 8, 18, 19, 0, 0), Result = "1:1", Status = MatchStatus.FINISHED },
         new Match { Id = 15, TeamId = 102, MatchDate = new DateTime(2025, 8, 21, 18, 0, 0), Result = null, Status = MatchStatus.CREATED },
-        new Match { Id = 16, TeamId = 103, MatchDate = new DateTime(2025, 8, 25, 20, 0, 0), Result = "0:3", Status = MatchStatus.FINISHED }
+        new Match { Id = 16, TeamId = 103, MatchDate = new DateTime(2025, 8, 25, 20, 0, 0), Result = "0:3", Status = MatchStatus.FINISHED },
+        new Match { Id = 17, TeamId = 1013, MatchDate = new DateTime(2025, 9, 1, 15, 0, 0), Result = "2:2", Status = MatchStatus.FINISHED },
+        new Match { Id = 18, TeamId = 1013, MatchDate = new DateTime(2025, 9, 5, 17, 30, 0), Result = null, Status = MatchStatus.CREATED },
+
+        new Match { Id = 19, TeamId = 1014, MatchDate = new DateTime(2025, 9, 7, 18, 0, 0), Result = "1:0", Status = MatchStatus.FINISHED },
+        new Match { Id = 20, TeamId = 1014, MatchDate = new DateTime(2025, 9, 10, 19, 15, 0), Result = null, Status = MatchStatus.CREATED },
+
+        new Match { Id = 21, TeamId = 1015, MatchDate = new DateTime(2025, 9, 12, 16, 45, 0), Result = "0:0", Status = MatchStatus.FINISHED },
+        new Match { Id = 22, TeamId = 1015, MatchDate = new DateTime(2025, 9, 15, 20, 0, 0), Result = null, Status = MatchStatus.CREATED },
+
+        new Match { Id = 23, TeamId = 1016, MatchDate = new DateTime(2025, 9, 17, 18, 30, 0), Result = "4:2", Status = MatchStatus.FINISHED },
+        new Match { Id = 24, TeamId = 1016, MatchDate = new DateTime(2025, 9, 20, 17, 0, 0), Result = null, Status = MatchStatus.CREATED },
+
+        new Match { Id = 25, TeamId = 1017, MatchDate = new DateTime(2025, 9, 22, 19, 30, 0), Result = "3:1", Status = MatchStatus.FINISHED },
+        new Match { Id = 26, TeamId = 1017, MatchDate = new DateTime(2025, 9, 25, 20, 0, 0), Result = null, Status = MatchStatus.CREATED },
+
+        new Match { Id = 27, TeamId = 1018, MatchDate = new DateTime(2025, 9, 27, 15, 0, 0), Result = "2:4", Status = MatchStatus.FINISHED },
+        new Match { Id = 28, TeamId = 1018, MatchDate = new DateTime(2025, 9, 30, 18, 45, 0), Result = null, Status = MatchStatus.CREATED },
+
+        new Match { Id = 29, TeamId = 1019, MatchDate = new DateTime(2025, 10, 2, 19, 0, 0), Result = "1:1", Status = MatchStatus.FINISHED },
+        new Match { Id = 30, TeamId = 1019, MatchDate = new DateTime(2025, 10, 5, 20, 0, 0), Result = null, Status = MatchStatus.CREATED },
+
+        new Match { Id = 31, TeamId = 1020, MatchDate = new DateTime(2025, 10, 7, 17, 15, 0), Result = "0:2", Status = MatchStatus.FINISHED },
+        new Match { Id = 32, TeamId = 1020, MatchDate = new DateTime(2025, 10, 10, 18, 30, 0), Result = null, Status = MatchStatus.CREATED },
+
+        new Match { Id = 33, TeamId = 1021, MatchDate = new DateTime(2025, 10, 12, 19, 45, 0), Result = "3:0", Status = MatchStatus.FINISHED },
+        new Match { Id = 34, TeamId = 1021, MatchDate = new DateTime(2025, 10, 15, 17, 30, 0), Result = null, Status = MatchStatus.CREATED },
+
+        new Match { Id = 35, TeamId = 1022, MatchDate = new DateTime(2025, 10, 17, 18, 0, 0), Result = "2:2", Status = MatchStatus.FINISHED },
+        new Match { Id = 36, TeamId = 1022, MatchDate = new DateTime(2025, 10, 20, 19, 0, 0), Result = null, Status = MatchStatus.CREATED },
+
+        new Match { Id = 37, TeamId = 1023, MatchDate = new DateTime(2025, 10, 22, 20, 15, 0), Result = "5:1", Status = MatchStatus.FINISHED },
+        new Match { Id = 38, TeamId = 1023, MatchDate = new DateTime(2025, 10, 25, 20, 45, 0), Result = null, Status = MatchStatus.CREATED },
+
+        new Match { Id = 39, TeamId = 1024, MatchDate = new DateTime(2025, 10, 27, 16, 0, 0), Result = "1:3", Status = MatchStatus.FINISHED },
+        new Match { Id = 40, TeamId = 1024, MatchDate = new DateTime(2025, 10, 30, 17, 45, 0), Result = null, Status = MatchStatus.CREATED }
     );
 }
 
@@ -824,6 +1745,35 @@ public partial class WeNeed1Context : DbContext
 
             new UserSport { Id = 19, UserId = 19, Sport = Sport.BASKETBALL },
             new UserSport { Id = 20, UserId = 19, Sport = Sport.MINI_FOOTBALL }
+        );
+    }
+
+    private void SeedMatchAttendances(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<MatchAttendance>().HasData(
+            new MatchAttendance { MatchId = 2, UserId = 10, IsAttending = true },
+            new MatchAttendance { MatchId = 2, UserId = 11, IsAttending = true },
+
+            new MatchAttendance { MatchId = 4, UserId = 10, IsAttending = true },
+            new MatchAttendance { MatchId = 4, UserId = 12, IsAttending = true },
+
+            new MatchAttendance { MatchId = 6, UserId = 12, IsAttending = true },
+            new MatchAttendance { MatchId = 6, UserId = 13, IsAttending = true },
+
+            new MatchAttendance { MatchId = 8, UserId = 13, IsAttending = true },
+            new MatchAttendance { MatchId = 8, UserId = 14, IsAttending = true },
+
+            new MatchAttendance { MatchId = 10, UserId = 14, IsAttending = true },
+            new MatchAttendance { MatchId = 10, UserId = 15, IsAttending = true },
+
+            new MatchAttendance { MatchId = 12, UserId = 15, IsAttending = true },
+            new MatchAttendance { MatchId = 12, UserId = 11, IsAttending = true },
+
+            new MatchAttendance { MatchId = 14, UserId = 10, IsAttending = true },
+            new MatchAttendance { MatchId = 14, UserId = 15, IsAttending = true },
+
+            new MatchAttendance { MatchId = 16, UserId = 12, IsAttending = true },
+            new MatchAttendance { MatchId = 16, UserId = 13, IsAttending = true }
         );
     }
 

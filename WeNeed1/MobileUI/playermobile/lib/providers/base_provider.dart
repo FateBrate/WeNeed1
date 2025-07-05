@@ -10,10 +10,11 @@ abstract class BaseProvider<T> with ChangeNotifier {
   static String? _baseUrl;
   String _endpoint = "";
 
-  BaseProvider(String endpoint) {
-    _endpoint = endpoint;
-    _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "http://192.168.1.6:7155/");
+  BaseProvider(String endpoint) : _endpoint = endpoint {
+    const apiHost =
+    String.fromEnvironment("API_HOST", defaultValue: "http://192.168.1.2");
+    const apiPort = String.fromEnvironment("API_PORT", defaultValue: "7156");
+    _baseUrl = "http://$apiHost:$apiPort/";
   }
   String get baseUrl => _baseUrl!;
   Future<SearchResult<T>> get({dynamic filter}) async {

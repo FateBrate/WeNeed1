@@ -122,6 +122,30 @@ namespace WeNeed1.Service.Impl
                 })
                 .ToList();
 
+            if (result.Count < 5)
+            {
+                var existingTeamIds = result.Select(t => t.Id).ToHashSet();
+
+                var fallbackTeams = await _context.Teams
+                    .Include(t => t.UserTeams)
+                    .Where(t =>
+                        t.IsPublic == true &&
+                        !userTeams.Contains(t.Id) &&
+                        !existingTeamIds.Contains(t.Id))
+                    .OrderByDescending(t => t.UserTeams.Count)
+                    .Take(5 - result.Count)
+                    .ToListAsync();
+
+                var fallbackDtos = fallbackTeams.Select(t =>
+                {
+                    var dto = _mapper.Map<TeamResponseDto>(t);
+                    dto.IsMember = false;
+                    return dto;
+                });
+
+                result.AddRange(fallbackDtos);
+            }
+
             return result;
         }
     }

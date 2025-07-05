@@ -32,7 +32,7 @@ class _SportsFieldsScreenState extends State<SportsFieldsScreen> {
     try {
       final response = await _sportFieldProvider.get(filter: {
         "sportsCenterId": widget.sportsCenterId,
-        "name": _searchController.text.trim(),
+        "name": _searchController.text,
       });
 
       setState(() {
@@ -81,29 +81,57 @@ class _SportsFieldsScreenState extends State<SportsFieldsScreen> {
                 itemBuilder: (context, index) {
                   final field = _fields[index];
                   return Card(
-                    child: ListTile(
-                      leading: field.image != null
-                          ? Image.memory(
-                        base64Decode(field.image!),
-                        width: 60,
-                        height: 60,
-                        fit: BoxFit.cover,
-                      )
-                          : const Icon(Icons.image_not_supported),
-                      title: Text(field.name ?? "N/A"),
-                      subtitle: Text("Sport: ${field.sportType ?? "-"}"),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.info_outline),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SportFieldDetailsScreen(
-                                sportFieldId: field.id!,
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (field.image != null)
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.memory(
+                                base64Decode(field.image!),
+                                width: double.infinity,
+                                height: 160,
+                                fit: BoxFit.cover,
                               ),
+                            )
+                          else
+                            Container(
+                              width: double.infinity,
+                              height: 160,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(Icons.image_not_supported, size: 60),
                             ),
-                          );
-                        },
+                          const SizedBox(height: 12),
+                          Text(
+                            field.name ?? "N/A",
+                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 4),
+                          Text("Sport: ${field.sportType ?? "-"}"),
+                          const SizedBox(height: 8),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: IconButton(
+                              icon: const Icon(Icons.info_outline),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SportFieldDetailsScreen(
+                                      sportFieldId: field.id!,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   );
@@ -115,5 +143,6 @@ class _SportsFieldsScreenState extends State<SportsFieldsScreen> {
       ),
     );
   }
+
 
 }

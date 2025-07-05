@@ -153,15 +153,16 @@ class _SquadScreenState extends State<SquadScreen> {
   Widget build(BuildContext context) {
     return MobileMasterScreenWidget(
       title: 'Ekipe',
-      child: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _squads.isEmpty
-          ? const Center(child: Text('Nema dostupnih ekipa'))
-          : Stack(
+      child: Stack(
         children: [
-          ListView.separated(
+          _isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : _squads.isEmpty
+              ? const Center(child: Text('Nema dostupnih ekipa'))
+              : ListView.separated(
             itemCount: _squads.length,
-            separatorBuilder: (_, __) => const Divider(color: Colors.white24),
+            separatorBuilder: (_, __) =>
+            const Divider(color: Colors.white24),
             itemBuilder: (context, index) {
               final squad = _squads[index];
               final memberCount = squad.userSquads?.length ?? 0;
@@ -179,33 +180,40 @@ class _SquadScreenState extends State<SquadScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.remove_red_eye, color: Colors.blueAccent),
+                      icon: const Icon(Icons.remove_red_eye,
+                          color: Colors.blueAccent),
                       tooltip: 'Pogledaj članove',
                       onPressed: () async {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => SquadMembersScreen(squadId: squad.id!),
+                            builder: (_) => SquadMembersScreen(
+                                squadId: squad.id!),
                           ),
                         );
                         _loadSquads();
                       },
                     ),
                     IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.orangeAccent),
+                      icon: const Icon(Icons.edit,
+                          color: Colors.orangeAccent),
                       tooltip: 'Uredi ime ekipe',
-                      onPressed: () => _editSquad(squad.id!, squad.name ?? ''),
+                      onPressed: () =>
+                          _editSquad(squad.id!, squad.name ?? ''),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.redAccent),
+                      icon: const Icon(Icons.delete,
+                          color: Colors.redAccent),
                       tooltip: 'Obriši ekipu',
-                      onPressed: () => _deleteSquad(squad.id!, squad.name ?? ''),
+                      onPressed: () =>
+                          _deleteSquad(squad.id!, squad.name ?? ''),
                     ),
                   ],
                 ),
               );
             },
           ),
+          // FAB je uvijek prisutan
           Positioned(
             bottom: 16,
             right: 16,

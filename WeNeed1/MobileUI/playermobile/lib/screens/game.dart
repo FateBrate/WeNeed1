@@ -4,6 +4,7 @@ import 'package:playermobile/models/match_Status.dart';
 import 'package:playermobile/providers/match.dart';
 import 'package:playermobile/widgets/master_screen.dart';
 
+import '../widgets/custom_snackbar.dart';
 import 'comments.dart';
 import 'finish_cancel_game.dart';
 import 'new_match.dart';
@@ -46,29 +47,19 @@ class _GamesScreenState extends State<GamesScreen> {
   void _setAttendance(Game game, bool isAttending) async {
     try {
       await _gameProvider.setAttendance(game.id, isAttending);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            isAttending ? "Dolazak potvrđen." : "Dolazak otkazan.",
-          ),
-        ),
+      CustomSnackbar.show(
+        context,
+        isAttending ? "Dolazak potvrđen." : "Dolazak otkazan.",
+        SnackbarType.success,
       );
       _fetchGames();
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            isAttending ? "Greška prilikom potvrde." : "Greška prilikom otkazivanja.",
-          ),
-        ),
+      CustomSnackbar.show(
+        context,
+        isAttending ? "Greška prilikom potvrde." : "Greška prilikom otkazivanja.",
+        SnackbarType.error,
       );
     }
-  }
-
-
-  void _editGame(Game game) {
-    // TODO: Navigate to edit form
-    print("Otvaranje forme za unos rezultata ili otkazivanje meča ${game.id}");
   }
 
   Color _getStatusColor(MatchStatus status) {
@@ -142,7 +133,7 @@ class _GamesScreenState extends State<GamesScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => NewMatchScreen(teamId: 103), // prosledi pravi teamId
+                    builder: (context) => NewMatchScreen(teamId: widget.teamId),
                   ),
                 ).then((value) {
                   if (value == true) {

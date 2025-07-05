@@ -1,0 +1,17 @@
+const List<String> bosniaCities = [
+  'Mostar',
+  'Travnik',
+  'Sarajevo',
+  'Zenica',
+  'Tuzla',
+  'Banja Luka',
+  'Bihać',
+  'Goražde',
+  'Brčko',
+  'Gradačac',
+  'Konjic',
+  'Trebinje',
+  'Bugojno',
+  'Doboj',
+  'Bijeljina',
+];

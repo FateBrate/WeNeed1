@@ -26,4 +26,17 @@ class MatchProvider extends BaseProvider<Game> {
       throw Exception('Failed to update attendance');
     }
   }
+
+  Future<Map<String, dynamic>> getMatchSummary() async {
+    final uri = Uri.parse(baseUrl).resolve('Match/summary');
+    var headers = createHeaders();
+
+    final response = await http.get(uri, headers: headers);
+
+    if (!isValidResponse(response)) {
+      throw Exception('Failed to load match summary');
+    }
+
+    return jsonDecode(response.body);
+  }
 }

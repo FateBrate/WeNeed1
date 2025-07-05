@@ -8,6 +8,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:playermobile/screens/team_details.dart';
 import '../models/team.dart';
 import '../providers/team_provider.dart';
+import '../utils/cities.dart';
 import '../widgets/master_screen.dart';
 
 class SportTranslationService {
@@ -237,13 +238,17 @@ class _TeamFormScreenState extends State<TeamFormScreen> {
               ),
               const SizedBox(height: 20),
 
-              FormBuilderTextField(
+              FormBuilderDropdown<String>(
                 name: 'city',
                 decoration: const InputDecoration(
                   labelText: 'Grad',
                   border: OutlineInputBorder(),
                 ),
-                validator: FormBuilderValidators.required(errorText: 'Unesite grad'),
+                items: bosniaCities.map((city) => DropdownMenuItem(
+                  value: city,
+                  child: Text(city),
+                )).toList(),
+                validator: FormBuilderValidators.required(errorText: 'Odaberite grad'),
               ),
               const SizedBox(height: 20),
 

@@ -5,7 +5,9 @@ import 'package:playermobile/screens/team_form.dart';
 import 'package:playermobile/widgets/master_screen.dart';
 import '../../models/team.dart';
 import '../../providers/team_provider.dart';
+import '../providers/team_recommender_provider.dart';
 import '../services/session_serivce.dart';
+import '../utils/cities.dart';
 
 class TeamScreen extends StatefulWidget {
   const TeamScreen({super.key});
@@ -22,17 +24,17 @@ class _TeamScreenState extends State<TeamScreen>
   late TabController _tabController;
   List<Team> myTeams = [];
   List<Team> searchResults = [];
+  List<Team> recommendedTeams = [];
+  bool isLoadingRecommended = true;
   bool isLoading = true;
   bool isSearchLoading = true;
-
+  String? selectedCity;
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController cityController = TextEditingController();
   final joinCodeController = TextEditingController();
   bool showJoinCodeInput = false;
   String? selectedSport;
 
   final GlobalKey<FormFieldState<String>> _nameFieldKey = GlobalKey();
-  final GlobalKey<FormFieldState<String>> _cityFieldKey = GlobalKey();
   final FocusNode _nameFocusNode = FocusNode();
   final FocusNode _cityFocusNode = FocusNode();
 
@@ -50,16 +52,16 @@ class _TeamScreenState extends State<TeamScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     loadMyTeams();
     loadInitialSearch();
+    loadRecommendedTeams();
   }
 
   @override
   void dispose() {
     _tabController.dispose();
     nameController.dispose();
-    cityController.dispose();
     _nameFocusNode.dispose();
     _cityFocusNode.dispose();
     super.dispose();
@@ -79,10 +81,7 @@ class _TeamScreenState extends State<TeamScreen>
         myTeams = data.result ?? [];
         isLoading = false;
       });
-    } catch (e, stacktrace) {
-      print('Error loading teams: $e');
-      print(stacktrace);
-
+    } catch (e) {
       setState(() {
         isLoading = false;
       });
@@ -117,6 +116,27 @@ class _TeamScreenState extends State<TeamScreen>
     }
   }
 
+  Future<void> loadRecommendedTeams() async {
+    try {
+      final provider = TeamRecommenderProvider();
+      final userId = SessionService().playerId;
+
+      var data = await provider.getRecommendations(userId!);
+
+      setState(() {
+        recommendedTeams = data;
+        isLoadingRecommended = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoadingRecommended = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Greška pri učitavanju preporuka: ${e.toString()}')),
+      );
+    }
+  }
+
   Future<void> performSearch() async {
     try {
       setState(() {
@@ -134,8 +154,8 @@ class _TeamScreenState extends State<TeamScreen>
       if (nameController.text.trim().isNotEmpty) {
         filters['name'] = nameController.text.trim();
       }
-      if (cityController.text.trim().isNotEmpty) {
-        filters['city'] = cityController.text.trim();
+      if (selectedCity != null && selectedCity!.isNotEmpty) {
+        filters['city'] = selectedCity!;
       }
       if (selectedSport != null && selectedSport!.isNotEmpty) {
         filters['sport'] = selectedSport!;
@@ -159,7 +179,7 @@ class _TeamScreenState extends State<TeamScreen>
 
   void resetFilters() {
     nameController.clear();
-    cityController.clear();
+    selectedCity = null;
     setState(() {
       selectedSport = null;
       isSearchLoading = true;
@@ -215,8 +235,9 @@ class _TeamScreenState extends State<TeamScreen>
             controller: _tabController,
             labelColor: Colors.blue.shade900,
             tabs: const [
-              Tab(text: "Moji Timovi"),
-              Tab(text: "Pretraga"),
+              Tab(text: "Moji"),
+              Tab(text: "Traži"),
+              Tab(text: "Za vas"),
             ],
           ),
           Expanded(
@@ -337,14 +358,21 @@ class _TeamScreenState extends State<TeamScreen>
                               ),
                             ),
                             const SizedBox(height: 12),
-                            TextField(
-                              key: _cityFieldKey,
-                              controller: cityController,
-                              focusNode: _cityFocusNode,
+                            DropdownButtonFormField<String>(
                               decoration: const InputDecoration(
                                 labelText: "Grad",
                                 border: OutlineInputBorder(),
                               ),
+                              items: bosniaCities.map((city) => DropdownMenuItem(
+                                value: city,
+                                child: Text(city),
+                              )).toList(),
+                              value: selectedCity,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedCity = value;
+                                });
+                              },
                             ),
                             const SizedBox(height: 12),
                             DropdownButtonFormField<String>(
@@ -396,6 +424,30 @@ class _TeamScreenState extends State<TeamScreen>
                                     teamCard(searchResults[index]),
                               ),
                           ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: isLoadingRecommended
+                      ? const Center(child: CircularProgressIndicator())
+                      : recommendedTeams.isEmpty
+                      ? const Center(child: Text("Nema preporučenih timova."))
+                      : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Timovi koje biste mogli voljeti",
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 12),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: recommendedTeams.length,
+                          itemBuilder: (context, index) =>
+                              teamCard(recommendedTeams[index]),
                         ),
                       ),
                     ],

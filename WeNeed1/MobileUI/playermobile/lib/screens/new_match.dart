@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:playermobile/screens/game.dart';
 import '../providers/match.dart';
+import '../widgets/custom_snackbar.dart';
 import '../widgets/master_screen.dart';
 
 class NewMatchScreen extends StatefulWidget {
@@ -61,18 +62,17 @@ class _NewMatchScreenState extends State<NewMatchScreen> {
 
   Future<void> _submit() async {
     if (_combinedDateTime == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Molimo odaberite datum i vrijeme.")),
-      );
+      CustomSnackbar.show(context, "Molimo odaberite datum i vrijeme.", SnackbarType.error);
       return;
     }
 
     final nowPlusOneHour = DateTime.now().add(const Duration(hours: 1));
 
     if (_combinedDateTime!.isBefore(nowPlusOneHour)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text("Vrijeme meča mora biti barem 1 sat od sada.")),
+      CustomSnackbar.show(
+        context,
+        "Vrijeme meča mora biti barem 1 sat od sada.",
+        SnackbarType.error,
       );
       return;
     }
@@ -89,8 +89,10 @@ class _NewMatchScreenState extends State<NewMatchScreen> {
         'result': '0:0',
       });
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Meč uspješno kreiran.")),
+      CustomSnackbar.show(
+        context,
+        "Meč uspješno kreiran.",
+        SnackbarType.success,
       );
 
       Navigator.of(context).pushReplacement(
@@ -99,8 +101,10 @@ class _NewMatchScreenState extends State<NewMatchScreen> {
         ),
       );
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Greška prilikom kreiranja meča: $e")),
+      CustomSnackbar.show(
+        context,
+        "Greška prilikom kreiranja meča: $e",
+        SnackbarType.error,
       );
     } finally {
       setState(() {

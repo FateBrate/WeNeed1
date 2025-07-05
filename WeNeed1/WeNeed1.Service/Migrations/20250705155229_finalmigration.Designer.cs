@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeNeed1.Service.Database;
 
@@ -11,9 +12,11 @@ using WeNeed1.Service.Database;
 namespace WeNeed1.Service.Migrations
 {
     [DbContext(typeof(WeNeed1Context))]
-    partial class WeNeed1ContextModelSnapshot : ModelSnapshot
+    [Migration("20250705155229_finalmigration")]
+    partial class finalmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2533,56 +2536,6 @@ namespace WeNeed1.Service.Migrations
                             JoinCode = "JOIN24",
                             Name = "Throwmasters",
                             Sport = 7
-                        },
-                        new
-                        {
-                            Id = 9000,
-                            CaptainId = 20,
-                            City = "Mostar",
-                            Description = "Tim s najoštrijim napadima.",
-                            IsPublic = true,
-                            Name = "Team Alfa",
-                            Sport = 5
-                        },
-                        new
-                        {
-                            Id = 9001,
-                            CaptainId = 16,
-                            City = "Tuzla",
-                            Description = "Tim s najoštrijim napadima.",
-                            IsPublic = true,
-                            Name = "Team Beta",
-                            Sport = 2
-                        },
-                        new
-                        {
-                            Id = 9002,
-                            CaptainId = 13,
-                            City = "Zenica",
-                            Description = "Tim s najoštrijim napadima.",
-                            IsPublic = true,
-                            Name = "Team Gama",
-                            Sport = 2
-                        },
-                        new
-                        {
-                            Id = 9003,
-                            CaptainId = 11,
-                            City = "Tuzla",
-                            Description = "Tim s najoštrijim napadima.",
-                            IsPublic = true,
-                            Name = "Team Delta",
-                            Sport = 2
-                        },
-                        new
-                        {
-                            Id = 9004,
-                            CaptainId = 11,
-                            City = "Tuzla",
-                            Description = "Tim s najoštrijim napadima.",
-                            IsPublic = true,
-                            Name = "Team Zeta",
-                            Sport = 8
                         });
                 });
 
@@ -2635,8 +2588,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "jasmin.smajic@gmail.com",
                             FirstName = "Jasmin",
                             LastName = "Smajic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "061111111",
                             Role = 1,
                             UserName = "jasmin"
@@ -2647,8 +2600,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "fatih.drek@gmail.com",
                             FirstName = "Fatih",
                             LastName = "Drek",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "062222222",
                             Role = 1,
                             UserName = "fatih"
@@ -2659,8 +2612,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "mehmed.dervisic@gmail.com",
                             FirstName = "Mehmed",
                             LastName = "Dervisic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "063333333",
                             Role = 1,
                             UserName = "mehmed"
@@ -2671,8 +2624,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "amra.hadzic@gmail.com",
                             FirstName = "Amra",
                             LastName = "Hadzic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "064444444",
                             Role = 1,
                             UserName = "amra"
@@ -2683,8 +2636,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "tarik.kljucanin@gmail.com",
                             FirstName = "Tarik",
                             LastName = "Kljucanin",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "065555555",
                             Role = 1,
                             UserName = "tarik"
@@ -2695,8 +2648,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "elma.karic@gmail.com",
                             FirstName = "Elmma",
                             LastName = "Karic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "066666666",
                             Role = 1,
                             UserName = "elmma"
@@ -2707,8 +2660,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "dino.begovic@gmail.com",
                             FirstName = "Dino",
                             LastName = "Begovic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "067777777",
                             Role = 1,
                             UserName = "dino"
@@ -2719,8 +2672,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "lejla.softic@gmail.com",
                             FirstName = "Kasim",
                             LastName = "Softic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "068888888",
                             Role = 1,
                             UserName = "kasim"
@@ -2731,8 +2684,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "adnan.suljic@gmail.com",
                             FirstName = "Adnan",
                             LastName = "Suljic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "069999999",
                             Role = 1,
                             UserName = "adnann"
@@ -2743,8 +2696,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "emina.celik@gmail.com",
                             FirstName = "Emina",
                             LastName = "Celik",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "061000001",
                             Role = 1,
                             UserName = "eminna"
@@ -2755,8 +2708,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "mirza.cengic@gmail.com",
                             FirstName = "Mirza",
                             LastName = "Cengic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "061000002",
                             Role = 1,
                             UserName = "mirzaa"
@@ -2767,8 +2720,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "alma.salihovic@gmail.com",
                             FirstName = "Alma",
                             LastName = "Salihovic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "061000003",
                             Role = 1,
                             UserName = "almaa"
@@ -2779,8 +2732,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "emirr.avdic@gmail.com",
                             FirstName = "Emirr",
                             LastName = "Avdic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "061000004",
                             Role = 1,
                             UserName = "emirr"
@@ -2791,8 +2744,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "ajla.redzic@gmail.com",
                             FirstName = "Ajla",
                             LastName = "Redzic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "061000005",
                             Role = 1,
                             UserName = "ajlaa"
@@ -2803,8 +2756,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "tarik.selimovic@gmail.com",
                             FirstName = "Tarikk",
                             LastName = "Selimovic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "061000006",
                             Role = 1,
                             UserName = "tselimovic"
@@ -2815,8 +2768,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "haris.orahovcic@gmail.com",
                             FirstName = "Haris",
                             LastName = "Orahovcic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "066666666",
                             Rating = 4.7000000000000002,
                             Role = 2,
@@ -2828,8 +2781,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "selma.kovacevic@gmail.com",
                             FirstName = "Selma",
                             LastName = "Kovacevic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "067777777",
                             Rating = 4.9000000000000004,
                             Role = 2,
@@ -2841,8 +2794,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "adnan.avdic@gmail.com",
                             FirstName = "Adnan",
                             LastName = "Avdic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "068888888",
                             Rating = 4.2999999999999998,
                             Role = 2,
@@ -2854,8 +2807,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "lejla.mujic@gmail.com",
                             FirstName = "Lejla",
                             LastName = "Mujic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "069999999",
                             Rating = 4.7999999999999998,
                             Role = 2,
@@ -2867,8 +2820,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "nermin.besic@gmail.com",
                             FirstName = "Nermin",
                             LastName = "Besic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "060000000",
                             Rating = 4.5,
                             Role = 2,
@@ -2880,8 +2833,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "amir.hodzic@gmail.com",
                             FirstName = "Amir",
                             LastName = "Hodzic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "061111111",
                             Rating = 4.2000000000000002,
                             Role = 2,
@@ -2893,8 +2846,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "sara.jusic@gmail.com",
                             FirstName = "Sara",
                             LastName = "Jusic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "062222222",
                             Rating = 4.7000000000000002,
                             Role = 2,
@@ -2906,8 +2859,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "denis.kovac@gmail.com",
                             FirstName = "Denis",
                             LastName = "Kovac",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "063333333",
                             Rating = 4.4000000000000004,
                             Role = 2,
@@ -2919,8 +2872,8 @@ namespace WeNeed1.Service.Migrations
                             Email = "mina.babic@gmail.com",
                             FirstName = "Mina",
                             LastName = "Babic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "064444444",
                             Rating = 4.5999999999999996,
                             Role = 2,
@@ -2932,25 +2885,12 @@ namespace WeNeed1.Service.Migrations
                             Email = "tarik.smajic@gmail.com",
                             FirstName = "Tarik",
                             LastName = "Smajic",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
+                            PasswordHash = "3EFEQlQZjf3kG0XeIHypLAeDV4eSoUqzgusQKPym8XI=",
+                            PasswordSalt = "qHezRy4tctFldw+F9iJFGLbnG0Ft8UaeitvSMk3V5yYHxNkWdxxcXgxzJlYsiLR8OuBY0hyvwrzUOdhbDj6+4g==",
                             PhoneNumber = "065555555",
                             Rating = 4.2999999999999998,
                             Role = 2,
                             UserName = "tarik"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            Email = "inas.bajrak@gmail.com",
-                            FirstName = "Inas",
-                            LastName = "Bajrak",
-                            PasswordHash = "45aKFpif8fRfH7nYRwYU83K+YvF9TpeYigMjgq/NVds=",
-                            PasswordSalt = "k5hIBTbRTk9lj7qD3zkbqlgrB4sAsqBAuBIxZnFi8/vg5wz1/TN2md0pw9Yls865NqVKHcdzmsIxQwb9Ul2rNA==",
-                            PhoneNumber = "065555555",
-                            Rating = 4.2999999999999998,
-                            Role = 2,
-                            UserName = "inas"
                         });
                 });
 
@@ -3619,258 +3559,6 @@ namespace WeNeed1.Service.Migrations
                             UserId = 11,
                             TeamId = 1024,
                             IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 18,
-                            TeamId = 9000,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 17,
-                            TeamId = 9000,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            TeamId = 9000,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 16,
-                            TeamId = 9000,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 15,
-                            TeamId = 9000,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            TeamId = 9000,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            TeamId = 9000,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 19,
-                            TeamId = 9000,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 20,
-                            TeamId = 9000,
-                            IsCaptain = true
-                        },
-                        new
-                        {
-                            UserId = 15,
-                            TeamId = 9001,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            TeamId = 9001,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            TeamId = 9001,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            TeamId = 9001,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            TeamId = 9001,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 20,
-                            TeamId = 9001,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 18,
-                            TeamId = 9001,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 17,
-                            TeamId = 9001,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 16,
-                            TeamId = 9001,
-                            IsCaptain = true
-                        },
-                        new
-                        {
-                            UserId = 16,
-                            TeamId = 9002,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            TeamId = 9002,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 20,
-                            TeamId = 9002,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            TeamId = 9002,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 15,
-                            TeamId = 9002,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 18,
-                            TeamId = 9002,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            TeamId = 9002,
-                            IsCaptain = true
-                        },
-                        new
-                        {
-                            UserId = 17,
-                            TeamId = 9003,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 19,
-                            TeamId = 9003,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            TeamId = 9003,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            TeamId = 9003,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 16,
-                            TeamId = 9003,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 18,
-                            TeamId = 9003,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            TeamId = 9003,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 20,
-                            TeamId = 9003,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            TeamId = 9003,
-                            IsCaptain = true
-                        },
-                        new
-                        {
-                            UserId = 16,
-                            TeamId = 9004,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            TeamId = 9004,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 17,
-                            TeamId = 9004,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            TeamId = 9004,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 20,
-                            TeamId = 9004,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 18,
-                            TeamId = 9004,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            TeamId = 9004,
-                            IsCaptain = false
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            TeamId = 9004,
-                            IsCaptain = true
                         });
                 });
 

@@ -145,6 +145,7 @@ public partial class WeNeed1Context : DbContext
         SeedMatches(modelBuilder);
         SeedComments(modelBuilder);
         SeedUserSports(modelBuilder);
+        SeedMatchAttendances(modelBuilder);
     }       
     
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

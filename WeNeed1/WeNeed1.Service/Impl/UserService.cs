@@ -30,7 +30,8 @@ namespace WeNeed1.Service.Impl
                 var sportsCenter = new SportsCenter
                 {
                     Name = $"{insert.FirstName}'s Sports Center",
-                    Address = "Enter your address",
+                    Street = "Unesite ulicu",
+                    City = null,
                     Description = "Managed by " + insert.FirstName,
                     Manager = entity
                 };

@@ -4,6 +4,7 @@ import 'package:playermobile/screens/register.dart';
 import '../services/session_serivce.dart';
 import '../utils/utils.dart';
 import 'home.dart';
+import '../widgets/custom_snackbar.dart';  // import tvog snackbara
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,28 +16,28 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
   Future<void> _login(BuildContext context) async {
-    final username = _usernameController.text;
-    final password = _passwordController.text;
-
-    if (username.isEmpty || password.isEmpty) {
-      _showErrorDialog("Unesite korisničko ime i lozinku.");
+    if (!_formKey.currentState!.validate()) {
       return;
     }
 
     setState(() {
       _isLoading = true;
     });
-    Authorization.username = username;
-    Authorization.password = password;
+
+    Authorization.username = _usernameController.text;
+    Authorization.password = _passwordController.text;
+
     try {
       var userProvider = UserProvider();
       var user = await userProvider.getProfile();
 
       if (user.role != 'PLAYER') {
-        _showErrorDialog("Niste ovlašteni za pristup ovoj aplikaciji.");
+        CustomSnackbar.show(context, "Niste ovlašteni za pristup ovoj aplikaciji.", SnackbarType.error);
         return;
       }
 
@@ -47,28 +48,12 @@ class _LoginPageState extends State<LoginPage> {
         MaterialPageRoute(builder: (context) => const HomePage()),
       );
     } catch (e) {
-      _showErrorDialog("Nesupješna prijava. Unesite ispravne kredencijale.");
+      CustomSnackbar.show(context, "Neuspješna prijava. Unesite ispravne kredencijale.", SnackbarType.error);
     } finally {
       setState(() {
         _isLoading = false;
       });
     }
-  }
-
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const Text("Greška"),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("Uredu"),
-          ),
-        ],
-      ),
-    );
   }
 
   @override
@@ -79,66 +64,79 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.all(24.0),
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 400),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/images/loginlogo.png',
-                  height: 150,
-                ),
-                const SizedBox(height: 40),
-                TextField(
-                  controller: _usernameController,
-                  decoration: const InputDecoration(
-                    labelText: 'Korisničko ime',
-                    prefixIcon: Icon(Icons.person),
-                    border: OutlineInputBorder(),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/loginlogo.png',
+                    height: 150,
                   ),
-                ),
-                const SizedBox(height: 20),
-                TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Lozinka',
-                    prefixIcon: Icon(Icons.lock),
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 30),
-                _isLoading
-                    ? const CircularProgressIndicator()
-                    : ElevatedButton(
-                  onPressed: () => _login(context),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 15),
-                    textStyle: const TextStyle(fontSize: 18),
-                  ),
-                  child: const Text("Prijava"),
-                ),
-                const SizedBox(height: 20),
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  spacing: 4,
-                  children: [
-                    const Text("Niste registrovani?"),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RegisterPage()),
-                        );
-                      },
-                      child: const Text(
-                        "Registrujte se",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                  const SizedBox(height: 40),
+                  TextFormField(
+                    controller: _usernameController,
+                    decoration: const InputDecoration(
+                      labelText: 'Korisničko ime',
+                      prefixIcon: Icon(Icons.person),
+                      border: OutlineInputBorder(),
                     ),
-                  ],
-                ),
-              ],
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return "Korisničko ime je obavezno";
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Lozinka',
+                      prefixIcon: Icon(Icons.lock),
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Lozinka je obavezna";
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 30),
+                  _isLoading
+                      ? const CircularProgressIndicator()
+                      : ElevatedButton(
+                    onPressed: () => _login(context),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      textStyle: const TextStyle(fontSize: 18),
+                    ),
+                    child: const Text("Prijava"),
+                  ),
+                  const SizedBox(height: 20),
+                  Wrap(
+                    alignment: WrapAlignment.center,
+                    spacing: 4,
+                    children: [
+                      const Text("Niste registrovani?"),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const RegisterPage()),
+                          );
+                        },
+                        child: const Text(
+                          "Registrujte se",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -19,4 +19,9 @@ RUN dotnet publish "WeNeed1.csproj" -c Release -o /app/publish /p:UseAppHost=fal
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY WeNeed1/profilePictureSeed.png /app/
+COPY WeNeed1/sportCenterImageSeed.jpg /app/
+COPY WeNeed1/sportFieldSeedImage.jpg /app/
+COPY WeNeed1/teamPictureSeed.jpg /app/
+
 ENTRYPOINT ["dotnet", "WeNeed1.dll"]

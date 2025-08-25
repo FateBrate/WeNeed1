@@ -52,6 +52,6 @@ flutter run \
 
 ---
 
-## 🔗 Team Join Code for user haris
+## 🔗 Example Team Join Code for private team search for user haris
 
 - **Join Code:** `JOIN4`

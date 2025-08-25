@@ -48,3 +48,10 @@ flutter run \
 - **Exp:** `04/34`  
 - **CVC:** `123`  
 - **ZIP:** any (e.g. `10000`)
+  
+
+---
+
+## 🔗 Team Join Code for user haris
+
+- **Join Code:** `JOIN4`

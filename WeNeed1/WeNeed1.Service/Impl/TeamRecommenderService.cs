@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using WeNeed1.Model.Enums;
 using WeNeed1.Model.Payloads;
 using WeNeed1.Service.Database;
 

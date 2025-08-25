@@ -40,6 +40,11 @@ namespace WeNeed1.Service.Impl
 
                 _context.SportsCenters.Add(sportsCenter);
             }
+            else
+            {
+                var defaultProfilePicture = File.ReadAllBytes("profilePictureSeed.png");
+                entity.ProfilePicture = defaultProfilePicture;
+            }
         }
         
         public override async Task<Model.User> GetById(int id)
